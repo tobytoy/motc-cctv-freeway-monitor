@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import { CCTVItem } from '../types/cctv';
-import { X, Play, Pause, RefreshCw, Copy, Check, Maximize2, Radio, Wifi, MapPin } from 'lucide-react';
+import { getCctvPlaceholderSvg } from '../utils/cctvPlaceholder';
+import { X, Play, Pause, RefreshCw, Copy, Check, Maximize2, Radio, Wifi, MapPin, Video, Image as ImageIcon } from 'lucide-react';
 
 interface CctvPlayerModalProps {
   cctv: CCTVItem | null;
@@ -22,15 +23,22 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
   const [copiedUrl, setCopiedUrl] = useState(false);
   const [refreshInterval, setRefreshInterval] = useState<number>(3);
   const [lastUpdatedTime, setLastUpdatedTime] = useState<string>(new Date().toLocaleTimeString());
-  const [useHlsPlayer, setUseHlsPlayer] = useState<boolean>(true);
+  
+  // Prefer MJPEG stream mode by default if videoUrl contains bmjpg or snapshotUrl, else HLS
+  const isMjpgStream = cctv.videoUrl?.includes('bmjpg') || cctv.snapshotUrl?.includes('bmjpg');
+  const isHlsStream = cctv.videoUrl?.includes('.m3u8');
+  
+  const [streamMode, setStreamMode] = useState<'mjpg' | 'hls' | 'snapshot'>(
+    isMjpgStream ? 'mjpg' : isHlsStream ? 'hls' : 'mjpg'
+  );
+  
   const [snapshotKey, setSnapshotKey] = useState<number>(Date.now());
   const [isChecking, setIsChecking] = useState<boolean>(false);
+  const [imgLoadError, setImgLoadError] = useState<boolean>(false);
 
-  const isHlsStream = cctv.videoUrl?.includes('.m3u8') || false;
-
-  // Setup HLS Player
+  // Setup HLS Player if mode is HLS
   useEffect(() => {
-    if (!videoRef.current || !cctv.videoUrl || !useHlsPlayer || !isHlsStream) return;
+    if (streamMode !== 'hls' || !videoRef.current || !cctv.videoUrl) return;
 
     let hls: Hls | null = null;
 
@@ -47,14 +55,14 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
       });
       hls.on(Hls.Events.ERROR, (_, data) => {
         if (data.fatal) {
-          setUseHlsPlayer(false);
+          setStreamMode('mjpg'); // Fallback to MJPEG
         }
       });
     } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
       videoRef.current.src = cctv.videoUrl;
       videoRef.current.play().catch(() => setIsPlaying(false));
     } else {
-      setUseHlsPlayer(false);
+      setStreamMode('mjpg');
     }
 
     return () => {
@@ -62,12 +70,11 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
         hls.destroy();
       }
     };
-  }, [cctv, useHlsPlayer, isHlsStream]);
+  }, [cctv, streamMode]);
 
-  // Snapshot Auto-Refresh Timer
+  // Snapshot / MJPEG Auto-Refresh Timer
   useEffect(() => {
-    if (useHlsPlayer && isHlsStream) return;
-    if (refreshInterval <= 0) return;
+    if (streamMode === 'hls' || refreshInterval <= 0) return;
 
     const timer = setInterval(() => {
       setSnapshotKey(Date.now());
@@ -75,7 +82,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
     }, refreshInterval * 1000);
 
     return () => clearInterval(timer);
-  }, [refreshInterval, useHlsPlayer, isHlsStream]);
+  }, [refreshInterval, streamMode]);
 
   const handleCopyCoords = () => {
     navigator.clipboard.writeText(`${cctv.latitude}, ${cctv.longitude}`);
@@ -91,6 +98,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
 
   const handleManualRefresh = () => {
     setSnapshotKey(Date.now());
+    setImgLoadError(false);
     setLastUpdatedTime(new Date().toLocaleTimeString());
     setIsChecking(true);
     onCheckStatus(cctv.cctvId);
@@ -116,10 +124,14 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
     }
   };
 
-  const defaultSnapshot = 'https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&auto=format&fit=crop&q=80';
-  const currentSnapshotSrc = cctv.snapshotUrl 
-    ? `${cctv.snapshotUrl}&t=${snapshotKey}`
-    : `${defaultSnapshot}&t=${snapshotKey}`;
+  const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時影像傳輸中 / 防跨域保護');
+  
+  // Construct camera stream src
+  const activeStreamSrc = imgLoadError 
+    ? placeholderSvg 
+    : (cctv.snapshotUrl || cctv.videoUrl) 
+      ? `${cctv.snapshotUrl || cctv.videoUrl}${cctv.snapshotUrl?.includes('?') ? '&' : '?'}t=${snapshotKey}`
+      : placeholderSvg;
 
   return (
     <div className="fixed inset-0 z-[2000] bg-slate-950/85 backdrop-blur-lg flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
@@ -156,7 +168,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
         {/* Video / Snapshot Display Player Stage */}
         <div className="relative bg-black aspect-video flex items-center justify-center overflow-hidden group">
           
-          {useHlsPlayer && isHlsStream ? (
+          {streamMode === 'hls' ? (
             <video
               ref={videoRef}
               controls={false}
@@ -166,11 +178,11 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
             />
           ) : (
             <img
-              src={currentSnapshotSrc}
+              src={activeStreamSrc}
               alt={cctv.locationName}
               className="w-full h-full object-contain"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = defaultSnapshot;
+              onError={() => {
+                setImgLoadError(true);
               }}
             />
           )}
@@ -198,7 +210,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
           <div className="absolute bottom-4 left-4 right-4 bg-slate-950/90 backdrop-blur-md border border-slate-800 rounded-2xl px-4 py-2.5 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             
             <div className="flex items-center space-x-3">
-              {isHlsStream && useHlsPlayer && (
+              {streamMode === 'hls' && (
                 <button
                   onClick={handleTogglePlay}
                   className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition"
@@ -215,7 +227,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
                 <span>手動刷新</span>
               </button>
 
-              {(!isHlsStream || !useHlsPlayer) && (
+              {streamMode !== 'hls' && (
                 <div className="flex items-center space-x-1 text-xs text-slate-400">
                   <span>自動更新:</span>
                   <select
@@ -234,14 +246,16 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
             </div>
 
             <div className="flex items-center space-x-2">
-              {isHlsStream && (
-                <button
-                  onClick={() => setUseHlsPlayer(!useHlsPlayer)}
-                  className="px-2.5 py-1 rounded-lg bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-medium hover:bg-blue-600/40 transition"
-                >
-                  {useHlsPlayer ? '切換至快照模式' : '切換至 HLS 串流'}
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  setImgLoadError(false);
+                  setStreamMode(streamMode === 'hls' ? 'mjpg' : 'hls');
+                }}
+                className="px-2.5 py-1 rounded-lg bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-medium hover:bg-blue-600/40 transition flex items-center gap-1"
+              >
+                {streamMode === 'hls' ? <ImageIcon className="w-3.5 h-3.5" /> : <Video className="w-3.5 h-3.5" />}
+                <span>{streamMode === 'hls' ? '切換 MJPEG 模式' : '切換 HLS 串流'}</span>
+              </button>
 
               <button
                 onClick={handleFullscreen}

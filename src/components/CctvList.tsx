@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { CCTVItem } from '../types/cctv';
+import { getCctvPlaceholderSvg } from '../utils/cctvPlaceholder';
 import { Play, RefreshCw, Filter, ArrowUpDown, Radio } from 'lucide-react';
 
 interface CctvListProps {
@@ -35,7 +36,6 @@ export const CctvList: React.FC<CctvListProps> = ({
   const processedCctvs = useMemo(() => {
     return cctvs
       .filter(c => {
-        // Query search
         if (searchQuery.trim()) {
           const q = searchQuery.toLowerCase().trim();
           const matchLocation = c.locationName.toLowerCase().includes(q);
@@ -45,13 +45,8 @@ export const CctvList: React.FC<CctvListProps> = ({
           if (!matchLocation && !matchRoad && !matchId && !matchMileage) return false;
         }
 
-        // Road filter
         if (roadFilter !== 'all' && c.roadName !== roadFilter && c.roadId !== roadFilter) return false;
-
-        // Region filter
         if (regionFilter !== 'all' && c.region !== regionFilter) return false;
-
-        // Status filter
         if (statusFilter !== 'all' && c.status !== statusFilter) return false;
 
         return true;
@@ -172,8 +167,8 @@ export const CctvList: React.FC<CctvListProps> = ({
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {processedCctvs.map(cctv => {
-            const defaultSnapshot = 'https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=600&auto=format&fit=crop&q=80';
-            const snapshotSrc = cctv.snapshotUrl || defaultSnapshot;
+            const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時訊號傳輸中');
+            const snapshotSrc = cctv.snapshotUrl || cctv.videoUrl || placeholderSvg;
 
             return (
               <div
@@ -203,7 +198,7 @@ export const CctvList: React.FC<CctvListProps> = ({
                     alt={cctv.locationName}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = defaultSnapshot;
+                      (e.target as HTMLImageElement).src = placeholderSvg;
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
@@ -250,7 +245,7 @@ export const CctvList: React.FC<CctvListProps> = ({
                       onClick={() => onCheckStatus(cctv.cctvId)}
                       className="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 border border-slate-700 transition"
                     >
-                      <RefreshCw className="w-3 h-3" />
+                      <RefreshCw className="w-3.5 h-3.5" />
                       <span>Ping 測速</span>
                     </button>
                   </div>

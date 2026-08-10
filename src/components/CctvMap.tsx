@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { CCTVItem } from '../types/cctv';
+import { getCctvPlaceholderSvg } from '../utils/cctvPlaceholder';
 import { Compass, MapPin } from 'lucide-react';
 
 interface CctvMapProps {
@@ -110,8 +111,8 @@ export const CctvMap: React.FC<CctvMapProps> = ({
 
       const marker = L.marker([cctv.latitude, cctv.longitude], { icon: customIcon });
 
-      const defaultSnapshot = 'https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=600&auto=format&fit=crop&q=80';
-      const previewImgSrc = cctv.snapshotUrl || defaultSnapshot;
+      const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時連線中');
+      const previewImgSrc = cctv.snapshotUrl || cctv.videoUrl || placeholderSvg;
 
       // Popup HTML content
       const popupHtml = `
@@ -140,7 +141,7 @@ export const CctvMap: React.FC<CctvMapProps> = ({
               src="${previewImgSrc}" 
               alt="${cctv.locationName}"
               class="w-full h-full object-cover"
-              onerror="this.src='${defaultSnapshot}'"
+              onerror="this.src='${placeholderSvg}'"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
             <span class="absolute bottom-1.5 left-2 text-[10px] text-slate-300 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800">

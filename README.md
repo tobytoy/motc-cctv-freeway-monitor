@@ -2,6 +2,8 @@
 
 > 📹 全台國道與快速道路即時 CCTV 監視器畫面與網路狀態監控儀表板。基於 React 19 + TypeScript + Vite + Leaflet + HLS.js 打造，支援全前端靜態託管於 GitHub Pages。
 
+[Live Demo](https://tobytoy.github.io/motc-cctv-freeway-monitor/)
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![Vite](https://img.shields.io/badge/Vite-6.0-purple)
