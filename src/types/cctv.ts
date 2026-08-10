@@ -13,7 +13,6 @@ export interface CCTVItem {
   latitude: number;
   videoUrl: string;
   snapshotUrl?: string;
-  surveillanceType?: string;
   status: CCTVStatus;
   lastChecked?: string;
   responseTimeMs?: number;

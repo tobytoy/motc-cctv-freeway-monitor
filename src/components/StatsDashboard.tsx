@@ -115,6 +115,10 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
           <div className="space-y-3.5">
             {Object.entries(stats.roadBreakdown).map(([roadName, data]) => {
               const rate = data.total > 0 ? Math.round((data.online / data.total) * 100) : 0;
+              // C3: Compute unstable % separately for amber segment
+              const unstableCount = data.total - data.online - data.offline;
+              const unstableRate = data.total > 0 ? Math.round((unstableCount / data.total) * 100) : 0;
+              const offlineRate = data.total > 0 ? Math.round((data.offline / data.total) * 100) : 0;
               return (
                 <div key={roadName} className="space-y-1.5">
                   <div className="flex justify-between text-xs">
@@ -124,14 +128,9 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
                     </span>
                   </div>
                   <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800/80 flex">
-                    <div
-                      className="bg-emerald-500 h-full transition-all"
-                      style={{ width: `${rate}%` }}
-                    ></div>
-                    <div
-                      className="bg-rose-500 h-full transition-all"
-                      style={{ width: `${100 - rate}%` }}
-                    ></div>
+                    <div className="bg-emerald-500 h-full transition-all" style={{ width: `${rate}%` }}></div>
+                    <div className="bg-amber-500 h-full transition-all" style={{ width: `${unstableRate}%` }}></div>
+                    <div className="bg-rose-500 h-full transition-all" style={{ width: `${offlineRate}%` }}></div>
                   </div>
                 </div>
               );

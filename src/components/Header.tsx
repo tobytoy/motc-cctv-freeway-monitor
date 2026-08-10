@@ -1,4 +1,4 @@
-import { Camera, Map, List, BarChart3, RefreshCw, Search } from 'lucide-react';
+import { Camera, Map, List, BarChart3, RefreshCw, Search, Timer } from 'lucide-react';
 import { CCTVStats } from '../types/cctv';
 
 interface HeaderProps {
@@ -12,6 +12,9 @@ interface HeaderProps {
   isRefreshing: boolean;
   isCheckingStatus: boolean;
   dataSource: 'live' | 'json' | 'fallback';
+  // F1: Auto-refresh props
+  autoRefreshMinutes: number;
+  setAutoRefreshMinutes: (minutes: number) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -25,6 +28,8 @@ export const Header: React.FC<HeaderProps> = ({
   isRefreshing,
   isCheckingStatus,
   dataSource,
+  autoRefreshMinutes,
+  setAutoRefreshMinutes,
 }) => {
   return (
     <header className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/80 sticky top-0 z-40 shadow-xl">
@@ -92,6 +97,22 @@ export const Header: React.FC<HeaderProps> = ({
                 <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${isRefreshing ? 'animate-spin' : ''}`} />
                 重新載入
               </button>
+
+              {/* F1: Auto-refresh selector */}
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
+                <Timer className={`w-3.5 h-3.5 ${autoRefreshMinutes > 0 ? 'text-emerald-400 animate-pulse' : 'text-slate-400'}`} />
+                <select
+                  value={autoRefreshMinutes}
+                  onChange={(e) => setAutoRefreshMinutes(Number(e.target.value))}
+                  className="bg-transparent text-slate-200 focus:outline-none text-xs cursor-pointer"
+                  title="自動重整間隔"
+                >
+                  <option value={0}>關閉自動重整</option>
+                  <option value={5}>每 5 分鐘</option>
+                  <option value={10}>每 10 分鐘</option>
+                  <option value={30}>每 30 分鐘</option>
+                </select>
+              </div>
             </div>
           </div>
 

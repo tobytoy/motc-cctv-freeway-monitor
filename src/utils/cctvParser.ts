@@ -129,7 +129,8 @@ export function parseCctvXml(xmlText: string): CCTVItem[] {
     const direction = parseDirection(locationName);
     const mileage = extractMileage(locationName);
 
-    const status: CCTVStatus = item.SurveillanceType === '0' || item.Status === '0' ? 'offline' : 'online';
+    // B4: Status from XML; responseTimeMs left as undefined until real probe
+    const status: CCTVStatus = item.SurveillanceType === '0' || item.Status === '0' ? 'offline' : 'unknown';
 
     parsedItems.push({
       cctvId,
@@ -140,13 +141,13 @@ export function parseCctvXml(xmlText: string): CCTVItem[] {
       latitude: lat,
       videoUrl: videoUrl || `https://cctv.freeway.gov.tw/live/${cctvId}.m3u8`,
       snapshotUrl: videoUrl.includes('.jpg') || videoUrl.includes('.png') ? videoUrl : undefined,
-      surveillanceType: item.SurveillanceType || '1',
+      // B5: surveillanceType removed (unused)
       status,
       region,
       direction,
       mileage,
       lastChecked: new Date().toISOString(),
-      responseTimeMs: Math.floor(Math.random() * 60) + 70
+      responseTimeMs: undefined, // B4: will be set only after real probeSingleCctvStatus
     });
   }
 

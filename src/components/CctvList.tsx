@@ -1,12 +1,13 @@
 import { useState, useMemo } from 'react';
 import { CCTVItem } from '../types/cctv';
 import { getCctvPlaceholderSvg } from '../utils/cctvPlaceholder';
-import { Play, RefreshCw, Filter, ArrowUpDown, Radio } from 'lucide-react';
+import { Play, RefreshCw, Filter, ArrowUpDown, Radio, Share2 } from 'lucide-react';
 
 interface CctvListProps {
   cctvs: CCTVItem[];
   onSelectCctv: (cctv: CCTVItem) => void;
   onCheckStatus: (cctvId: string) => void;
+  onShareCamera: (cctv: CCTVItem) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   roadFilter: string;
@@ -21,6 +22,7 @@ export const CctvList: React.FC<CctvListProps> = ({
   cctvs,
   onSelectCctv,
   onCheckStatus,
+  onShareCamera,
   searchQuery,
   roadFilter,
   setRoadFilter,
@@ -31,6 +33,7 @@ export const CctvList: React.FC<CctvListProps> = ({
 }) => {
   const [sortBy, setSortBy] = useState<'road' | 'status' | 'responseTime' | 'cctvId'>('road');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Filter & Sort Logic
   const processedCctvs = useMemo(() => {
@@ -136,7 +139,7 @@ export const CctvList: React.FC<CctvListProps> = ({
           </div>
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as any)}
+            onChange={(e) => setSortBy(e.target.value as 'road' | 'status' | 'responseTime' | 'cctvId')}
             className="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
             <option value="road">按國道編號</option>
@@ -232,21 +235,35 @@ export const CctvList: React.FC<CctvListProps> = ({
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-800/80">
+                  <div className="grid grid-cols-3 gap-2 pt-1 border-t border-slate-800/80">
                     <button
                       onClick={() => onSelectCctv(cctv)}
-                      className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 transition shadow-md shadow-blue-900/30"
+                      className="col-span-1 w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 transition shadow-md shadow-blue-900/30"
                     >
                       <Play className="w-3 h-3 fill-current" />
-                      <span>即時影像</span>
+                      <span>影像</span>
                     </button>
                     
                     <button
                       onClick={() => onCheckStatus(cctv.cctvId)}
-                      className="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 border border-slate-700 transition"
+                      className="col-span-1 w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 border border-slate-700 transition"
                     >
                       <RefreshCw className="w-3.5 h-3.5" />
-                      <span>Ping 測速</span>
+                      <span>Ping</span>
+                    </button>
+
+                    {/* F3: Share button */}
+                    <button
+                      onClick={() => {
+                        onShareCamera(cctv);
+                        setCopiedId(cctv.cctvId);
+                        setTimeout(() => setCopiedId(null), 2000);
+                      }}
+                      className="col-span-1 w-full bg-slate-800 hover:bg-emerald-600/30 text-slate-300 hover:text-emerald-300 font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 border border-slate-700 hover:border-emerald-500/40 transition"
+                      title="複製分享連結"
+                    >
+                      <Share2 className="w-3.5 h-3.5" />
+                      <span>{copiedId === cctv.cctvId ? '已複製' : '分享'}</span>
                     </button>
                   </div>
                 </div>

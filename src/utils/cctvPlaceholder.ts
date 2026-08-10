@@ -2,7 +2,16 @@
  * Generates an authentic SVG Data URI for a CCTV monitor standby screen.
  * This guarantees no external stock photos (like flowers/nature) are shown when a stream is offline or loading.
  */
+
+// P3: Module-level cache to avoid redundant SVG generation on every render
+const svgCache = new Map<string, string>();
+
 export function getCctvPlaceholderSvg(locationName: string, roadName: string, statusText: string = '即時影像訊號搜尋中...'): string {
+  // P3: Return from cache if available
+  const cacheKey = `${locationName}|${roadName}|${statusText}`;
+  const cached = svgCache.get(cacheKey);
+  if (cached) return cached;
+
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
     <defs>
       <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -55,7 +64,9 @@ export function getCctvPlaceholderSvg(locationName: string, roadName: string, st
     <text x="750" y="30" font-family="monospace" font-size="12" fill="#ef4444" text-anchor="end">● STANDBY</text>
   </svg>`;
 
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  const result = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  svgCache.set(cacheKey, result);
+  return result;
 }
 
 function escapeXml(unsafe: string): string {

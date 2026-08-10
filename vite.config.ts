@@ -9,7 +9,18 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-leaflet': ['leaflet', 'leaflet.markercluster'],
+          'vendor-hls': ['hls.js'],
+          'vendor-ui': ['lucide-react'],
+          'vendor-xml': ['fast-xml-parser'],
+        },
+      },
+    },
   },
   server: {
     port: 3000,

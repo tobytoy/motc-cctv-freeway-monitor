@@ -15,30 +15,37 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
   onClose,
   onCheckStatus
 }) => {
-  if (!cctv) return null;
-
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [copiedCoords, setCopiedCoords] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
   const [refreshInterval, setRefreshInterval] = useState<number>(3);
   const [lastUpdatedTime, setLastUpdatedTime] = useState<string>(new Date().toLocaleTimeString());
-  
-  // Prefer MJPEG stream mode by default if videoUrl contains bmjpg or snapshotUrl, else HLS
-  const isMjpgStream = cctv.videoUrl?.includes('bmjpg') || cctv.snapshotUrl?.includes('bmjpg');
-  const isHlsStream = cctv.videoUrl?.includes('.m3u8');
-  
-  const [streamMode, setStreamMode] = useState<'mjpg' | 'hls' | 'snapshot'>(
-    isMjpgStream ? 'mjpg' : isHlsStream ? 'hls' : 'mjpg'
-  );
-  
   const [snapshotKey, setSnapshotKey] = useState<number>(Date.now());
   const [isChecking, setIsChecking] = useState<boolean>(false);
   const [imgLoadError, setImgLoadError] = useState<boolean>(false);
 
+  // Compute stream mode based on URL — stable value per cctv
+  const isMjpgStream = cctv?.videoUrl?.includes('bmjpg') || cctv?.snapshotUrl?.includes('bmjpg');
+  const isHlsStream = !isMjpgStream && cctv?.videoUrl?.includes('.m3u8');
+  const [streamMode, setStreamMode] = useState<'mjpg' | 'hls'>(() =>
+    isHlsStream ? 'hls' : 'mjpg'
+  );
+
+  // B1 FIX: Reset per-cctv states when cctv changes, AFTER all hooks are declared
+  useEffect(() => {
+    if (!cctv) return;
+    setImgLoadError(false);
+    setSnapshotKey(Date.now());
+    setLastUpdatedTime(new Date().toLocaleTimeString());
+    const isMjpg = cctv.videoUrl?.includes('bmjpg') || cctv.snapshotUrl?.includes('bmjpg');
+    const isHls = !isMjpg && cctv.videoUrl?.includes('.m3u8');
+    setStreamMode(isHls ? 'hls' : 'mjpg');
+  }, [cctv?.cctvId]);
+
   // Setup HLS Player if mode is HLS
   useEffect(() => {
-    if (streamMode !== 'hls' || !videoRef.current || !cctv.videoUrl) return;
+    if (streamMode !== 'hls' || !videoRef.current || !cctv?.videoUrl) return;
 
     let hls: Hls | null = null;
 
@@ -70,7 +77,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
         hls.destroy();
       }
     };
-  }, [cctv, streamMode]);
+  }, [cctv?.videoUrl, streamMode]);
 
   // Snapshot / MJPEG Auto-Refresh Timer
   useEffect(() => {
@@ -83,6 +90,9 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
 
     return () => clearInterval(timer);
   }, [refreshInterval, streamMode]);
+
+  // B1 FIX: early return AFTER all hooks
+  if (!cctv) return null;
 
   const handleCopyCoords = () => {
     navigator.clipboard.writeText(`${cctv.latitude}, ${cctv.longitude}`);
@@ -117,20 +127,19 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
   };
 
   const handleFullscreen = () => {
-    if (videoRef.current) {
-      if (videoRef.current.requestFullscreen) {
-        videoRef.current.requestFullscreen();
-      }
+    if (videoRef.current?.requestFullscreen) {
+      videoRef.current.requestFullscreen();
     }
   };
 
   const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時影像傳輸中 / 防跨域保護');
-  
-  // Construct camera stream src
-  const activeStreamSrc = imgLoadError 
-    ? placeholderSvg 
-    : (cctv.snapshotUrl || cctv.videoUrl) 
-      ? `${cctv.snapshotUrl || cctv.videoUrl}${cctv.snapshotUrl?.includes('?') ? '&' : '?'}t=${snapshotKey}`
+
+  // B2 FIX: Correctly determine which URL to use and whether it already has '?'
+  const baseStreamUrl = cctv.snapshotUrl || cctv.videoUrl;
+  const activeStreamSrc = imgLoadError
+    ? placeholderSvg
+    : baseStreamUrl
+      ? `${baseStreamUrl}${baseStreamUrl.includes('?') ? '&' : '?'}t=${snapshotKey}`
       : placeholderSvg;
 
   return (
@@ -201,9 +210,11 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
             <span className="font-semibold text-slate-200">
               {cctv.status === 'online' ? '連線正常' : cctv.status === 'offline' ? '連線中斷' : '延遲稍高'}
             </span>
-            <span className="text-slate-400 font-mono text-[11px]">
-              ({cctv.responseTimeMs || 85}ms)
-            </span>
+            {cctv.responseTimeMs != null && (
+              <span className="text-slate-400 font-mono text-[11px]">
+                ({cctv.responseTimeMs}ms)
+              </span>
+            )}
           </div>
 
           {/* On-Player Quick Controls Bar */}
@@ -329,14 +340,28 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
               <div className="space-y-2">
                 <div className="flex justify-between text-xs font-mono">
                   <span className="text-slate-400">Ping 延遲時間</span>
-                  <span className="text-emerald-400 font-bold">{cctv.responseTimeMs || 85}ms</span>
+                  <span className={`font-bold ${
+                    cctv.responseTimeMs == null ? 'text-slate-500' :
+                    cctv.responseTimeMs < 200 ? 'text-emerald-400' :
+                    cctv.responseTimeMs < 500 ? 'text-amber-400' : 'text-rose-400'
+                  }`}>
+                    {cctv.responseTimeMs != null ? `${cctv.responseTimeMs}ms` : '尚未測速'}
+                  </span>
                 </div>
-                <div className="h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
-                  <div className="w-[95%] h-full bg-emerald-500 rounded-full"></div>
-                </div>
+                {cctv.responseTimeMs != null && (
+                  <div className="h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                    <div
+                      className={`h-full rounded-full transition-all ${
+                        cctv.responseTimeMs < 200 ? 'bg-emerald-500' :
+                        cctv.responseTimeMs < 500 ? 'bg-amber-500' : 'bg-rose-500'
+                      }`}
+                      style={{ width: `${Math.min(100, 100 - (cctv.responseTimeMs / 15))}%` }}
+                    ></div>
+                  </div>
+                )}
                 <div className="flex justify-between text-xs font-mono">
-                  <span className="text-slate-400">系統可用率 (24h)</span>
-                  <span className="text-slate-200 font-bold">99.9%</span>
+                  <span className="text-slate-400">串流來源</span>
+                  <span className="text-slate-200 font-bold">{streamMode === 'hls' ? 'HLS m3u8' : 'MJPEG 串流'}</span>
                 </div>
               </div>
 

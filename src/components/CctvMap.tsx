@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
+import 'leaflet.markercluster';
 import { CCTVItem } from '../types/cctv';
 import { getCctvPlaceholderSvg } from '../utils/cctvPlaceholder';
 import { Compass, MapPin } from 'lucide-react';
@@ -30,6 +31,8 @@ export const CctvMap: React.FC<CctvMapProps> = ({
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
+  // P2: Use marker cluster group instead of individual markers map
+  const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null);
   const markersRef = useRef<Map<string, L.Marker>>(new Map());
   const [mapLoaded, setMapLoaded] = useState(false);
 
@@ -63,25 +66,68 @@ export const CctvMap: React.FC<CctvMapProps> = ({
       maxZoom: 20
     }).addTo(map);
 
+    // F2: Initialize MarkerClusterGroup
+    const clusterGroup = (L as any).markerClusterGroup({
+      maxClusterRadius: 60,
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      iconCreateFunction: (cluster: any) => {
+        const count = cluster.getChildCount();
+        const size = count < 10 ? 36 : count < 50 ? 44 : 52;
+        return L.divIcon({
+          html: `<div style="
+            width:${size}px; height:${size}px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border: 2px solid rgba(147,197,253,0.6);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: monospace; font-size: ${count < 100 ? 13 : 11}px;
+            font-weight: bold; color: white;
+            box-shadow: 0 0 12px rgba(59,130,246,0.5);
+          ">${count}</div>`,
+          className: '',
+          iconSize: [size, size],
+          iconAnchor: [size / 2, size / 2],
+        });
+      }
+    });
+
+    clusterGroup.addTo(map);
+    clusterGroupRef.current = clusterGroup;
     mapInstanceRef.current = map;
     setMapLoaded(true);
 
     return () => {
       map.remove();
       mapInstanceRef.current = null;
+      clusterGroupRef.current = null;
     };
   }, []);
 
-  // Update Markers
+  // P2: Diff-based marker update — only add/remove markers that changed
   useEffect(() => {
     const map = mapInstanceRef.current;
-    if (!map || !mapLoaded) return;
+    const clusterGroup = clusterGroupRef.current;
+    if (!map || !clusterGroup || !mapLoaded) return;
 
-    // Clear existing markers
-    markersRef.current.forEach(marker => marker.remove());
-    markersRef.current.clear();
+    const filteredIds = new Set(filteredCctvs.map(c => c.cctvId));
+    const existingIds = new Set(markersRef.current.keys());
 
+    // Remove markers no longer in filteredCctvs
+    existingIds.forEach(id => {
+      if (!filteredIds.has(id)) {
+        const marker = markersRef.current.get(id);
+        if (marker) {
+          clusterGroup.removeLayer(marker);
+          markersRef.current.delete(id);
+        }
+      }
+    });
+
+    // Add markers that are new in filteredCctvs
     filteredCctvs.forEach(cctv => {
+      if (existingIds.has(cctv.cctvId)) return; // already exists
+
       let iconBg = 'bg-emerald-500';
       let borderClass = 'border-emerald-300';
 
@@ -182,7 +228,7 @@ export const CctvMap: React.FC<CctvMapProps> = ({
         }
       });
 
-      marker.addTo(map);
+      clusterGroup.addLayer(marker);
       markersRef.current.set(cctv.cctvId, marker);
     });
 
