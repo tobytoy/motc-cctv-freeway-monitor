@@ -38,8 +38,13 @@ export default function App() {
     setErrorMsg(null);
     try {
       const result = await fetchCctvListClient();
-      setCctvs(result.data);
-      setDataSource(result.source);
+      if (result.data && result.data.length > 0) {
+        setCctvs(result.data);
+        setDataSource(result.source);
+      } else {
+        setCctvs(FALLBACK_CCTVS);
+        setDataSource('fallback');
+      }
       setLastUpdated(new Date().toLocaleTimeString());
     } catch (err: unknown) {
       console.warn('Failed to load CCTV data, using fallback:', err);

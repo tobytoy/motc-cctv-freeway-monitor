@@ -158,17 +158,22 @@ export function parseCctvXml(xmlText: string): CCTVItem[] {
  * Client-side browser fetch with failover chain
  */
 export async function fetchCctvListClient(): Promise<{ data: CCTVItem[]; source: 'live' | 'json' | 'fallback' }> {
-  // Option 1: Try public static JSON in app
+  // Option 1: Try public static JSON in app with proper Base URL resolution
   try {
-    const res = await fetch('./data/taiwan_cctv.json');
-    if (res.ok) {
+    const rawBase = (import.meta as any).env?.BASE_URL || './';
+    const baseUrl = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+    const jsonUrl = new URL(`${baseUrl}data/taiwan_cctv.json`, window.location.origin + window.location.pathname).href;
+    
+    const res = await fetch(jsonUrl);
+    const contentType = res.headers.get('content-type');
+    if (res.ok && (contentType?.includes('json') || jsonUrl.endsWith('.json'))) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
         return { data, source: 'json' };
       }
     }
-  } catch {
-    // Proceed to CORS proxy attempt
+  } catch (e) {
+    console.warn('JSON fetch failed, trying CORS proxy:', e);
   }
 
   // Option 2: Try CORS proxy to MOTC Freeway XML
@@ -184,13 +189,16 @@ export async function fetchCctvListClient(): Promise<{ data: CCTVItem[]; source:
 
     if (res.ok) {
       const xmlText = await res.text();
-      const items = parseCctvXml(xmlText);
-      if (items.length > 0) {
-        return { data: items, source: 'live' };
+      // Ensure response is actually XML and not JSON error or HTML error
+      if (xmlText.includes('<CCTV') || xmlText.includes('<XML_Head>')) {
+        const items = parseCctvXml(xmlText);
+        if (items.length > 0) {
+          return { data: items, source: 'live' };
+        }
       }
     }
-  } catch {
-    // Proceed to fallback
+  } catch (e) {
+    console.warn('CORS proxy XML fetch failed:', e);
   }
 
   return { data: FALLBACK_CCTVS, source: 'fallback' };

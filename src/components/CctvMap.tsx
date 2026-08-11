@@ -97,6 +97,10 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     mapInstanceRef.current = map;
     setMapLoaded(true);
 
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 250);
+
     return () => {
       map.remove();
       mapInstanceRef.current = null;
@@ -109,6 +113,8 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     const map = mapInstanceRef.current;
     const clusterGroup = clusterGroupRef.current;
     if (!map || !clusterGroup || !mapLoaded) return;
+
+    map.invalidateSize();
 
     const filteredIds = new Set(filteredCctvs.map(c => c.cctvId));
     const existingIds = new Set(markersRef.current.keys());
