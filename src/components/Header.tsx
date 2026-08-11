@@ -108,6 +108,9 @@ export const Header: React.FC<HeaderProps> = ({
                   title="自動重整間隔"
                 >
                   <option value={0}>關閉自動重整</option>
+                  <option value={1}>每 1 分鐘 (持續心跳)</option>
+                  <option value={2}>每 2 分鐘</option>
+                  <option value={3}>每 3 分鐘</option>
                   <option value={5}>每 5 分鐘</option>
                   <option value={10}>每 10 分鐘</option>
                   <option value={30}>每 30 分鐘</option>

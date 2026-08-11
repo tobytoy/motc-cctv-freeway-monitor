@@ -34,6 +34,7 @@ export const CctvList: React.FC<CctvListProps> = ({
   const [sortBy, setSortBy] = useState<'road' | 'status' | 'responseTime' | 'cctvId'>('road');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
 
   // Filter & Sort Logic
   const processedCctvs = useMemo(() => {
@@ -171,7 +172,8 @@ export const CctvList: React.FC<CctvListProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {processedCctvs.map(cctv => {
             const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時訊號傳輸中');
-            const snapshotSrc = cctv.snapshotUrl || cctv.videoUrl || placeholderSvg;
+            const hasError = imgErrors[cctv.cctvId];
+            const snapshotSrc = hasError ? placeholderSvg : (cctv.snapshotUrl || cctv.videoUrl || placeholderSvg);
 
             return (
               <div
@@ -195,13 +197,22 @@ export const CctvList: React.FC<CctvListProps> = ({
                 </div>
 
                 {/* Card Snapshot Image Stage */}
-                <div className="relative aspect-video bg-black overflow-hidden group-hover:opacity-95 transition-opacity">
+                <div className="relative aspect-video bg-slate-950 overflow-hidden group-hover:opacity-95 transition-opacity">
                   <img
                     src={snapshotSrc}
                     alt={cctv.locationName}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = placeholderSvg;
+                      setImgErrors(prev => ({ ...prev, [cctv.cctvId]: true }));
+                      // Auto-recover card image connection after 8 seconds
+                      setTimeout(() => {
+                        setImgErrors(prev => {
+                          const next = { ...prev };
+                          delete next[cctv.cctvId];
+                          return next;
+                        });
+                      }, 8000);
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>

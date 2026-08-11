@@ -192,6 +192,12 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
               className="w-full h-full object-contain"
               onError={() => {
                 setImgLoadError(true);
+                // Auto-reconnect after 3 seconds to bypass server-side disconnects
+                setTimeout(() => {
+                  setImgLoadError(false);
+                  setSnapshotKey(Date.now());
+                  setLastUpdatedTime(new Date().toLocaleTimeString());
+                }, 3000);
               }}
             />
           )}

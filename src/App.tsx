@@ -29,8 +29,8 @@ export default function App() {
   const [lastUpdated, setLastUpdated] = useState<string>(new Date().toLocaleTimeString());
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // F1: Auto-refresh interval (0 = disabled)
-  const [autoRefreshMinutes, setAutoRefreshMinutes] = useState<number>(0);
+  // F1: Auto-refresh interval (default 2 minutes for continuous keepalive)
+  const [autoRefreshMinutes, setAutoRefreshMinutes] = useState<number>(2);
 
   // Load CCTV dataset
   const loadCctvData = useCallback(async () => {
