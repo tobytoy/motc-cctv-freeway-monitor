@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "fetch-cctv": "/home/toby/miniconda3/envs/toby/bin/python scripts/fetch_tdx_cctv.py",
+    "gen-icons": "/home/toby/miniconda3/envs/toby/bin/python scripts/generate_icons.py"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",

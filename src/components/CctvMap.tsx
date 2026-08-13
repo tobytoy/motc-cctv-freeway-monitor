@@ -66,26 +66,43 @@ export const CctvMap: React.FC<CctvMapProps> = ({
       maxZoom: 20
     }).addTo(map);
 
-    // F2: Initialize MarkerClusterGroup
+    // Base path helper for icon assets
+    const rawBase = (import.meta as any).env?.BASE_URL || './';
+    const baseUrl = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+    const iconUrl = (name: string) => `${baseUrl}icons/${name}`;
+
+    // F2: Initialize MarkerClusterGroup with custom WebP cluster icons and LOD tuning
     const clusterGroup = (L as any).markerClusterGroup({
-      maxClusterRadius: 60,
+      maxClusterRadius: 50,
+      disableClusteringAtZoom: 14,
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
       iconCreateFunction: (cluster: any) => {
         const count = cluster.getChildCount();
-        const size = count < 10 ? 36 : count < 50 ? 44 : 52;
+        let clusterImg = 'cluster-sm.webp';
+        let size = 40;
+        if (count >= 50) {
+          clusterImg = 'cluster-lg.webp';
+          size = 56;
+        } else if (count >= 10) {
+          clusterImg = 'cluster-md.webp';
+          size = 48;
+        }
+
         return L.divIcon({
           html: `<div style="
             width:${size}px; height:${size}px;
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-            border: 2px solid rgba(147,197,253,0.6);
-            border-radius: 50%;
+            background-image: url('${iconUrl(clusterImg)}');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             display: flex; align-items: center; justify-content: center;
             font-family: monospace; font-size: ${count < 100 ? 13 : 11}px;
-            font-weight: bold; color: white;
-            box-shadow: 0 0 12px rgba(59,130,246,0.5);
+            font-weight: 800; color: #ffffff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+            filter: drop-shadow(0 0 6px rgba(15,23,42,0.8));
           ">${count}</div>`,
-          className: '',
+          className: 'custom-cluster-icon',
           iconSize: [size, size],
           iconAnchor: [size / 2, size / 2],
         });
@@ -116,6 +133,10 @@ export const CctvMap: React.FC<CctvMapProps> = ({
 
     map.invalidateSize();
 
+    const rawBase = (import.meta as any).env?.BASE_URL || './';
+    const baseUrl = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+    const iconUrl = (name: string) => `${baseUrl}icons/${name}`;
+
     const filteredIds = new Set(filteredCctvs.map(c => c.cctvId));
     const existingIds = new Set(markersRef.current.keys());
 
@@ -134,31 +155,22 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     filteredCctvs.forEach(cctv => {
       if (existingIds.has(cctv.cctvId)) return; // already exists
 
-      let iconBg = 'bg-emerald-500';
-      let borderClass = 'border-emerald-300';
+      const isHighway = cctv.roadName.includes('台') || cctv.roadId.startsWith('T') || cctv.roadId.startsWith('台');
+      let iconFile = 'marker-freeway-online.webp';
 
       if (cctv.status === 'offline') {
-        iconBg = 'bg-rose-500';
-        borderClass = 'border-rose-300';
-      } else if (cctv.status === 'unstable') {
-        iconBg = 'bg-amber-500';
-        borderClass = 'border-amber-300';
+        iconFile = isHighway ? 'marker-highway-offline.webp' : 'marker-freeway-offline.webp';
+      } else if (cctv.status === 'unknown' || cctv.status === 'checking') {
+        iconFile = 'marker-unknown.webp';
+      } else {
+        iconFile = isHighway ? 'marker-highway-online.webp' : 'marker-freeway-online.webp';
       }
 
-      // Create custom DivIcon
-      const customIcon = L.divIcon({
-        className: 'custom-cctv-icon',
-        html: `
-          <div class="relative group cursor-pointer">
-            <div class="w-7 h-7 rounded-full ${iconBg} ${borderClass} border-2 shadow-lg flex items-center justify-center text-white transform hover:scale-125 transition-transform duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.934a.5.5 0 0 0-.777-.416L16 11"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg>
-            </div>
-            ${cctv.status === 'online' ? '<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping"></span>' : ''}
-          </div>
-        `,
-        iconSize: [28, 28],
-        iconAnchor: [14, 14],
-        popupAnchor: [0, -14]
+      const customIcon = L.icon({
+        iconUrl: iconUrl(iconFile),
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -30],
       });
 
       const marker = L.marker([cctv.latitude, cctv.longitude], { icon: customIcon });

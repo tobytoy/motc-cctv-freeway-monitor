@@ -169,7 +169,23 @@ export async function fetchCctvListClient(): Promise<{ data: CCTVItem[]; source:
     if (res.ok && (contentType?.includes('json') || jsonUrl.endsWith('.json'))) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
-        return { data, source: 'json' };
+        const normalized: CCTVItem[] = data.map((item: any) => ({
+          cctvId: item.cctvId || item.cctv_id || item.id || `CCTV-${Math.random().toString(36).substring(2, 8)}`,
+          roadId: item.roadId || item.road_id || item.roadName || '',
+          roadName: item.roadName || item.road_name || '一般道路',
+          locationName: item.locationName || item.cctvName || item.name || '即時影像點位',
+          longitude: Number(item.longitude ?? item.lng ?? item.PositionLon ?? 121.5),
+          latitude: Number(item.latitude ?? item.lat ?? item.PositionLat ?? 25.0),
+          videoUrl: item.videoUrl || item.videoStreamURL || item.stream || '',
+          snapshotUrl: item.snapshotUrl || item.videoImageURL || item.image || undefined,
+          status: (item.status as CCTVStatus) || 'online',
+          region: (item.region as TaiwanRegion) || '北部',
+          direction: (item.direction as DirectionType) || '雙向',
+          mileage: item.mileage || (item.km !== undefined && item.km !== null ? `${item.km}K` : undefined),
+          lastChecked: item.lastChecked || item.fetchedAt || new Date().toISOString(),
+          responseTimeMs: item.responseTimeMs,
+        }));
+        return { data: normalized, source: 'json' };
       }
     }
   } catch (e) {
