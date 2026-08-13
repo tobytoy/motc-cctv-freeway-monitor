@@ -132,7 +132,11 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
     }
   };
 
-  const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時影像傳輸中 / 防跨域保護');
+  const placeholderSvg = getCctvPlaceholderSvg(
+    cctv.locationName,
+    cctv.roadName,
+    imgLoadError ? '伺服器訊號傳輸中斷 (離線/斷網)' : '即時影像傳輸中 / 防跨域保護'
+  );
 
   // B2 FIX: Correctly determine which URL to use and whether it already has '?'
   const baseStreamUrl = cctv.snapshotUrl || cctv.videoUrl;
@@ -141,6 +145,8 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
     : baseStreamUrl
       ? `${baseStreamUrl}${baseStreamUrl.includes('?') ? '&' : '?'}t=${snapshotKey}`
       : placeholderSvg;
+
+  const effectiveStatus = imgLoadError ? 'offline' : cctv.status;
 
   return (
     <div className="fixed inset-0 z-[2000] bg-slate-950/85 backdrop-blur-lg flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
@@ -192,31 +198,34 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
               className="w-full h-full object-contain"
               onError={() => {
                 setImgLoadError(true);
-                // Auto-reconnect after 3 seconds to bypass server-side disconnects
+                onCheckStatus(cctv.cctvId);
+                // Auto-reconnect retry after 5 seconds
                 setTimeout(() => {
                   setImgLoadError(false);
                   setSnapshotKey(Date.now());
                   setLastUpdatedTime(new Date().toLocaleTimeString());
-                }, 3000);
+                }, 5000);
               }}
             />
           )}
 
           {/* Live Watermark / Status Badge Overlay */}
           <div className="absolute top-4 left-4 bg-slate-950/85 backdrop-blur-md border border-slate-800 px-3 py-1.5 rounded-xl flex items-center space-x-2">
-            <Radio className="w-4 h-4 text-rose-500 animate-pulse" />
-            <span className="text-xs font-semibold text-white">LIVE 即時畫面</span>
+            <Radio className={`w-4 h-4 ${effectiveStatus === 'offline' ? 'text-slate-500' : 'text-rose-500 animate-pulse'}`} />
+            <span className="text-xs font-semibold text-white">
+              {effectiveStatus === 'offline' ? '訊號中斷' : 'LIVE 即時畫面'}
+            </span>
             <span className="text-[10px] text-slate-400 font-mono">({lastUpdatedTime})</span>
           </div>
 
-          <div className="absolute top-4 right-4 bg-slate-950/85 backdrop-blur-md border border-slate-800 px-3 py-1.5 rounded-xl flex items-center space-x-2 text-xs">
-            <span className={`w-2 h-2 rounded-full ${
-              cctv.status === 'online' ? 'bg-emerald-400' : cctv.status === 'offline' ? 'bg-rose-500' : 'bg-amber-400'
+          <div className="absolute top-4 right-4 bg-slate-950/85 backdrop-blur-md border border-slate-800 px-3 py-1.5 rounded-xl flex items-center space-x-2 text-xs shadow-xl">
+            <span className={`w-2.5 h-2.5 rounded-full ${
+              effectiveStatus === 'online' ? 'bg-emerald-400 animate-pulse' : effectiveStatus === 'offline' ? 'bg-rose-500' : 'bg-amber-400'
             }`}></span>
             <span className="font-semibold text-slate-200">
-              {cctv.status === 'online' ? '連線正常' : cctv.status === 'offline' ? '連線中斷' : '延遲稍高'}
+              {effectiveStatus === 'online' ? '連線正常' : effectiveStatus === 'offline' ? '訊號中斷 / 離線' : '延遲稍高 / 待測'}
             </span>
-            {cctv.responseTimeMs != null && (
+            {effectiveStatus !== 'offline' && cctv.responseTimeMs != null && (
               <span className="text-slate-400 font-mono text-[11px]">
                 ({cctv.responseTimeMs}ms)
               </span>

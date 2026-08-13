@@ -84,6 +84,14 @@ def clean_cctv_item(raw, cctv_type):
     km_match = re.search(r"(\d+(?:\.\d+)?)\s*K", str(cctv_name), re.IGNORECASE)
     km = float(km_match.group(1)) if km_match else 0.0
 
+    raw_status = str(raw.get("SurveillanceType") if raw.get("SurveillanceType") is not None else raw.get("Status") if raw.get("Status") is not None else "1").strip()
+    if not stream_url and not image_url:
+        status = "offline"
+    elif raw_status in ["0", "false", "offline", "error", "0.0"]:
+        status = "offline"
+    else:
+        status = "online"
+
     return {
         "cctvId": cctv_id,
         "type": cctv_type,
@@ -97,7 +105,7 @@ def clean_cctv_item(raw, cctv_type):
         "lng": round(lng, 6),
         "videoStreamURL": stream_url,
         "videoImageURL": image_url,
-        "status": "online" if (stream_url or image_url) else "unknown",
+        "status": status,
         "lastChecked": raw.get("UpdateTime") or raw.get("SrcUpdateTime") or ""
     }
 
