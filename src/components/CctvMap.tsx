@@ -79,12 +79,15 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     const baseUrl = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
     const iconUrl = (name: string) => `${baseUrl}icons/${name}`;
 
-    // Initialize MarkerClusterGroup
+    // Initialize MarkerClusterGroup with chunked async loading
     const clusterGroup = (L as any).markerClusterGroup({
       maxClusterRadius: 50,
       disableClusteringAtZoom: 14,
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
+      chunkedLoading: true,
+      chunkInterval: 100,
+      chunkDelay: 50,
       iconCreateFunction: (cluster: any) => {
         const count = cluster.getChildCount();
         let clusterImg = 'cluster-sm.webp';

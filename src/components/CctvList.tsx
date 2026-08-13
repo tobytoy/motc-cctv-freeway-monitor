@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { CCTVItem } from '../types/cctv';
 import { getCctvPlaceholderSvg } from '../utils/cctvPlaceholder';
 import { Play, RefreshCw, Filter, ArrowUpDown, Radio, Share2 } from 'lucide-react';
@@ -38,6 +38,14 @@ export const CctvList: React.FC<CctvListProps> = ({
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
 
+  // Performance P1: Batch pagination limit (default 24 cards)
+  const [displayLimit, setDisplayLimit] = useState<number>(24);
+
+  // Reset pagination limit when filters change
+  useEffect(() => {
+    setDisplayLimit(24);
+  }, [searchQuery, roadFilter, regionFilter, statusFilter, sortBy, sortOrder]);
+
   // Filter & Sort Logic
   const processedCctvs = useMemo(() => {
     return cctvs
@@ -71,6 +79,11 @@ export const CctvList: React.FC<CctvListProps> = ({
         return sortOrder === 'asc' ? cmp : -cmp;
       });
   }, [cctvs, searchQuery, roadFilter, regionFilter, statusFilter, sortBy, sortOrder]);
+
+  // Slice visible items for batch rendering
+  const visibleCctvs = useMemo(() => {
+    return processedCctvs.slice(0, displayLimit);
+  }, [processedCctvs, displayLimit]);
 
   const uniqueRoads = useMemo(() => {
     const roads = Array.from(new Set(cctvs.map(c => c.roadName)));
@@ -171,122 +184,150 @@ export const CctvList: React.FC<CctvListProps> = ({
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {processedCctvs.map(cctv => {
-            const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時訊號傳輸中');
-            const hasError = imgErrors[cctv.cctvId];
-            const snapshotSrc = hasError ? placeholderSvg : (cctv.snapshotUrl || cctv.videoUrl || placeholderSvg);
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {visibleCctvs.map(cctv => {
+              const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時訊號傳輸中');
+              const hasError = imgErrors[cctv.cctvId];
+              const snapshotSrc = hasError ? placeholderSvg : (cctv.snapshotUrl || cctv.videoUrl || placeholderSvg);
 
-            return (
-              <div
-                key={cctv.cctvId}
-                className="bg-slate-900 border border-slate-800/80 hover:border-blue-500/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col group"
-              >
-                
-                {/* Card Header Tag */}
-                <div className="p-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-blue-600/20 text-blue-400 border border-blue-500/30">
-                    {cctv.roadName} {cctv.mileage || ''}
-                  </span>
+              return (
+                <div
+                  key={cctv.cctvId}
+                  className="bg-slate-900 border border-slate-800/80 hover:border-blue-500/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col group"
+                >
                   
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                    cctv.status === 'online' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
-                    cctv.status === 'offline' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' :
-                    'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                  }`}>
-                    {cctv.status === 'online' ? '● 正常' : cctv.status === 'offline' ? '✖ 斷線' : '▲ 延遲'}
-                  </span>
-                </div>
-
-                {/* Card Snapshot Image Stage */}
-                <div className="relative aspect-video bg-slate-950 overflow-hidden group-hover:opacity-95 transition-opacity">
-                  <img
-                    src={snapshotSrc}
-                    alt={cctv.locationName}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = placeholderSvg;
-                      setImgErrors(prev => ({ ...prev, [cctv.cctvId]: true }));
-                      onMarkOffline?.(cctv.cctvId);
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                  
-                  <button
-                    onClick={() => onSelectCctv(cctv)}
-                    className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-blue-600/90 text-white flex items-center justify-center shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:scale-110"
-                    title="播放即時畫面"
-                  >
-                    <Play className="w-5 h-5 fill-current ml-0.5" />
-                  </button>
-
-                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-[10px] text-slate-300">
-                    <span className="bg-slate-900/80 backdrop-blur px-2 py-0.5 rounded border border-slate-800 truncate max-w-[70%]">
-                      {cctv.direction || '雙向'} • {cctv.region}
+                  {/* Card Header Tag */}
+                  <div className="p-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between">
+                    <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-blue-600/20 text-blue-400 border border-blue-500/30">
+                      {cctv.roadName} {cctv.mileage || ''}
                     </span>
-                    {cctv.status === 'offline' ? (
-                      <span className="text-rose-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800 font-semibold">
-                        ✖ 離線
-                      </span>
-                    ) : cctv.responseTimeMs !== undefined ? (
-                      <span className="font-mono text-emerald-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
-                        {cctv.responseTimeMs}ms
-                      </span>
-                    ) : (
-                      <span className="text-slate-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
-                        待測速
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Card Info & Details */}
-                <div className="p-3.5 flex-1 flex flex-col justify-between space-y-3">
-                  <div>
-                    <h4 className="font-bold text-sm text-white group-hover:text-blue-400 transition-colors line-clamp-1">
-                      {cctv.locationName}
-                    </h4>
-                    <p className="text-[11px] font-mono text-slate-500 mt-0.5 truncate">
-                      ID: {cctv.cctvId}
-                    </p>
+                    
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      cctv.status === 'online' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                      cctv.status === 'offline' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' :
+                      'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                    }`}>
+                      {cctv.status === 'online' ? '● 正常' : cctv.status === 'offline' ? '✖ 斷線' : '▲ 延遲'}
+                    </span>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 pt-1 border-t border-slate-800/80">
-                    <button
-                      onClick={() => onSelectCctv(cctv)}
-                      className="col-span-1 w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 transition shadow-md shadow-blue-900/30"
-                    >
-                      <Play className="w-3 h-3 fill-current" />
-                      <span>影像</span>
-                    </button>
+                  {/* Card Snapshot Image Stage */}
+                  <div className="relative aspect-video bg-slate-950 overflow-hidden group-hover:opacity-95 transition-opacity">
+                    <img
+                      src={snapshotSrc}
+                      alt={cctv.locationName}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = placeholderSvg;
+                        setImgErrors(prev => ({ ...prev, [cctv.cctvId]: true }));
+                        onMarkOffline?.(cctv.cctvId);
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
                     
                     <button
-                      onClick={() => onCheckStatus(cctv.cctvId)}
-                      className="col-span-1 w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 border border-slate-700 transition"
+                      onClick={() => onSelectCctv(cctv)}
+                      className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-blue-600/90 text-white flex items-center justify-center shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:scale-110"
+                      title="播放即時畫面"
                     >
-                      <RefreshCw className="w-3.5 h-3.5" />
-                      <span>Ping</span>
+                      <Play className="w-5 h-5 fill-current ml-0.5" />
                     </button>
 
-                    {/* F3: Share button */}
-                    <button
-                      onClick={() => {
-                        onShareCamera(cctv);
-                        setCopiedId(cctv.cctvId);
-                        setTimeout(() => setCopiedId(null), 2000);
-                      }}
-                      className="col-span-1 w-full bg-slate-800 hover:bg-emerald-600/30 text-slate-300 hover:text-emerald-300 font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 border border-slate-700 hover:border-emerald-500/40 transition"
-                      title="複製分享連結"
-                    >
-                      <Share2 className="w-3.5 h-3.5" />
-                      <span>{copiedId === cctv.cctvId ? '已複製' : '分享'}</span>
-                    </button>
+                    <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-[10px] text-slate-300">
+                      <span className="bg-slate-900/80 backdrop-blur px-2 py-0.5 rounded border border-slate-800 truncate max-w-[70%]">
+                        {cctv.direction || '雙向'} • {cctv.region}
+                      </span>
+                      {cctv.status === 'offline' ? (
+                        <span className="text-rose-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800 font-semibold">
+                          ✖ 離線
+                        </span>
+                      ) : cctv.responseTimeMs !== undefined ? (
+                        <span className="font-mono text-emerald-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
+                          {cctv.responseTimeMs}ms
+                        </span>
+                      ) : (
+                        <span className="text-slate-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
+                          待測速
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
 
+                  {/* Card Info & Details */}
+                  <div className="p-3.5 flex-1 flex flex-col justify-between space-y-3">
+                    <div>
+                      <h4 className="font-bold text-sm text-white group-hover:text-blue-400 transition-colors line-clamp-1">
+                        {cctv.locationName}
+                      </h4>
+                      <p className="text-[11px] font-mono text-slate-500 mt-0.5 truncate">
+                        ID: {cctv.cctvId}
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2 pt-1 border-t border-slate-800/80">
+                      <button
+                        onClick={() => onSelectCctv(cctv)}
+                        className="col-span-1 w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 transition shadow-md shadow-blue-900/30"
+                      >
+                        <Play className="w-3 h-3 fill-current" />
+                        <span>影像</span>
+                      </button>
+                      
+                      <button
+                        onClick={() => onCheckStatus(cctv.cctvId)}
+                        className="col-span-1 w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 border border-slate-700 transition"
+                      >
+                        <RefreshCw className="w-3.5 h-3.5" />
+                        <span>Ping</span>
+                      </button>
+
+                      {/* F3: Share button */}
+                      <button
+                        onClick={() => {
+                          onShareCamera(cctv);
+                          setCopiedId(cctv.cctvId);
+                          setTimeout(() => setCopiedId(null), 2000);
+                        }}
+                        className="col-span-1 w-full bg-slate-800 hover:bg-emerald-600/30 text-slate-300 hover:text-emerald-300 font-semibold py-1.5 px-2 rounded-lg text-xs flex items-center justify-center gap-1 border border-slate-700 hover:border-emerald-500/40 transition"
+                        title="複製分享連結"
+                      >
+                        <Share2 className="w-3.5 h-3.5" />
+                        <span>{copiedId === cctv.cctvId ? '已複製' : '分享'}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Batch Pagination Control Footer */}
+          {displayLimit < processedCctvs.length && (
+            <div className="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-4 text-center flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur shadow-xl">
+              <span className="text-xs text-slate-400 font-medium">
+                已顯示 <strong className="text-white font-mono">{visibleCctvs.length}</strong> 筆 / 篩選條件共 <strong className="text-blue-400 font-mono">{processedCctvs.length}</strong> 筆監控設備
+              </span>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setDisplayLimit(prev => prev + 32)}
+                  className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-xl text-xs transition shadow-lg shadow-blue-900/40 flex items-center gap-1.5"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>載入更多 (+32 筆)</span>
+                </button>
+
+                <button
+                  onClick={() => setDisplayLimit(processedCctvs.length)}
+                  className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-3 py-2 rounded-xl text-xs border border-slate-700 transition"
+                >
+                  載入全部 ({processedCctvs.length})
+                </button>
               </div>
-            );
-          })}
+            </div>
+          )}
         </div>
       )}
 
