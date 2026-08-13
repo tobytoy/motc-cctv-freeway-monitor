@@ -12,7 +12,15 @@ ENV_PATHS = [
 ]
 
 def load_env():
-    env_vars = {}
+    env_vars = {
+        "ClientId": os.environ.get("ClientId") or os.environ.get("TDX_CLIENT_ID"),
+        "ClientSecret": os.environ.get("ClientSecret") or os.environ.get("TDX_CLIENT_SECRET"),
+    }
+
+    if env_vars["ClientId"] and env_vars["ClientSecret"]:
+        print("Loaded credentials directly from environment variables.")
+        return env_vars
+
     for path in ENV_PATHS:
         if path.exists():
             with open(path, "r", encoding="utf-8") as f:
@@ -98,9 +106,15 @@ def main():
     client_id = env.get("ClientId")
     client_secret = env.get("ClientSecret")
 
+    output_path = Path(__file__).parent.parent / "public" / "data" / "taiwan_cctv.json"
+
     if not client_id or not client_secret:
-        print("Error: ClientId or ClientSecret missing!")
-        sys.exit(1)
+        if output_path.exists():
+            print("No TDX credentials found in environment. Using existing pre-built public/data/taiwan_cctv.json")
+            return
+        else:
+            print("Error: ClientId or ClientSecret missing and no cached taiwan_cctv.json found!")
+            sys.exit(1)
 
     print("Requesting OAuth2 Token from TDX...")
     token = get_tdx_token(client_id, client_secret)

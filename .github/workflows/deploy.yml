@@ -38,14 +38,7 @@ jobs:
         env:
           ClientId: ${{ secrets.TDX_CLIENT_ID }}
           ClientSecret: ${{ secrets.TDX_CLIENT_SECRET }}
-        run: |
-          if [ -n "$ClientId" ] && [ -n "$ClientSecret" ]; then
-            echo "ClientId= $ClientId" > TMP/.env
-            echo "ClientSecret= $ClientSecret" >> TMP/.env
-            python scripts/fetch_tdx_cctv.py
-          else
-            echo "No TDX secrets found, using pre-built public/data/taiwan_cctv.json"
-          fi
+        run: python scripts/fetch_tdx_cctv.py
 
       - name: Generate Custom WebP Icons 🎨
         run: python scripts/generate_icons.py
