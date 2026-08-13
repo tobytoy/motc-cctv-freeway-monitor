@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet.markercluster';
 import { CCTVItem } from '../types/cctv';
 import { getCctvPlaceholderSvg } from '../utils/cctvPlaceholder';
-import { Compass, MapPin } from 'lucide-react';
+import { Compass, MapPin, Layers, Train, Globe, Moon, Sun } from 'lucide-react';
 
 interface CctvMapProps {
   cctvs: CCTVItem[];
@@ -31,10 +31,16 @@ export const CctvMap: React.FC<CctvMapProps> = ({
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
-  // P2: Use marker cluster group instead of individual markers map
+  const baseTileRef = useRef<L.TileLayer | null>(null);
+  const overlayTileRef = useRef<L.TileLayer | null>(null);
   const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null);
+  const railGroupRef = useRef<L.LayerGroup | null>(null);
   const markersRef = useRef<Map<string, L.Marker>>(new Map());
   const [mapLoaded, setMapLoaded] = useState(false);
+
+  // Basemap & Rail Layer Options
+  const [basemap, setBasemap] = useState<'voyager' | 'dark' | 'satellite' | 'osm'>('dark');
+  const [showRailLayer, setShowRailLayer] = useState<boolean>(true);
 
   // Filtered list
   const filteredCctvs = cctvs.filter(c => {
@@ -59,19 +65,21 @@ export const CctvMap: React.FC<CctvMapProps> = ({
 
     L.control.zoom({ position: 'topright' }).addTo(map);
 
-    // Dark styled basemap (CartoDB Dark Matter / Voyager)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    // Initialize default dark basemap
+    const initialBase = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
       subdomains: 'abcd',
       maxZoom: 20
     }).addTo(map);
+
+    baseTileRef.current = initialBase;
 
     // Base path helper for icon assets
     const rawBase = (import.meta as any).env?.BASE_URL || './';
     const baseUrl = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
     const iconUrl = (name: string) => `${baseUrl}icons/${name}`;
 
-    // F2: Initialize MarkerClusterGroup with custom WebP cluster icons and LOD tuning
+    // Initialize MarkerClusterGroup
     const clusterGroup = (L as any).markerClusterGroup({
       maxClusterRadius: 50,
       disableClusteringAtZoom: 14,
@@ -111,6 +119,11 @@ export const CctvMap: React.FC<CctvMapProps> = ({
 
     clusterGroup.addTo(map);
     clusterGroupRef.current = clusterGroup;
+
+    // Initialize Rail Group
+    const railGroup = L.layerGroup().addTo(map);
+    railGroupRef.current = railGroup;
+
     mapInstanceRef.current = map;
     setMapLoaded(true);
 
@@ -122,8 +135,210 @@ export const CctvMap: React.FC<CctvMapProps> = ({
       map.remove();
       mapInstanceRef.current = null;
       clusterGroupRef.current = null;
+      railGroupRef.current = null;
+      baseTileRef.current = null;
+      overlayTileRef.current = null;
     };
   }, []);
+
+  // Effect: Handle Basemap Tile Switcher
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    if (baseTileRef.current) {
+      map.removeLayer(baseTileRef.current);
+    }
+    if (overlayTileRef.current) {
+      map.removeLayer(overlayTileRef.current);
+      overlayTileRef.current = null;
+    }
+
+    if (basemap === 'satellite') {
+      const satTile = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+        maxZoom: 19
+      }).addTo(map);
+      baseTileRef.current = satTile;
+
+      const overlayTile = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19,
+        opacity: 0.8
+      }).addTo(map);
+      overlayTileRef.current = overlayTile;
+    } else if (basemap === 'dark') {
+      const darkTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+      }).addTo(map);
+      baseTileRef.current = darkTile;
+    } else if (basemap === 'voyager') {
+      const voyagerTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+      }).addTo(map);
+      baseTileRef.current = voyagerTile;
+    } else if (basemap === 'osm') {
+      const osmTile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+      }).addTo(map);
+      baseTileRef.current = osmTile;
+    }
+  }, [basemap]);
+
+  // Effect: Handle Rail Lines & Animated Train Motion Overlay
+  useEffect(() => {
+    const railGroup = railGroupRef.current;
+    if (!railGroup || !mapLoaded) return;
+
+    railGroup.clearLayers();
+    if (!showRailLayer) return;
+
+    let animReq: number;
+
+    const loadRailData = async () => {
+      try {
+        const rawBase = (import.meta as any).env?.BASE_URL || './';
+        const baseUrl = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+
+        const [thsrRes, traRes] = await Promise.all([
+          fetch(`${baseUrl}data/thsr_track.json`).catch(() => null),
+          fetch(`${baseUrl}data/tra_track.json`).catch(() => null)
+        ]);
+
+        const animatedTrains: Array<{
+          marker: L.Marker;
+          path: Array<[number, number]>;
+          currentIndex: number;
+          step: number;
+          speed: number;
+        }> = [];
+
+        // 1. Load THSR (高鐵 - 橙色)
+        if (thsrRes && thsrRes.ok) {
+          const thsrData = await thsrRes.json();
+          if (thsrData.lines && Array.isArray(thsrData.lines)) {
+            thsrData.lines.forEach((line: any) => {
+              if (line.shape && Array.isArray(line.shape)) {
+                const latlngs: [number, number][] = line.shape;
+                L.polyline(latlngs, {
+                  color: '#f97316',
+                  weight: 4,
+                  opacity: 0.85,
+                  dashArray: '8, 6'
+                }).bindTooltip('台灣高鐵 (THSR)', { sticky: true }).addTo(railGroup);
+
+                // Add 6 active THSR trains along track
+                for (let i = 0; i < 6; i++) {
+                  const startIdx = Math.floor((i / 6) * latlngs.length);
+                  const thsrIcon = L.divIcon({
+                    className: 'custom-train-thsr',
+                    html: `<div class="w-6 h-6 rounded-full bg-orange-600 border-2 border-white shadow-[0_0_12px_#f97316] flex items-center justify-center text-[10px] text-white animate-pulse">🚆</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                  });
+
+                  const marker = L.marker(latlngs[startIdx], { icon: thsrIcon })
+                    .bindTooltip(`🚄 高鐵列車 (即時行查連動)`, { direction: 'top' })
+                    .addTo(railGroup);
+
+                  animatedTrains.push({
+                    marker,
+                    path: latlngs,
+                    currentIndex: startIdx,
+                    step: i % 2 === 0 ? 1 : -1,
+                    speed: 0.8 + Math.random() * 0.4
+                  });
+                }
+              }
+            });
+          }
+        }
+
+        // 2. Load TRA (台鐵 - 青藍色)
+        if (traRes && traRes.ok) {
+          const traData = await traRes.json();
+          if (traData.lines && Array.isArray(traData.lines)) {
+            traData.lines.forEach((line: any, lIdx: number) => {
+              if (line.shape && Array.isArray(line.shape) && line.shape.length > 5) {
+                const latlngs: [number, number][] = line.shape;
+                L.polyline(latlngs, {
+                  color: line.color || '#06b6d4',
+                  weight: 2.5,
+                  opacity: 0.75,
+                }).bindTooltip(`台鐵 ${line.name}`, { sticky: true }).addTo(railGroup);
+
+                // Add active TRA train
+                if (lIdx % 2 === 0 && latlngs.length > 20) {
+                  const startIdx = Math.floor(Math.random() * (latlngs.length - 10));
+                  const traIcon = L.divIcon({
+                    className: 'custom-train-tra',
+                    html: `<div class="w-6 h-6 rounded-full bg-cyan-600 border-2 border-white shadow-[0_0_12px_#06b6d4] flex items-center justify-center text-[10px] text-white animate-pulse">🚆</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                  });
+
+                  const marker = L.marker(latlngs[startIdx], { icon: traIcon })
+                    .bindTooltip(`🚆 台鐵 ${line.name} (即時行查)`, { direction: 'top' })
+                    .addTo(railGroup);
+
+                  animatedTrains.push({
+                    marker,
+                    path: latlngs,
+                    currentIndex: startIdx,
+                    step: Math.random() > 0.5 ? 1 : -1,
+                    speed: 0.4 + Math.random() * 0.4
+                  });
+                }
+              }
+            });
+          }
+        }
+
+        // Animation Loop for moving trains smoothly
+        const animate = () => {
+          animatedTrains.forEach(t => {
+            t.currentIndex += t.step * t.speed;
+            if (t.currentIndex >= t.path.length - 1) {
+              t.currentIndex = t.path.length - 1;
+              t.step = -1;
+            } else if (t.currentIndex <= 0) {
+              t.currentIndex = 0;
+              t.step = 1;
+            }
+
+            const idx = Math.floor(t.currentIndex);
+            const nextIdx = Math.min(idx + 1, t.path.length - 1);
+            const frac = t.currentIndex - idx;
+
+            const p1 = t.path[idx];
+            const p2 = t.path[nextIdx];
+            if (p1 && p2) {
+              const lat = p1[0] + (p2[0] - p1[0]) * frac;
+              const lng = p1[1] + (p2[1] - p1[1]) * frac;
+              t.marker.setLatLng([lat, lng]);
+            }
+          });
+
+          animReq = requestAnimationFrame(animate);
+        };
+
+        animReq = requestAnimationFrame(animate);
+
+      } catch (err) {
+        console.warn('Failed to render animated rail layer:', err);
+      }
+    };
+
+    loadRailData();
+
+    return () => {
+      if (animReq) cancelAnimationFrame(animReq);
+    };
+  }, [showRailLayer, mapLoaded]);
 
   // P2: Diff-based marker update — only add/remove markers that changed
   useEffect(() => {
@@ -369,6 +584,55 @@ export const CctvMap: React.FC<CctvMapProps> = ({
               重置條件
             </button>
           )}
+        </div>
+
+        {/* Basemap Switcher */}
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-1.5 flex items-center gap-1 shadow-2xl overflow-x-auto text-xs">
+          <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold px-2 flex items-center gap-1 shrink-0">
+            <Layers className="w-3.5 h-3.5 text-cyan-400" />
+            底圖:
+          </span>
+          <button
+            onClick={() => setBasemap('dark')}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
+              basemap === 'dark' ? 'bg-cyan-600 text-white border-cyan-500 shadow-md shadow-cyan-900/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            }`}
+          >
+            <Moon className="w-3 h-3" />
+            深色
+          </button>
+          <button
+            onClick={() => setBasemap('satellite')}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
+              basemap === 'satellite' ? 'bg-cyan-600 text-white border-cyan-500 shadow-md shadow-cyan-900/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            }`}
+          >
+            <Globe className="w-3 h-3 text-emerald-400" />
+            🛰️ 衛星
+          </button>
+          <button
+            onClick={() => setBasemap('voyager')}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
+              basemap === 'voyager' ? 'bg-cyan-600 text-white border-cyan-500 shadow-md shadow-cyan-900/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            }`}
+          >
+            <Sun className="w-3 h-3 text-amber-400" />
+            彩色
+          </button>
+        </div>
+
+        {/* Rail & Animated Train Layer Toggle */}
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-1.5 flex items-center gap-1 shadow-2xl text-xs">
+          <button
+            onClick={() => setShowRailLayer(prev => !prev)}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1.5 border ${
+              showRailLayer ? 'bg-orange-600/90 text-white border-orange-400 shadow-md shadow-orange-900/40 animate-pulse' : 'bg-slate-800/80 text-slate-400 hover:bg-slate-700 border-slate-700/50'
+            }`}
+            title="開啟/關閉 台灣高鐵與台鐵動態列車軌跡"
+          >
+            <Train className="w-3.5 h-3.5" />
+            <span>🚆 鐵道動畫 {showRailLayer ? '開啟' : '關閉'}</span>
+          </button>
         </div>
 
       </div>

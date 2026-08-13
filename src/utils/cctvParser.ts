@@ -221,7 +221,7 @@ export async function fetchCctvListClient(): Promise<{ data: CCTVItem[]; source:
 }
 
 /**
- * Client-side browser network latency test for CCTV item
+ * Client-side browser network latency and availability probe for a CCTV item
  */
 export async function probeSingleCctvStatus(item: CCTVItem): Promise<{ status: CCTVStatus; responseTimeMs: number }> {
   const startTime = performance.now();
@@ -231,39 +231,67 @@ export async function probeSingleCctvStatus(item: CCTVItem): Promise<{ status: C
   }
 
   const targetUrl = item.snapshotUrl || item.videoUrl;
+  const isImageTarget = Boolean(
+    item.snapshotUrl ||
+    targetUrl.includes('.jpg') ||
+    targetUrl.includes('.jpeg') ||
+    targetUrl.includes('.png') ||
+    targetUrl.includes('.bmjpg') ||
+    targetUrl.includes('mjpg') ||
+    targetUrl.includes('snapshot')
+  );
 
-  return new Promise((resolve) => {
-    let finished = false;
-    const timeout = setTimeout(() => {
-      if (!finished) {
-        finished = true;
-        resolve({ status: 'unstable', responseTimeMs: Math.round(performance.now() - startTime) });
-      }
-    }, 2500);
+  if (isImageTarget) {
+    return new Promise((resolve) => {
+      let finished = false;
+      const timeout = setTimeout(() => {
+        if (!finished) {
+          finished = true;
+          resolve({ status: 'unstable', responseTimeMs: Math.round(performance.now() - startTime) });
+        }
+      }, 3000);
 
-    // Try image probe
-    const img = new Image();
-    img.onload = () => {
-      if (!finished) {
-        finished = true;
-        clearTimeout(timeout);
-        const duration = Math.round(performance.now() - startTime);
-        const status: CCTVStatus = duration > 1000 ? 'unstable' : 'online';
-        resolve({ status, responseTimeMs: duration });
-      }
-    };
+      const img = new Image();
+      img.onload = () => {
+        if (!finished) {
+          finished = true;
+          clearTimeout(timeout);
+          const duration = Math.round(performance.now() - startTime);
+          const status: CCTVStatus = duration > 1200 ? 'unstable' : 'online';
+          resolve({ status, responseTimeMs: duration });
+        }
+      };
 
-    img.onerror = () => {
-      if (!finished) {
-        finished = true;
-        clearTimeout(timeout);
-        const duration = Math.round(performance.now() - startTime);
-        // Many m3u8 streams cause img onerror due to MIME type, but domain is responsive
-        const status: CCTVStatus = duration < 800 ? 'online' : 'unstable';
-        resolve({ status, responseTimeMs: duration });
-      }
-    };
+      img.onerror = () => {
+        if (!finished) {
+          finished = true;
+          clearTimeout(timeout);
+          const duration = Math.round(performance.now() - startTime);
+          resolve({ status: 'offline', responseTimeMs: duration });
+        }
+      };
 
-    img.src = `${targetUrl}?t=${Date.now()}`;
-  });
+      img.src = `${targetUrl}${targetUrl.includes('?') ? '&' : '?'}t=${Date.now()}`;
+    });
+  } else {
+    // Stream (.m3u8) probe via fetch
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+      await fetch(targetUrl, {
+        method: 'GET',
+        mode: 'no-cors',
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+      const duration = Math.round(performance.now() - startTime);
+      const status: CCTVStatus = duration > 1500 ? 'unstable' : 'online';
+      return { status, responseTimeMs: duration };
+    } catch {
+      const duration = Math.round(performance.now() - startTime);
+      return { status: 'offline', responseTimeMs: duration };
+    }
+  }
 }

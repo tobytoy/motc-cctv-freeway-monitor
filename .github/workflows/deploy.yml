@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-    # Auto refresh dataset every 6 hours
-    - cron: '0 */6 * * *'
+    # Auto refresh dataset once every day at 00:00 UTC (08:00 AM TST)
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 permissions:

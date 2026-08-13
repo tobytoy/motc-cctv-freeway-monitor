@@ -7,6 +7,7 @@ interface CctvListProps {
   cctvs: CCTVItem[];
   onSelectCctv: (cctv: CCTVItem) => void;
   onCheckStatus: (cctvId: string) => void;
+  onMarkOffline?: (cctvId: string) => void;
   onShareCamera: (cctv: CCTVItem) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
@@ -22,6 +23,7 @@ export const CctvList: React.FC<CctvListProps> = ({
   cctvs,
   onSelectCctv,
   onCheckStatus,
+  onMarkOffline,
   onShareCamera,
   searchQuery,
   roadFilter,
@@ -205,14 +207,7 @@ export const CctvList: React.FC<CctvListProps> = ({
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = placeholderSvg;
                       setImgErrors(prev => ({ ...prev, [cctv.cctvId]: true }));
-                      // Auto-recover card image connection after 8 seconds
-                      setTimeout(() => {
-                        setImgErrors(prev => {
-                          const next = { ...prev };
-                          delete next[cctv.cctvId];
-                          return next;
-                        });
-                      }, 8000);
+                      onMarkOffline?.(cctv.cctvId);
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
@@ -229,9 +224,19 @@ export const CctvList: React.FC<CctvListProps> = ({
                     <span className="bg-slate-900/80 backdrop-blur px-2 py-0.5 rounded border border-slate-800 truncate max-w-[70%]">
                       {cctv.direction || '雙向'} • {cctv.region}
                     </span>
-                    <span className="font-mono text-emerald-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
-                      {cctv.responseTimeMs || 85}ms
-                    </span>
+                    {cctv.status === 'offline' ? (
+                      <span className="text-rose-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800 font-semibold">
+                        ✖ 離線
+                      </span>
+                    ) : cctv.responseTimeMs !== undefined ? (
+                      <span className="font-mono text-emerald-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
+                        {cctv.responseTimeMs}ms
+                      </span>
+                    ) : (
+                      <span className="text-slate-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
+                        待測速
+                      </span>
+                    )}
                   </div>
                 </div>
 

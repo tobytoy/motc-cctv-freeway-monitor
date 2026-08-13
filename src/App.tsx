@@ -90,12 +90,27 @@ export default function App() {
     return () => clearInterval(timer);
   }, [autoRefreshMinutes, loadCctvData]);
 
+  // Mark a single CCTV as offline (e.g. when image fails to load in UI)
+  const handleMarkOffline = useCallback((cctvId: string) => {
+    setCctvs(prev => prev.map(item => {
+      if (item.cctvId === cctvId && item.status !== 'offline') {
+        return {
+          ...item,
+          status: 'offline',
+          responseTimeMs: undefined,
+          lastChecked: new Date().toISOString()
+        };
+      }
+      return item;
+    }));
+  }, []);
+
   // Batch status check on client side
   const handleCheckBatchStatus = useCallback(async () => {
     setIsCheckingStatus(true);
     try {
-      // Test first 20 CCTVs for quick response (show progress)
-      const subset = cctvs.slice(0, 20);
+      // Test first 50 CCTVs for quick batch response
+      const subset = cctvs.slice(0, 50);
       const probeResults = await Promise.all(
         subset.map(async (item) => {
           const res = await probeSingleCctvStatus(item);
@@ -260,6 +275,7 @@ export default function App() {
             cctvs={cctvs}
             onSelectCctv={setSelectedCctv}
             onCheckStatus={handleCheckSingleStatus}
+            onMarkOffline={handleMarkOffline}
             onShareCamera={handleShareCamera}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
