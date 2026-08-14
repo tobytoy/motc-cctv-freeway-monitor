@@ -37,6 +37,6 @@ export interface CCTVStats {
   unstable: number;
   unknown: number;
   onlineRate: number;
-  roadBreakdown: Record<string, { total: number; online: number; offline: number }>;
+  roadBreakdown: Record<string, { total: number; online: number; offline: number; unstable: number }>;
   lastUpdated: string;
 }

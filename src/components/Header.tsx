@@ -62,18 +62,22 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Quick Metrics Bar - Monospace Telemetry */}
-          <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto pb-1 lg:pb-0">
+          <div className="flex items-center gap-3 sm:gap-5 overflow-x-auto pb-1 lg:pb-0">
             <div className="flex flex-col items-end">
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">監控設備總數</span>
+              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">總數</span>
               <span className="text-xl font-mono font-bold text-blue-400">{stats.total.toLocaleString()}</span>
             </div>
-            <div className="flex flex-col items-end border-l border-slate-800/80 pl-4 sm:pl-6">
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">正常運作 ({stats.onlineRate}%)</span>
+            <div className="flex flex-col items-end border-l border-slate-800/80 pl-3 sm:pl-5">
+              <span className="text-[10px] text-emerald-400 uppercase tracking-wider font-semibold">🟢 正常 ({stats.onlineRate}%)</span>
               <span className="text-xl font-mono font-bold text-emerald-400">{stats.online.toLocaleString()}</span>
             </div>
-            <div className="flex flex-col items-end border-l border-slate-800/80 pl-4 sm:pl-6">
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">異常 / 延遲</span>
-              <span className="text-xl font-mono font-bold text-rose-400">{stats.offline + stats.unstable}</span>
+            <div className="flex flex-col items-end border-l border-slate-800/80 pl-3 sm:pl-5">
+              <span className="text-[10px] text-amber-400 uppercase tracking-wider font-semibold">🟡 不穩</span>
+              <span className="text-xl font-mono font-bold text-amber-400">{stats.unstable.toLocaleString()}</span>
+            </div>
+            <div className="flex flex-col items-end border-l border-slate-800/80 pl-3 sm:pl-5">
+              <span className="text-[10px] text-rose-400 uppercase tracking-wider font-semibold">🔴 離線</span>
+              <span className="text-xl font-mono font-bold text-rose-400">{stats.offline.toLocaleString()}</span>
             </div>
 
             {/* Action Buttons */}

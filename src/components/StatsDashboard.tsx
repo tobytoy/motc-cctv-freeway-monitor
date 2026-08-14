@@ -61,7 +61,7 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
 
         <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 shadow-xl space-y-2">
           <div className="flex items-center justify-between text-slate-400">
-            <span className="text-xs font-semibold uppercase tracking-wider">連線正常 (Online)</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">🟢 連線正常 (Online)</span>
             <ShieldCheck className="w-5 h-5 text-emerald-400" />
           </div>
           <div className="flex items-baseline space-x-2">
@@ -75,24 +75,28 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
 
         <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 shadow-xl space-y-2">
           <div className="flex items-center justify-between text-slate-400">
-            <span className="text-xs font-semibold uppercase tracking-wider">訊號延遲 / 波動</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">🟡 連線不穩 / 高延遲</span>
             <AlertTriangle className="w-5 h-5 text-amber-400" />
           </div>
           <div className="flex items-baseline space-x-2">
             <span className="text-3xl font-extrabold font-mono text-amber-400">{stats.unstable}</span>
-            <span className="text-xs text-slate-400">個鏡頭 Ping 較高</span>
+            <span className="text-xs text-slate-400">
+              ({stats.total > 0 ? Math.round((stats.unstable / stats.total) * 100) : 0}%)
+            </span>
           </div>
-          <p className="text-[11px] text-amber-400/70">回應時間高於 400ms</p>
+          <p className="text-[11px] text-amber-400/80">回應時間大於 1000ms 或封包延遲</p>
         </div>
 
         <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 shadow-xl space-y-2">
           <div className="flex items-center justify-between text-slate-400">
-            <span className="text-xs font-semibold uppercase tracking-wider">斷線 / 故障 (Faulty)</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">🔴 斷線 / 故障 (Offline)</span>
             <AlertCircle className="w-5 h-5 text-rose-400" />
           </div>
           <div className="flex items-baseline space-x-2">
             <span className="text-3xl font-extrabold font-mono text-rose-400">{stats.offline}</span>
-            <span className="text-xs text-slate-400">個暫時無法連線</span>
+            <span className="text-xs text-slate-400">
+              ({stats.total > 0 ? Math.round((stats.offline / stats.total) * 100) : 0}%)
+            </span>
           </div>
           <p className="text-[11px] text-rose-400/70">需進行設備硬體檢修</p>
         </div>
@@ -107,7 +111,7 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <Zap className="w-4 h-4 text-blue-400" />
-              國道/公路可用率分析排行榜
+              國道/公路三色健康度分析
             </h3>
             <span className="text-xs text-slate-400 font-mono">By Road Breakdown</span>
           </div>
@@ -115,8 +119,7 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
           <div className="space-y-3.5">
             {Object.entries(stats.roadBreakdown).map(([roadName, data]) => {
               const rate = data.total > 0 ? Math.round((data.online / data.total) * 100) : 0;
-              // C3: Compute unstable % separately for amber segment
-              const unstableCount = data.total - data.online - data.offline;
+              const unstableCount = data.unstable !== undefined ? data.unstable : (data.total - data.online - data.offline);
               const unstableRate = data.total > 0 ? Math.round((unstableCount / data.total) * 100) : 0;
               const offlineRate = data.total > 0 ? Math.round((data.offline / data.total) * 100) : 0;
               return (
@@ -124,13 +127,15 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
                   <div className="flex justify-between text-xs">
                     <span className="font-bold text-slate-200">{roadName}</span>
                     <span className="font-mono text-slate-400">
-                      <strong className="text-emerald-400">{data.online}</strong> / {data.total} 在線 ({rate}%)
+                      <strong className="text-emerald-400">{data.online}</strong> 正常 /{' '}
+                      <strong className="text-amber-400">{unstableCount}</strong> 不穩 /{' '}
+                      <strong className="text-rose-400">{data.offline}</strong> 斷線
                     </span>
                   </div>
                   <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800/80 flex">
-                    <div className="bg-emerald-500 h-full transition-all" style={{ width: `${rate}%` }}></div>
-                    <div className="bg-amber-500 h-full transition-all" style={{ width: `${unstableRate}%` }}></div>
-                    <div className="bg-rose-500 h-full transition-all" style={{ width: `${offlineRate}%` }}></div>
+                    <div className="bg-emerald-500 h-full transition-all" style={{ width: `${rate}%` }} title={`正常: ${rate}%`}></div>
+                    <div className="bg-amber-500 h-full transition-all" style={{ width: `${unstableRate}%` }} title={`不穩: ${unstableRate}%`}></div>
+                    <div className="bg-rose-500 h-full transition-all" style={{ width: `${offlineRate}%` }} title={`離線: ${offlineRate}%`}></div>
                   </div>
                 </div>
               );
@@ -143,7 +148,7 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <Activity className="w-4 h-4 text-emerald-400" />
-              全台區域 CCTV 覆蓋統計
+              全台區域健康度覆蓋統計
             </h3>
             <span className="text-xs text-slate-400 font-mono">Regional Zones</span>
           </div>
@@ -155,13 +160,14 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
                 <div key={region} className="bg-slate-950 p-4 rounded-xl border border-slate-800/80 space-y-2">
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-bold text-white">{region}區域</span>
-                    <span className="text-xs font-mono font-bold text-emerald-400">{rate}% 在線</span>
+                    <span className="text-xs font-mono font-bold text-emerald-400">{rate}% 正常</span>
                   </div>
                   <div className="text-2xl font-extrabold font-mono text-slate-200">
                     {item.total} <span className="text-xs font-normal text-slate-500">個鏡頭</span>
                   </div>
-                  <div className="flex items-center gap-3 text-[10px] text-slate-400 pt-1 font-mono">
+                  <div className="flex flex-wrap items-center gap-2 text-[10px] text-slate-400 pt-1 font-mono">
                     <span className="text-emerald-400">● 正常: {item.online}</span>
+                    <span className="text-amber-400">▲ 不穩: {item.unstable}</span>
                     <span className="text-rose-400">✖ 離線: {item.offline}</span>
                   </div>
                 </div>
@@ -179,19 +185,21 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
             <AlertTriangle className="w-5 h-5 text-amber-400" />
             <h3 className="text-base font-bold text-white">重點關心與異常鏡頭追蹤 ({issueCctvs.length})</h3>
           </div>
-          <span className="text-xs text-slate-400">需特別留意訊號與連線品質</span>
+          <span className="text-xs text-slate-400">包含黃燈（連線不穩）與紅燈（斷線異常）</span>
         </div>
 
         {issueCctvs.length === 0 ? (
           <div className="text-center py-6 text-slate-400 text-xs">
-            🎉 目前全台監視器連線狀況良好，無異常斷線！
+            🎉 目前全台監視器連線狀況良好，無異常斷線或不穩！
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {issueCctvs.map(cctv => (
               <div
                 key={cctv.cctvId}
-                className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 hover:border-slate-700 transition flex items-center justify-between gap-3"
+                className={`bg-slate-950 p-3.5 rounded-xl border transition flex items-center justify-between gap-3 ${
+                  cctv.status === 'offline' ? 'border-rose-900/40 hover:border-rose-700/60' : 'border-amber-900/40 hover:border-amber-700/60'
+                }`}
               >
                 <div>
                   <div className="flex items-center space-x-2">
@@ -199,14 +207,14 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
                       {cctv.roadName}
                     </span>
                     <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                      cctv.status === 'offline' ? 'bg-rose-500/20 text-rose-400' : 'bg-amber-500/20 text-amber-400'
+                      cctv.status === 'offline' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                     }`}>
-                      {cctv.status === 'offline' ? '離線' : '高延遲'}
+                      {cctv.status === 'offline' ? '🔴 斷線' : '🟡 連線不穩'}
                     </span>
                   </div>
                   <h4 className="text-xs font-bold text-slate-200 mt-1.5 line-clamp-1">{cctv.locationName}</h4>
                   <p className="text-[10px] font-mono text-slate-500 mt-0.5">
-                    Ping: {cctv.responseTimeMs || 0}ms • {cctv.region}
+                    {cctv.status === 'offline' ? '狀態: 訊號中斷' : `Ping: ${cctv.responseTimeMs || 0}ms`} • {cctv.region}
                   </p>
                 </div>
 

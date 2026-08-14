@@ -138,10 +138,10 @@ export const CctvList: React.FC<CctvListProps> = ({
               onChange={(e) => setStatusFilter(e.target.value)}
               className="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
             >
-              <option value="all">全部狀態</option>
-              <option value="online">● 連線正常</option>
-              <option value="unstable">▲ 訊號延遲</option>
-              <option value="offline">✖ 離線/故障</option>
+              <option value="all">全部狀態 (綠/黃/紅)</option>
+              <option value="online">🟢 ● 連線正常</option>
+              <option value="unstable">🟡 ▲ 連線不穩</option>
+              <option value="offline">🔴 ✖ 離線/故障</option>
             </select>
           </div>
 
@@ -205,10 +205,10 @@ export const CctvList: React.FC<CctvListProps> = ({
                     
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                       cctv.status === 'online' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
-                      cctv.status === 'offline' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' :
-                      'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                      cctv.status === 'unstable' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 shadow-[0_0_8px_rgba(245,158,11,0.2)]' :
+                      'bg-rose-500/20 text-rose-400 border border-rose-500/30'
                     }`}>
-                      {cctv.status === 'online' ? '● 正常' : cctv.status === 'offline' ? '✖ 斷線' : '▲ 延遲'}
+                      {cctv.status === 'online' ? '● 正常' : cctv.status === 'unstable' ? '▲ 連線不穩' : '✖ 斷線'}
                     </span>
                   </div>
 
@@ -242,13 +242,17 @@ export const CctvList: React.FC<CctvListProps> = ({
                         <span className="text-rose-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800 font-semibold">
                           ✖ 離線
                         </span>
+                      ) : cctv.status === 'unstable' ? (
+                        <span className="font-mono text-amber-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800 font-semibold">
+                          {cctv.responseTimeMs || 0}ms (不穩)
+                        </span>
                       ) : cctv.responseTimeMs !== undefined ? (
                         <span className="font-mono text-emerald-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
                           {cctv.responseTimeMs}ms
                         </span>
                       ) : (
                         <span className="text-slate-400 bg-slate-900/80 backdrop-blur px-1.5 py-0.5 rounded border border-slate-800">
-                          待測速
+                          LIVE
                         </span>
                       )}
                     </div>

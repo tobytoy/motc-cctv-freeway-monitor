@@ -74,6 +74,15 @@ def generate_pin_marker(filename, glow_color, bg_color, inner_icon_type, size=64
         # Red slash line
         draw.line([cx - ir*0.8, cy + ir*0.8, cx + ir*0.8, cy - ir*0.8], fill=(239, 68, 68, 255), width=int(3*scale))
 
+    elif inner_icon_type == "camera_unstable":
+        cw, ch = ir * 0.9, ir * 0.6
+        draw.rounded_rectangle([cx - cw/2, cy - ch/2, cx + cw/2, cy + ch/2], radius=int(3*scale), fill=ic_c)
+        # Warning triangle in lens
+        draw.ellipse([cx - cw/4, cy - cw/4, cx + cw/4, cy + cw/4], fill=(15, 23, 42, 255))
+        # Amber center exclamation dot
+        draw.ellipse([cx - cw/8, cy - cw/8, cx + cw/8, cy + cw/8], fill=(245, 158, 11, 255))
+        draw.polygon([(cx + cw/2, cy - ch/4), (cx + cw*0.75, cy - ch*0.4), (cx + cw*0.75, cy + ch*0.4), (cx + cw/2, cy + ch/4)], fill=ic_c)
+
     elif inner_icon_type == "unknown":
         cw, ch = ir * 0.9, ir * 0.6
         draw.rounded_rectangle([cx - cw/2, cy - ch/2, cx + cw/2, cy + ch/2], radius=int(3*scale), fill=ic_c)
@@ -146,17 +155,20 @@ def main():
     # Colors (RGB)
     EMERALD = (34, 197, 94)    # Freeway Online
     CYAN = (6, 182, 212)       # Highway Online
+    AMBER = (245, 158, 11)     # Freeway Unstable / Warning
+    YELLOW = (234, 179, 8)     # Highway Unstable
     RED = (239, 68, 68)        # Offline
     SLATE = (100, 116, 139)    # Muted Offline
-    AMBER = (245, 158, 11)     # Unknown / Warning
     MAGENTA = (236, 72, 153)   # Large Cluster
 
     BG_DARK = (15, 23, 42, 230)
 
     # 1. Markers (64x64)
     generate_pin_marker("marker-freeway-online.webp", EMERALD, BG_DARK, "camera", size=64)
+    generate_pin_marker("marker-freeway-unstable.webp", AMBER, BG_DARK, "camera_unstable", size=64)
     generate_pin_marker("marker-freeway-offline.webp", RED, BG_DARK, "camera_offline", size=64)
     generate_pin_marker("marker-highway-online.webp", CYAN, BG_DARK, "camera", size=64)
+    generate_pin_marker("marker-highway-unstable.webp", YELLOW, BG_DARK, "camera_unstable", size=64)
     generate_pin_marker("marker-highway-offline.webp", SLATE, BG_DARK, "camera_offline", size=64)
     generate_pin_marker("marker-unknown.webp", AMBER, BG_DARK, "unknown", size=64)
 
@@ -169,7 +181,7 @@ def main():
     generate_badge_icon("cctv-badge.webp", CYAN, size=48)
     generate_badge_icon("toggle-cctv.webp", EMERALD, size=48)
 
-    print("\nAll 10 custom WebP icons generated successfully in public/icons/")
+    print("\nAll custom WebP icons generated successfully in public/icons/")
 
 if __name__ == "__main__":
     main()

@@ -257,7 +257,7 @@ export async function probeSingleCctvStatus(item: CCTVItem): Promise<{ status: C
           finished = true;
           clearTimeout(timeout);
           const duration = Math.round(performance.now() - startTime);
-          const status: CCTVStatus = duration > 1200 ? 'unstable' : 'online';
+          const status: CCTVStatus = duration > 1000 ? 'unstable' : 'online';
           resolve({ status, responseTimeMs: duration });
         }
       };
@@ -287,7 +287,7 @@ export async function probeSingleCctvStatus(item: CCTVItem): Promise<{ status: C
 
       clearTimeout(timeoutId);
       const duration = Math.round(performance.now() - startTime);
-      const status: CCTVStatus = duration > 1500 ? 'unstable' : 'online';
+      const status: CCTVStatus = duration > 1000 ? 'unstable' : 'online';
       return { status, responseTimeMs: duration };
     } catch {
       const duration = Math.round(performance.now() - startTime);

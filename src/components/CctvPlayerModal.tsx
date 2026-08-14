@@ -220,13 +220,20 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
 
           <div className="absolute top-4 right-4 bg-slate-950/85 backdrop-blur-md border border-slate-800 px-3 py-1.5 rounded-xl flex items-center space-x-2 text-xs shadow-xl">
             <span className={`w-2.5 h-2.5 rounded-full ${
-              effectiveStatus === 'online' ? 'bg-emerald-400 animate-pulse' : effectiveStatus === 'offline' ? 'bg-rose-500' : 'bg-amber-400'
+              effectiveStatus === 'online' ? 'bg-emerald-400 animate-pulse shadow-[0_0_8px_#10b981]' :
+              effectiveStatus === 'unstable' ? 'bg-amber-400 animate-pulse shadow-[0_0_8px_#f59e0b]' :
+              effectiveStatus === 'offline' ? 'bg-rose-500 shadow-[0_0_8px_#ef4444]' : 'bg-slate-400'
             }`}></span>
             <span className="font-semibold text-slate-200">
-              {effectiveStatus === 'online' ? '連線正常' : effectiveStatus === 'offline' ? '訊號中斷 / 離線' : '延遲稍高 / 待測'}
+              {effectiveStatus === 'online' ? '🟢 連線正常' :
+               effectiveStatus === 'unstable' ? '🟡 連線不穩' :
+               effectiveStatus === 'offline' ? '🔴 訊號中斷' : '⚪ 待測中'}
             </span>
-            {effectiveStatus !== 'offline' && cctv.responseTimeMs != null && (
-              <span className="text-slate-400 font-mono text-[11px]">
+            {cctv.responseTimeMs != null && (
+              <span className={`font-mono text-[11px] ${
+                effectiveStatus === 'online' ? 'text-emerald-400' :
+                effectiveStatus === 'unstable' ? 'text-amber-400' : 'text-slate-400'
+              }`}>
                 ({cctv.responseTimeMs}ms)
               </span>
             )}

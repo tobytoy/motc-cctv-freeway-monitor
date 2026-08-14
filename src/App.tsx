@@ -185,7 +185,7 @@ export default function App() {
     let unstable = 0;
     let unknown = 0;
 
-    const roadBreakdown: Record<string, { total: number; online: number; offline: number }> = {};
+    const roadBreakdown: Record<string, { total: number; online: number; offline: number; unstable: number }> = {};
 
     cctvs.forEach(c => {
       if (c.status === 'online') online++;
@@ -194,11 +194,12 @@ export default function App() {
       else unknown++;
 
       if (!roadBreakdown[c.roadName]) {
-        roadBreakdown[c.roadName] = { total: 0, online: 0, offline: 0 };
+        roadBreakdown[c.roadName] = { total: 0, online: 0, offline: 0, unstable: 0 };
       }
       roadBreakdown[c.roadName].total++;
       if (c.status === 'online') roadBreakdown[c.roadName].online++;
       if (c.status === 'offline') roadBreakdown[c.roadName].offline++;
+      if (c.status === 'unstable') roadBreakdown[c.roadName].unstable++;
     });
 
     const onlineRate = total > 0 ? Math.round((online / total) * 100) : 0;
