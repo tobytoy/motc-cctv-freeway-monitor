@@ -56,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </div>
               <p className="text-xs text-slate-400 mt-1">
-                TW Highway CCTV Network • 地圖監控 / 網路品質 / 即時影像
+                TW Highway & Transit Live • 國道監控 / 高鐵台鐵 / 全台捷運 / CCTV 健康品質
               </p>
             </div>
           </div>

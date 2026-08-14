@@ -105,12 +105,22 @@ export default function App() {
     }));
   }, []);
 
+  // Expose global markOffline for map popups and child components
+  useEffect(() => {
+    (window as any).__markCctvOffline = (cctvId: string) => {
+      handleMarkOffline(cctvId);
+    };
+    return () => {
+      delete (window as any).__markCctvOffline;
+    };
+  }, [handleMarkOffline]);
+
   // Batch status check on client side
   const handleCheckBatchStatus = useCallback(async () => {
     setIsCheckingStatus(true);
     try {
-      // Test first 50 CCTVs for quick batch response
-      const subset = cctvs.slice(0, 50);
+      // Test first 60 CCTVs for quick batch response
+      const subset = cctvs.slice(0, 60);
       const probeResults = await Promise.all(
         subset.map(async (item) => {
           const res = await probeSingleCctvStatus(item);
@@ -260,6 +270,7 @@ export default function App() {
             cctvs={cctvs}
             onSelectCctv={setSelectedCctv}
             onCheckStatus={handleCheckSingleStatus}
+            onMarkOffline={handleMarkOffline}
             selectedCctvId={selectedCctv?.cctvId}
             roadFilter={roadFilter}
             setRoadFilter={setRoadFilter}
@@ -306,6 +317,7 @@ export default function App() {
         cctv={selectedCctv}
         onClose={() => setSelectedCctv(null)}
         onCheckStatus={handleCheckSingleStatus}
+        onMarkOffline={handleMarkOffline}
       />
 
       {/* Footer Status Bar */}

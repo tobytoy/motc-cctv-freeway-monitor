@@ -8,12 +8,14 @@ interface CctvPlayerModalProps {
   cctv: CCTVItem | null;
   onClose: () => void;
   onCheckStatus: (cctvId: string) => void;
+  onMarkOffline?: (cctvId: string) => void;
 }
 
 export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
   cctv,
   onClose,
-  onCheckStatus
+  onCheckStatus,
+  onMarkOffline,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -32,7 +34,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
     isHlsStream ? 'hls' : 'mjpg'
   );
 
-  // B1 FIX: Reset per-cctv states when cctv changes, AFTER all hooks are declared
+  // Reset per-cctv states when cctv changes, AFTER all hooks are declared
   useEffect(() => {
     if (!cctv) return;
     setImgLoadError(false);
@@ -62,6 +64,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
       });
       hls.on(Hls.Events.ERROR, (_, data) => {
         if (data.fatal) {
+          if (cctv?.cctvId) onMarkOffline?.(cctv.cctvId);
           setStreamMode('mjpg'); // Fallback to MJPEG
         }
       });
@@ -77,7 +80,7 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
         hls.destroy();
       }
     };
-  }, [cctv?.videoUrl, streamMode]);
+  }, [cctv?.videoUrl, streamMode, onMarkOffline]);
 
   // Snapshot / MJPEG Auto-Refresh Timer
   useEffect(() => {
@@ -198,7 +201,10 @@ export const CctvPlayerModal: React.FC<CctvPlayerModalProps> = ({
               className="w-full h-full object-contain"
               onError={() => {
                 setImgLoadError(true);
-                onCheckStatus(cctv.cctvId);
+                if (cctv?.cctvId) {
+                  onMarkOffline?.(cctv.cctvId);
+                  onCheckStatus(cctv.cctvId);
+                }
                 // Auto-reconnect retry after 5 seconds
                 setTimeout(() => {
                   setImgLoadError(false);

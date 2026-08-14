@@ -83,6 +83,17 @@ def generate_pin_marker(filename, glow_color, bg_color, inner_icon_type, size=64
         draw.ellipse([cx - cw/8, cy - cw/8, cx + cw/8, cy + cw/8], fill=(245, 158, 11, 255))
         draw.polygon([(cx + cw/2, cy - ch/4), (cx + cw*0.75, cy - ch*0.4), (cx + cw*0.75, cy + ch*0.4), (cx + cw/2, cy + ch/4)], fill=ic_c)
 
+    elif inner_icon_type == "metro":
+        cw, ch = ir * 0.9, ir * 0.75
+        # Train body
+        draw.rounded_rectangle([cx - cw/2, cy - ch/2, cx + cw/2, cy + ch/2], radius=int(3*scale), fill=ic_c)
+        # Windshield
+        draw.rounded_rectangle([cx - cw*0.4, cy - ch*0.4, cx + cw*0.4, cy], radius=int(2*scale), fill=(15, 23, 42, 255))
+        # Two headlights
+        hl_r = scale * 1.5
+        draw.ellipse([cx - cw*0.3 - hl_r, cy + ch*0.25 - hl_r, cx - cw*0.3 + hl_r, cy + ch*0.25 + hl_r], fill=(255, 255, 255, 255))
+        draw.ellipse([cx + cw*0.3 - hl_r, cy + ch*0.25 - hl_r, cx + cw*0.3 + hl_r, cy + ch*0.25 + hl_r], fill=(255, 255, 255, 255))
+
     elif inner_icon_type == "unknown":
         cw, ch = ir * 0.9, ir * 0.6
         draw.rounded_rectangle([cx - cw/2, cy - ch/2, cx + cw/2, cy + ch/2], radius=int(3*scale), fill=ic_c)
@@ -102,21 +113,14 @@ def generate_cluster_marker(filename, ring_color, bg_color, size=80):
     draw = ImageDraw.Draw(img)
 
     cx, cy = W // 2, H // 2
-    r = W * 0.38
+    r = W * 0.4
 
-    # Outer glow
-    glow_img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    glow_draw = ImageDraw.Draw(glow_img)
-    for i in range(16, 0, -2):
-        alpha = int(255 * (0.06 * (1 - i / 16)))
-        gc = ring_color + (alpha,)
-        glow_draw.ellipse([cx - r - i*4, cy - r - i*4, cx + r + i*4, cy + r + i*4], fill=gc)
-    
-    glow_img = glow_img.filter(ImageFilter.GaussianBlur(radius=10 * scale // 2))
-    img = Image.alpha_composite(img, glow_img)
-    draw = ImageDraw.Draw(img)
+    # Glow layers
+    for i in range(10, 0, -2):
+        alpha = int(255 * (0.07 * (1 - i / 10)))
+        draw.ellipse([cx - r - i*4, cy - r - i*4, cx + r + i*4, cy + r + i*4], fill=ring_color + (alpha,))
 
-    # Outer Ring
+    # Main Circle
     draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=bg_color, outline=ring_color + (240,), width=int(4 * scale))
 
     # Inner Ring dashed/accent
@@ -157,6 +161,7 @@ def main():
     CYAN = (6, 182, 212)       # Highway Online
     AMBER = (245, 158, 11)     # Freeway Unstable / Warning
     YELLOW = (234, 179, 8)     # Highway Unstable
+    PURPLE = (168, 85, 247)    # Metro
     RED = (239, 68, 68)        # Offline
     SLATE = (100, 116, 139)    # Muted Offline
     MAGENTA = (236, 72, 153)   # Large Cluster
@@ -171,6 +176,7 @@ def main():
     generate_pin_marker("marker-highway-unstable.webp", YELLOW, BG_DARK, "camera_unstable", size=64)
     generate_pin_marker("marker-highway-offline.webp", SLATE, BG_DARK, "camera_offline", size=64)
     generate_pin_marker("marker-unknown.webp", AMBER, BG_DARK, "unknown", size=64)
+    generate_pin_marker("marker-metro.webp", PURPLE, BG_DARK, "metro", size=64)
 
     # 2. Clusters
     generate_cluster_marker("cluster-sm.webp", CYAN, BG_DARK, size=40)
