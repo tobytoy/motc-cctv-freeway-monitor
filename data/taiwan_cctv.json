@@ -15984,6 +15984,22 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "CCTV-N3-S-247.845-M",
+    "type": "freeway",
+    "cctvName": "國道3號",
+    "roadId": "000030",
+    "roadName": "國道3號",
+    "region": "中部",
+    "direction": "雙向",
+    "km": 0.0,
+    "lat": 23.778456,
+    "lng": 120.680846,
+    "videoStreamURL": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=18",
+    "videoImageURL": "",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "CCTV-N3-S-251.566-M",
     "type": "freeway",
     "cctvName": "國道3號",
@@ -35568,22 +35584,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "CCTV-21-1280-002-001",
-    "type": "highway",
-    "cctvName": "128",
-    "roadId": "401280",
-    "roadName": "128",
-    "region": "中部",
-    "direction": "雙向",
-    "km": 0.0,
-    "lat": 24.496896,
-    "lng": 120.703981,
-    "videoStreamURL": "https://cctv-ss03.thb.gov.tw:443/C128-2K+900",
-    "videoImageURL": "https://cctv-ss03.thb.gov.tw:443/C128-2K+900/snapshot",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "CCTV-22-0010-143-002",
     "type": "highway",
     "cctvName": "台1線",
@@ -43856,7 +43856,7 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "CCTV-32-0170-272-002",
+    "cctvId": "CCTV-32-0170-272-003",
     "type": "highway",
     "cctvName": "臨海路二段",
     "roadId": "676138T",
