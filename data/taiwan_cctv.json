@@ -13824,6 +13824,22 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "CCTV-N1-N-181-O-SE-1",
+    "type": "freeway",
+    "cctvName": "國道1號",
+    "roadId": "000010",
+    "roadName": "國道1號",
+    "region": "中部",
+    "direction": "雙向",
+    "km": 0.0,
+    "lat": 24.149907,
+    "lng": 120.622316,
+    "videoStreamURL": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=215",
+    "videoImageURL": "",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "CCTV-N1-N-181.280-M",
     "type": "freeway",
     "cctvName": "國道1號",
