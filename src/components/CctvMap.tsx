@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
 import 'leaflet.markercluster';
-import { CCTVItem } from '../types/cctv';
+import { CCTVItem, RoadLayerType } from '../types/cctv';
 import { getCctvPlaceholderSvg } from '../utils/cctvPlaceholder';
-import { Compass, MapPin, Layers, Train, Globe, Moon, Sun, Activity, Zap } from 'lucide-react';
+import { Compass, MapPin, Layers, Train, Globe, Moon, Sun, Activity, Zap, Building2 } from 'lucide-react';
 
 interface CctvMapProps {
   cctvs: CCTVItem[];
@@ -17,6 +17,10 @@ interface CctvMapProps {
   setRegionFilter: (region: string) => void;
   statusFilter: string;
   setStatusFilter: (status: string) => void;
+  layerFilter: RoadLayerType;
+  setLayerFilter: (layer: RoadLayerType) => void;
+  cityFilter: string;
+  setCityFilter: (city: string) => void;
 }
 
 function haversineDistanceKm(p1: [number, number], p2: [number, number]): number {
@@ -84,6 +88,10 @@ export const CctvMap: React.FC<CctvMapProps> = ({
   setRegionFilter,
   statusFilter,
   setStatusFilter,
+  layerFilter,
+  setLayerFilter,
+  cityFilter,
+  setCityFilter,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -105,12 +113,26 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     speedMultiplierRef.current = speedMultiplier;
   }, [speedMultiplier]);
 
-  const filteredCctvs = cctvs.filter(c => {
-    if (roadFilter !== 'all' && c.roadName !== roadFilter && c.roadId !== roadFilter) return false;
-    if (regionFilter !== 'all' && c.region !== regionFilter) return false;
-    if (statusFilter !== 'all' && c.status !== statusFilter) return false;
-    return true;
-  });
+  const uniqueCities = useMemo(() => {
+    const set = new Set<string>();
+    cctvs.forEach(c => {
+      if (c.city && c.city !== '跨區/國道' && c.city !== '公路局省道') {
+        set.add(c.city);
+      }
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b, 'zh-TW'));
+  }, [cctvs]);
+
+  const filteredCctvs = useMemo(() => {
+    return cctvs.filter(c => {
+      if (layerFilter !== 'all' && c.layerType !== layerFilter) return false;
+      if (cityFilter !== 'all' && c.city !== cityFilter) return false;
+      if (roadFilter !== 'all' && c.roadName !== roadFilter && c.roadId !== roadFilter) return false;
+      if (regionFilter !== 'all' && c.region !== regionFilter) return false;
+      if (statusFilter !== 'all' && c.status !== statusFilter) return false;
+      return true;
+    });
+  }, [cctvs, layerFilter, cityFilter, roadFilter, regionFilter, statusFilter]);
 
   // Map Initialization
   useEffect(() => {
@@ -194,7 +216,7 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     if (baseTileRef.current) map.removeLayer(baseTileRef.current);
     if (overlayTileRef.current) { map.removeLayer(overlayTileRef.current); overlayTileRef.current = null; }
 
-    const tileUrl = basemap === 'satellite' ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}' :
+    const tileUrl = basemap === 'satellite' ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{x}/{y}' :
                     basemap === 'dark' ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' :
                     basemap === 'voyager' ? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png' :
                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -202,11 +224,11 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     const tile = L.tileLayer(tileUrl, { maxZoom: 20 }).addTo(map);
     baseTileRef.current = tile;
     if (basemap === 'satellite') {
-      overlayTileRef.current = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { opacity: 0.8 }).addTo(map);
+      overlayTileRef.current = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{x}/{y}', { opacity: 0.8 }).addTo(map);
     }
   }, [basemap]);
 
-  // Rail & Metro Dynamic Simulation Engine (Realistic Physics & Motion)
+  // Rail & Metro Dynamic Simulation Engine
   useEffect(() => {
     const railGroup = railGroupRef.current;
     const metroGroup = metroGroupRef.current;
@@ -248,36 +270,40 @@ export const CctvMap: React.FC<CctvMapProps> = ({
                   }).bindTooltip('🚄 台灣高鐵 (THSR 全線 350km)', { sticky: true }).addTo(railGroup);
 
                   const thsrTrainConfigs = [
-                    { name: '🚄 高鐵 0609次', dir: 1, speed: 285, startKm: totalKm * 0.15 },
-                    { name: '🚄 高鐵 0118次', dir: -1, speed: 280, startKm: totalKm * 0.80 },
-                    { name: '🚄 高鐵 0203次', dir: 1, speed: 290, startKm: totalKm * 0.45 },
-                    { name: '🚄 高鐵 0814次', dir: -1, speed: 275, startKm: totalKm * 0.60 },
-                    { name: '🚄 高鐵 0663次', dir: 1, speed: 282, startKm: totalKm * 0.72 },
-                    { name: '🚄 高鐵 0134次', dir: -1, speed: 278, startKm: totalKm * 0.28 },
+                    { name: '🚄 高鐵 109次 (南下直達)', speed: 295, dir: 1, start: 0.15 },
+                    { name: '🚄 高鐵 218次 (北上直達)', speed: 295, dir: -1, start: 0.85 },
+                    { name: '🚄 高鐵 633次 (南下各站)', speed: 275, dir: 1, start: 0.45 },
+                    { name: '🚄 高鐵 654次 (北上各站)', speed: 275, dir: -1, start: 0.60 }
                   ];
 
-                  thsrTrainConfigs.forEach(cfg => {
-                    const thsrIcon = L.divIcon({
-                      className: 'custom-train-thsr',
-                      html: `<div class="w-6 h-6 rounded-full bg-gradient-to-tr from-orange-600 to-amber-500 border-2 border-white shadow-[0_0_14px_#f97316] flex items-center justify-center text-[10px] text-white font-bold animate-pulse">🚄</div>`,
+                  thsrTrainConfigs.forEach(tc => {
+                    const startKm = totalKm * tc.start;
+                    const { pos } = interpolatePosAlongTrack(latlngs, cum, startKm);
+                    const trainIcon = L.divIcon({
+                      className: 'custom-train-marker',
+                      html: `
+                        <div class="w-6 h-6 rounded-full bg-orange-500 border-2 border-white flex items-center justify-center text-[10px] text-white shadow-[0_0_12px_#f97316] animate-pulse">
+                          🚄
+                        </div>
+                      `,
                       iconSize: [24, 24],
                       iconAnchor: [12, 12]
                     });
-                    const { pos } = interpolatePosAlongTrack(latlngs, cum, cfg.startKm);
-                    const marker = L.marker(pos, { icon: thsrIcon })
-                      .bindTooltip(`<div class="p-1 font-sans text-xs font-bold text-orange-400">${cfg.name} (時速 ${cfg.speed} km/h)</div>`)
+
+                    const marker = L.marker(pos, { icon: trainIcon })
+                      .bindTooltip(`<div class="p-1 font-sans text-xs font-bold text-orange-400">${tc.name} (${tc.speed} km/h)</div>`)
                       .addTo(railGroup);
 
                     activeVehicles.push({
                       marker,
-                      name: cfg.name,
+                      name: tc.name,
                       systemName: '台灣高鐵',
                       path: latlngs,
                       cum,
                       totalKm,
-                      curDistKm: cfg.startKm,
-                      direction: cfg.dir,
-                      speedKmH: cfg.speed,
+                      curDistKm: startKm,
+                      direction: tc.dir,
+                      speedKmH: tc.speed,
                       type: 'thsr'
                     });
                   });
@@ -289,61 +315,61 @@ export const CctvMap: React.FC<CctvMapProps> = ({
           if (traRes && traRes.ok) {
             const traData = await traRes.json();
             if (traData.lines && Array.isArray(traData.lines)) {
-              const traTrainNames = [
-                { name: '🚆 台鐵 EMU3000 新自強', speed: 125, isExpress: true },
-                { name: '🚆 台鐵 普悠瑪號', speed: 128, isExpress: true },
-                { name: '🚆 台鐵 太魯閣號', speed: 130, isExpress: true },
-                { name: '🚆 台鐵 區間快車', speed: 96, isExpress: false },
-              ];
-
-              let trainCount = 0;
               traData.lines.forEach((line: any) => {
-                if (line.shape && Array.isArray(line.shape) && line.shape.length > 10) {
+                if (line.shape && Array.isArray(line.shape) && line.shape.length > 5) {
                   const latlngs: [number, number][] = line.shape;
                   const cum = computeTrackCumulativeKm(latlngs);
                   const totalKm = cum[cum.length - 1];
-
                   L.polyline(latlngs, {
-                    color: line.color || '#06b6d4',
+                    color: '#38bdf8',
                     weight: 2.5,
-                    opacity: 0.75
-                  }).bindTooltip(`台鐵 ${line.name}`, { sticky: true }).addTo(railGroup);
+                    opacity: 0.75,
+                    dashArray: '4, 4'
+                  }).bindTooltip(`🚆 台鐵 ${line.name}`, { sticky: true }).addTo(railGroup);
 
-                  if (totalKm > 15 && trainCount < traTrainNames.length) {
-                    const cfg = traTrainNames[trainCount % traTrainNames.length];
-                    trainCount++;
-                    const startKm = Math.random() * (totalKm * 0.8) + (totalKm * 0.1);
-                    const traIcon = L.divIcon({
-                      className: 'custom-train-tra',
-                      html: `<div class="w-6 h-6 rounded-full ${cfg.isExpress ? 'bg-cyan-600' : 'bg-teal-600'} border-2 border-white flex items-center justify-center text-[10px] text-white shadow-[0_0_10px_#06b6d4] animate-pulse">🚆</div>`,
-                      iconSize: [24, 24],
-                      iconAnchor: [12, 12]
-                    });
+                  const trainConfigs = [
+                    { name: `🚆 台鐵 自強號 (${line.name} 順行)`, speed: 120, dir: 1, start: 0.2 },
+                    { name: `🚆 台鐵 區間車 (${line.name} 逆行)`, speed: 90, dir: -1, start: 0.7 }
+                  ];
+
+                  trainConfigs.forEach(tc => {
+                    const startKm = totalKm * tc.start;
                     const { pos } = interpolatePosAlongTrack(latlngs, cum, startKm);
-                    const marker = L.marker(pos, { icon: traIcon })
-                      .bindTooltip(`<div class="p-1 font-sans text-xs font-bold text-cyan-400">${cfg.name} (時速 ${cfg.speed} km/h)</div>`)
+                    const trainIcon = L.divIcon({
+                      className: 'custom-tra-marker',
+                      html: `
+                        <div class="w-5 h-5 rounded-full bg-sky-500 border-2 border-white flex items-center justify-center text-[9px] text-white shadow-[0_0_8px_#38bdf8] animate-pulse">
+                          🚆
+                        </div>
+                      `,
+                      iconSize: [20, 20],
+                      iconAnchor: [10, 10]
+                    });
+
+                    const marker = L.marker(pos, { icon: trainIcon })
+                      .bindTooltip(`<div class="p-1 font-sans text-xs font-bold text-sky-400">${tc.name} (${tc.speed} km/h)</div>`)
                       .addTo(railGroup);
 
                     activeVehicles.push({
                       marker,
-                      name: cfg.name,
-                      systemName: '台鐵公司',
+                      name: tc.name,
+                      systemName: '台灣鐵路',
                       path: latlngs,
                       cum,
                       totalKm,
                       curDistKm: startKm,
-                      direction: trainCount % 2 === 0 ? 1 : -1,
-                      speedKmH: cfg.speed,
-                      type: cfg.isExpress ? 'tra_express' : 'tra_local'
+                      direction: tc.dir,
+                      speedKmH: tc.speed,
+                      type: 'tra_express'
                     });
-                  }
+                  });
                 }
               });
             }
           }
         }
 
-        // 2. All Taiwan Metro Systems (Taipei, Taoyuan, Taichung, Kaohsiung & LRT)
+        // 2. Metro & LRT Lines
         if (showMetroLayer) {
           const metroRes = await fetch(`${baseUrl}data/metro_track.json`).catch(() => null);
           if (metroRes && metroRes.ok) {
@@ -359,7 +385,6 @@ export const CctvMap: React.FC<CctvMapProps> = ({
                       const lineColor = line.color || '#3b82f6';
                       const isLrt = sys.id.includes('LRT') || line.id === 'C';
 
-                      // Draw MRT Track Polyline
                       L.polyline(latlngs, {
                         color: lineColor,
                         weight: isLrt ? 3 : 3.5,
@@ -368,7 +393,6 @@ export const CctvMap: React.FC<CctvMapProps> = ({
                         lineJoin: 'round'
                       }).bindTooltip(`🚇 ${sys.name} ${line.name}`, { sticky: true }).addTo(metroGroup);
 
-                      // Determine speed & active trains per line
                       let cruisingSpeed = isLrt ? 38 : (sys.id === 'TYMC' ? 85 : (line.id === 'BR' || line.id === 'Y' ? 55 : 70));
                       let trainInstances = totalKm > 18 ? 2 : (totalKm > 5 ? 1 : 0);
 
@@ -417,7 +441,7 @@ export const CctvMap: React.FC<CctvMapProps> = ({
           }
         }
 
-        // Animation Loop using physical speed and time delta
+        // Animation Loop
         let lastTimestamp = performance.now();
         const animate = (now: number) => {
           const dtSec = Math.min((now - lastTimestamp) / 1000, 0.1);
@@ -481,25 +505,56 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     filteredCctvs.forEach(cctv => {
       if (markersRef.current.has(cctv.cctvId)) return;
 
-      const isHighway = cctv.roadName.includes('台') || cctv.roadId.startsWith('T') || cctv.roadId.startsWith('台');
+      const isCity = cctv.layerType === 'city';
+      const isHighway = cctv.layerType === 'highway' || cctv.roadName.includes('台') || cctv.roadId.startsWith('T') || cctv.roadId.startsWith('台');
+      
       let iconFile = cctv.status === 'offline' ? (isHighway ? 'marker-highway-offline.webp' : 'marker-freeway-offline.webp') :
                      cctv.status === 'unstable' ? (isHighway ? 'marker-highway-unstable.webp' : 'marker-freeway-unstable.webp') :
                      cctv.status === 'unknown' ? 'marker-unknown.webp' : (isHighway ? 'marker-highway-online.webp' : 'marker-freeway-online.webp');
 
-      const marker = L.marker([cctv.latitude, cctv.longitude], {
-        icon: L.icon({
+      // Create Custom Pin Icon
+      let markerIcon: L.Icon | L.DivIcon;
+      if (isCity) {
+        // Special stylish purple DivIcon for city road CCTVs
+        const statusColor = cctv.status === 'online' ? '#a855f7' : cctv.status === 'unstable' ? '#f59e0b' : '#ef4444';
+        markerIcon = L.divIcon({
+          className: 'custom-city-marker',
+          html: `
+            <div class="relative flex items-center justify-center cursor-pointer transition-transform hover:scale-125">
+              <div class="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-xs shadow-lg font-bold"
+                   style="background-color: ${statusColor}; box-shadow: 0 0 10px ${statusColor};">
+                🏙️
+              </div>
+            </div>
+          `,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
+        });
+      } else {
+        markerIcon = L.icon({
           iconUrl: iconUrl(iconFile),
           iconSize: [32, 32],
           iconAnchor: [16, 32]
-        })
+        });
+      }
+
+      const marker = L.marker([cctv.latitude, cctv.longitude], {
+        icon: markerIcon
       });
 
       const placeholderSvg = getCctvPlaceholderSvg(cctv.locationName, cctv.roadName, '即時連線中');
+      const layerBadgeText = cctv.layerType === 'freeway' ? '🛣️ 國道' : cctv.layerType === 'highway' ? '🚗 省道' : '🏙️ 市區道路';
+      const sourceCount = cctv.sources?.length || 1;
+
       const popupHtml = `
-        <div class="p-3 w-64 text-slate-100 font-sans">
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30">${cctv.roadName}</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${
+        <div class="p-3 w-68 text-slate-100 font-sans">
+          <div class="flex items-center justify-between gap-1.5 mb-2">
+            <div class="flex items-center gap-1">
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30">${layerBadgeText}</span>
+              ${cctv.city && cctv.city !== '跨區/國道' ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-300 border border-slate-700">${cctv.city}</span>` : ''}
+              ${sourceCount > 1 ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-600/30 text-purple-300 border border-purple-500/30">雙源/多源</span>` : ''}
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold shrink-0 ${
               cctv.status === 'online' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
               cctv.status === 'unstable' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
               'bg-rose-500/20 text-rose-400 border border-rose-500/30'
@@ -507,13 +562,18 @@ export const CctvMap: React.FC<CctvMapProps> = ({
               ${cctv.status === 'online' ? '● 正常' : cctv.status === 'unstable' ? '▲ 不穩' : '✖ 離線'}
             </span>
           </div>
-          <h3 class="font-bold text-sm mb-2">${cctv.locationName}</h3>
-          <div class="aspect-video bg-slate-950 rounded border border-slate-800 mb-3 overflow-hidden">
+          <h3 class="font-bold text-sm mb-1 leading-snug">${cctv.locationName}</h3>
+          <p class="text-[11px] text-slate-400 font-mono mb-2">${cctv.roadName} ${cctv.mileage || ''}</p>
+          <div class="aspect-video bg-slate-950 rounded-xl border border-slate-800 mb-3 overflow-hidden">
             <img id="popup-img-${cctv.cctvId}" src="${cctv.snapshotUrl || cctv.videoUrl || placeholderSvg}" class="w-full h-full object-cover" onerror="this.src='${placeholderSvg}'" />
           </div>
           <div class="grid grid-cols-2 gap-1.5">
-            <button id="btn-play-${cctv.cctvId}" class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-1.5 rounded text-xs transition">觀看影像</button>
-            <button id="btn-check-${cctv.cctvId}" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-1.5 rounded text-xs transition">測速檢查</button>
+            <button id="btn-play-${cctv.cctvId}" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-1.5 rounded-lg text-xs transition shadow-md shadow-blue-900/30">
+              開啟即時播放
+            </button>
+            <button id="btn-check-${cctv.cctvId}" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium py-1.5 rounded-lg text-xs transition border border-slate-700">
+              重新測速
+            </button>
           </div>
         </div>
       `;
@@ -542,61 +602,126 @@ export const CctvMap: React.FC<CctvMapProps> = ({
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-160px)] min-h-[520px] bg-slate-950 rounded-2xl overflow-hidden border border-slate-800/80 shadow-2xl flex flex-col">
+    <div className="relative w-full h-[calc(100vh-210px)] min-h-[540px] bg-slate-950 rounded-2xl overflow-hidden border border-slate-800/80 shadow-2xl flex flex-col">
       
-      {/* Top Map Control Toolbar */}
-      <div className="absolute top-3 left-3 z-[1000] flex flex-wrap items-center gap-2 max-w-[calc(100%-60px)]">
+      {/* Top Map Control Floating Toolbar */}
+      <div className="absolute top-3 left-3 right-16 z-20 flex flex-wrap items-center gap-2 pointer-events-auto">
         
+        {/* Road Layer Filter Pills (Freeway / Highway / City) */}
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-1 flex items-center gap-1 shadow-xl overflow-x-auto text-xs">
+          <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold px-2 flex items-center gap-1 shrink-0">
+            <Layers className="w-3.5 h-3.5 text-blue-400" />
+            路網:
+          </span>
+          <button
+            onClick={() => setLayerFilter('all')}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              layerFilter === 'all' ? 'bg-blue-600 text-white border-blue-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            }`}
+          >
+            全部路網
+          </button>
+          <button
+            onClick={() => { setLayerFilter('freeway'); handleFlyTo(24.2, 120.7, 8); }}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              layerFilter === 'freeway' ? 'bg-blue-600 text-white border-blue-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            }`}
+          >
+            🛣️ 國道
+          </button>
+          <button
+            onClick={() => { setLayerFilter('highway'); handleFlyTo(23.8, 120.5, 8); }}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              layerFilter === 'highway' ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            }`}
+          >
+            🚗 省道快速
+          </button>
+          <button
+            onClick={() => { setLayerFilter('city'); handleFlyTo(25.03, 121.53, 11); }}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              layerFilter === 'city' ? 'bg-purple-600 text-white border-purple-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            }`}
+          >
+            🏙️ 市區道路 (雙北/六都)
+          </button>
+        </div>
+
+        {/* City Filter Dropdown */}
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-2.5 py-1 flex items-center gap-1.5 shadow-xl text-xs">
+          <Building2 className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+          <span className="text-[10px] text-slate-400 font-semibold uppercase">縣市:</span>
+          <select
+            value={cityFilter}
+            onChange={(e) => {
+              const c = e.target.value;
+              setCityFilter(c);
+              if (c === '臺北市') handleFlyTo(25.04, 121.54, 12);
+              else if (c === '新北市') handleFlyTo(25.01, 121.46, 12);
+              else if (c === '桃園市') handleFlyTo(24.99, 121.30, 11);
+              else if (c === '臺中市') handleFlyTo(24.15, 120.67, 11);
+              else if (c === '臺南市') handleFlyTo(22.99, 120.20, 11);
+              else if (c === '高雄市') handleFlyTo(22.62, 120.31, 11);
+            }}
+            className="bg-slate-950 border border-slate-700 rounded-lg px-2 py-0.5 text-xs text-slate-200 focus:outline-none cursor-pointer"
+          >
+            <option value="all">全部縣市</option>
+            {uniqueCities.map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+
         {/* Preset Region Selector */}
-        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-1.5 flex items-center gap-1 shadow-2xl overflow-x-auto text-xs">
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-1 flex items-center gap-1 shadow-xl overflow-x-auto text-xs">
           <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold px-2 flex items-center gap-1 shrink-0">
             <Compass className="w-3.5 h-3.5 text-blue-400" />
             區域:
           </span>
           <button
             onClick={() => { setRegionFilter('all'); handleFlyTo(23.8, 120.9, 8); }}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
-              regionFilter === 'all' ? 'bg-blue-600 text-white border-blue-500' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              regionFilter === 'all' ? 'bg-blue-600 text-white border-blue-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             🇹🇼 全台
           </button>
           <button
             onClick={() => { setRegionFilter('北部'); handleFlyTo(25.0, 121.5, 10); }}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
-              regionFilter === '北部' ? 'bg-blue-600 text-white border-blue-500' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              regionFilter === '北部' ? 'bg-blue-600 text-white border-blue-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             北區
           </button>
           <button
             onClick={() => { setRegionFilter('中部'); handleFlyTo(24.1, 120.6, 10); }}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
-              regionFilter === '中部' ? 'bg-blue-600 text-white border-blue-500' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              regionFilter === '中部' ? 'bg-blue-600 text-white border-blue-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             中區
           </button>
           <button
             onClick={() => { setRegionFilter('南部'); handleFlyTo(22.8, 120.3, 10); }}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
-              regionFilter === '南部' ? 'bg-blue-600 text-white border-blue-500' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              regionFilter === '南部' ? 'bg-blue-600 text-white border-blue-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             南區
           </button>
           <button
             onClick={() => { setRegionFilter('東部'); handleFlyTo(24.3, 121.7, 9); }}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
-              regionFilter === '東部' ? 'bg-blue-600 text-white border-blue-500' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition border ${
+              regionFilter === '東部' ? 'bg-blue-600 text-white border-blue-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             東區
           </button>
         </div>
 
-        {/* Status Health Filter Pills (Green / Yellow / Red) */}
-        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-1.5 flex items-center gap-1 shadow-2xl overflow-x-auto text-xs">
+        {/* Status Health Filter Pills */}
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-1 flex items-center gap-1 shadow-xl overflow-x-auto text-xs">
           <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold px-2 flex items-center gap-1 shrink-0">
             <Activity className="w-3.5 h-3.5 text-emerald-400" />
             健康度:
@@ -612,7 +737,7 @@ export const CctvMap: React.FC<CctvMapProps> = ({
           <button
             onClick={() => setStatusFilter('online')}
             className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
-              statusFilter === 'online' ? 'bg-emerald-600 text-white border-emerald-400 shadow-md shadow-emerald-900/30' : 'bg-slate-800/80 text-emerald-400 hover:bg-slate-700 border-slate-700/50'
+              statusFilter === 'online' ? 'bg-emerald-600 text-white border-emerald-400 shadow-sm' : 'bg-slate-800/80 text-emerald-400 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
@@ -621,7 +746,7 @@ export const CctvMap: React.FC<CctvMapProps> = ({
           <button
             onClick={() => setStatusFilter('unstable')}
             className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
-              statusFilter === 'unstable' ? 'bg-amber-600 text-white border-amber-400 shadow-md shadow-amber-900/30' : 'bg-slate-800/80 text-amber-400 hover:bg-slate-700 border-slate-700/50'
+              statusFilter === 'unstable' ? 'bg-amber-600 text-white border-amber-400 shadow-sm' : 'bg-slate-800/80 text-amber-400 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
@@ -630,7 +755,7 @@ export const CctvMap: React.FC<CctvMapProps> = ({
           <button
             onClick={() => setStatusFilter('offline')}
             className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
-              statusFilter === 'offline' ? 'bg-rose-600 text-white border-rose-400 shadow-md shadow-rose-900/30' : 'bg-slate-800/80 text-rose-400 hover:bg-slate-700 border-slate-700/50'
+              statusFilter === 'offline' ? 'bg-rose-600 text-white border-rose-400 shadow-sm' : 'bg-slate-800/80 text-rose-400 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
@@ -638,56 +763,32 @@ export const CctvMap: React.FC<CctvMapProps> = ({
           </button>
         </div>
 
-        {/* Highway Preset Selectors */}
-        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-1.5 flex items-center gap-1 shadow-2xl overflow-x-auto text-xs">
+        {/* Reset Filters */}
+        {(layerFilter !== 'all' || cityFilter !== 'all' || roadFilter !== 'all' || regionFilter !== 'all' || statusFilter !== 'all') && (
           <button
-            onClick={() => { setRoadFilter('國道1號'); handleFlyTo(24.2, 120.7, 9); }}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition ${
-              roadFilter === '國道1號' ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border border-slate-700/50'
-            }`}
+            onClick={() => {
+              setLayerFilter('all');
+              setCityFilter('all');
+              setRoadFilter('all');
+              setRegionFilter('all');
+              setStatusFilter('all');
+            }}
+            className="px-2.5 py-1.5 rounded-xl bg-rose-600/20 text-rose-300 border border-rose-500/30 hover:bg-rose-600/30 text-xs transition font-semibold"
           >
-            國1 中山高
+            重置條件
           </button>
-          <button
-            onClick={() => { setRoadFilter('國道3號'); handleFlyTo(24.1, 120.8, 9); }}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition ${
-              roadFilter === '國道3號' ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border border-slate-700/50'
-            }`}
-          >
-            國3 福爾摩沙
-          </button>
-          <button
-            onClick={() => { setRoadFilter('國道5號'); handleFlyTo(24.9, 121.7, 11); }}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition ${
-              roadFilter === '國道5號' ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border border-slate-700/50'
-            }`}
-          >
-            國5 雪隧
-          </button>
-          {(roadFilter !== 'all' || regionFilter !== 'all' || statusFilter !== 'all') && (
-            <button
-              onClick={() => {
-                setRoadFilter('all');
-                setRegionFilter('all');
-                setStatusFilter('all');
-              }}
-              className="px-2.5 py-1 rounded-lg bg-rose-600/20 text-rose-300 border border-rose-500/30 hover:bg-rose-600/30 text-xs transition font-semibold"
-            >
-              重置條件
-            </button>
-          )}
-        </div>
+        )}
 
         {/* Basemap Switcher */}
-        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-1.5 flex items-center gap-1 shadow-2xl overflow-x-auto text-xs">
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-1 flex items-center gap-1 shadow-xl overflow-x-auto text-xs">
           <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold px-2 flex items-center gap-1 shrink-0">
-            <Layers className="w-3.5 h-3.5 text-cyan-400" />
+            <Globe className="w-3.5 h-3.5 text-cyan-400" />
             底圖:
           </span>
           <button
             onClick={() => setBasemap('dark')}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
-              basemap === 'dark' ? 'bg-cyan-600 text-white border-cyan-500 shadow-md shadow-cyan-900/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
+              basemap === 'dark' ? 'bg-cyan-600 text-white border-cyan-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             <Moon className="w-3 h-3" />
@@ -695,17 +796,16 @@ export const CctvMap: React.FC<CctvMapProps> = ({
           </button>
           <button
             onClick={() => setBasemap('satellite')}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
-              basemap === 'satellite' ? 'bg-cyan-600 text-white border-cyan-500 shadow-md shadow-cyan-900/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
+              basemap === 'satellite' ? 'bg-cyan-600 text-white border-cyan-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
-            <Globe className="w-3 h-3 text-emerald-400" />
             🛰️ 衛星
           </button>
           <button
             onClick={() => setBasemap('voyager')}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
-              basemap === 'voyager' ? 'bg-cyan-600 text-white border-cyan-500 shadow-md shadow-cyan-900/30' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1 border ${
+              basemap === 'voyager' ? 'bg-cyan-600 text-white border-cyan-500 shadow-sm' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border-slate-700/50'
             }`}
           >
             <Sun className="w-3 h-3 text-amber-400" />
@@ -713,14 +813,12 @@ export const CctvMap: React.FC<CctvMapProps> = ({
           </button>
         </div>
 
-        {/* Rail & Metro Layer Toggles + Multiplier */}
-        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-1.5 flex items-center gap-1.5 shadow-2xl text-xs">
-          
-          {/* Rail Toggle */}
+        {/* Rail & Metro Layer Toggles */}
+        <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-1 flex items-center gap-1.5 shadow-xl text-xs">
           <button
             onClick={() => setShowRailLayer(prev => !prev)}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1.5 border ${
-              showRailLayer ? 'bg-orange-600/90 text-white border-orange-400 shadow-md shadow-orange-900/40' : 'bg-slate-800/80 text-slate-400 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1.5 border ${
+              showRailLayer ? 'bg-orange-600/90 text-white border-orange-400 shadow-sm' : 'bg-slate-800/80 text-slate-400 hover:bg-slate-700 border-slate-700/50'
             }`}
             title="開啟/關閉 台灣高鐵與台鐵動態列車軌跡"
           >
@@ -728,11 +826,10 @@ export const CctvMap: React.FC<CctvMapProps> = ({
             <span>🚆 鐵道動態 {showRailLayer ? '開' : '關'}</span>
           </button>
 
-          {/* Metro Toggle */}
           <button
             onClick={() => setShowMetroLayer(prev => !prev)}
-            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1.5 border ${
-              showMetroLayer ? 'bg-purple-600/90 text-white border-purple-400 shadow-md shadow-purple-900/40' : 'bg-slate-800/80 text-slate-400 hover:bg-slate-700 border-slate-700/50'
+            className={`px-2 py-1 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1.5 border ${
+              showMetroLayer ? 'bg-purple-600/90 text-white border-purple-400 shadow-sm' : 'bg-slate-800/80 text-slate-400 hover:bg-slate-700 border-slate-700/50'
             }`}
             title="開啟/關閉 台北/桃園/台中/高雄捷運與輕軌路網"
           >
@@ -756,7 +853,6 @@ export const CctvMap: React.FC<CctvMapProps> = ({
               ))}
             </div>
           )}
-
         </div>
 
       </div>
@@ -764,12 +860,12 @@ export const CctvMap: React.FC<CctvMapProps> = ({
       {/* Map Leaflet Container */}
       <div ref={mapContainerRef} className="w-full h-full z-1" />
 
-      {/* Map Bottom Legend Overlay (Three-tier Health + Transit indicators) */}
-      <div className="absolute bottom-4 left-4 z-[1000] bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl px-3.5 py-2 shadow-2xl flex flex-wrap items-center gap-4 text-xs">
+      {/* Map Bottom Legend Overlay */}
+      <div className="absolute bottom-3 left-3 z-20 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-3.5 py-2 shadow-2xl flex flex-wrap items-center gap-4 text-xs">
         <span className="text-slate-400 font-medium flex items-center gap-1.5">
           <MapPin className="w-3.5 h-3.5 text-blue-400" />
-          <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">顯示站點:</span>
-          <strong className="text-white font-mono ml-1 text-sm">{filteredCctvs.length}</strong>
+          <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">顯示點位:</span>
+          <strong className="text-white font-mono ml-1 text-sm">{filteredCctvs.length.toLocaleString()}</strong>
         </span>
         <div className="h-3 w-px bg-slate-800 hidden sm:block"></div>
         <div className="flex items-center space-x-3 text-[11px] font-medium">

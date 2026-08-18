@@ -1,4 +1,4 @@
-import { Camera, Map, List, BarChart3, RefreshCw, Search, Timer } from 'lucide-react';
+import { Camera, Map, List, BarChart3, RefreshCw, Search, Timer, Layers } from 'lucide-react';
 import { CCTVStats } from '../types/cctv';
 
 interface HeaderProps {
@@ -12,7 +12,6 @@ interface HeaderProps {
   isRefreshing: boolean;
   isCheckingStatus: boolean;
   dataSource: 'live' | 'json' | 'fallback';
-  // F1: Auto-refresh props
   autoRefreshMinutes: number;
   setAutoRefreshMinutes: (minutes: number) => void;
 }
@@ -32,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
   setAutoRefreshMinutes,
 }) => {
   return (
-    <header className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/80 sticky top-0 z-40 shadow-xl">
+    <header className="bg-slate-900/95 backdrop-blur-xl border-b border-slate-800/80 sticky top-0 z-50 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           
@@ -44,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-lg sm:text-xl font-extrabold leading-none text-white tracking-tight">
-                  台灣國道 CCTV 即時監控儀表板
+                  台灣全網 CCTV 即時多源監控儀表板
                 </h1>
                 <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
                   dataSource === 'live' 
@@ -52,11 +51,15 @@ export const Header: React.FC<HeaderProps> = ({
                     : 'bg-blue-500/10 text-blue-400 border-blue-500/30'
                 }`}>
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span>
-                  {dataSource === 'live' ? 'MOTC 即時' : '靜態資產包'}
+                  {dataSource === 'live' ? 'TDX 即時' : '全台多源資料庫'}
+                </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/10 text-purple-400 border border-purple-500/30 hidden sm:inline-flex">
+                  <Layers className="w-3 h-3 mr-1" />
+                  雙源/多源 HLS+快照
                 </span>
               </div>
               <p className="text-xs text-slate-400 mt-1">
-                TW Highway & Transit Live • 國道監控 / 高鐵台鐵 / 全台捷運 / CCTV 健康品質
+                TW Multi-Source CCTV • 國道高速 / 省道快速 / 雙北六都市區道路 / 智慧自動容錯
               </p>
             </div>
           </div>
@@ -64,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Quick Metrics Bar - Monospace Telemetry */}
           <div className="flex items-center gap-3 sm:gap-5 overflow-x-auto pb-1 lg:pb-0">
             <div className="flex flex-col items-end">
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">總數</span>
+              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">總監控點</span>
               <span className="text-xl font-mono font-bold text-blue-400">{stats.total.toLocaleString()}</span>
             </div>
             <div className="flex flex-col items-end border-l border-slate-800/80 pl-3 sm:pl-5">
@@ -96,13 +99,13 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={onRefreshAll}
                 disabled={isRefreshing}
                 className="inline-flex items-center px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition disabled:opacity-50 shadow-sm"
-                title="重新載入高公局 CCTV 最新資料"
+                title="重新載入 CCTV 最新資料"
               >
                 <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${isRefreshing ? 'animate-spin' : ''}`} />
                 重新載入
               </button>
 
-              {/* F1: Auto-refresh selector */}
+              {/* Auto-refresh selector */}
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
                 <Timer className={`w-3.5 h-3.5 ${autoRefreshMinutes > 0 ? 'text-emerald-400 animate-pulse' : 'text-slate-400'}`} />
                 <select
@@ -174,7 +177,7 @@ export const Header: React.FC<HeaderProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="搜尋國道 (如: 國1)、里程 (如: 10K) 或地點..."
+              placeholder="搜尋路名 (如: 仁愛路、國1)、縣市或里程..."
               className="w-full bg-slate-950/80 border border-slate-800 rounded-xl py-1.5 pl-9 pr-8 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition shadow-inner"
             />
             {searchQuery && (

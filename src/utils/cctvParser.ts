@@ -1,5 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
-import { CCTVItem, CCTVStatus, TaiwanRegion, DirectionType } from '../types/cctv';
+import { CCTVItem, CCTVStatus, TaiwanRegion, DirectionType, RoadLayerType, CCTVStreamSource } from '../types/cctv';
 import { FALLBACK_CCTVS } from '../data/fallbackCCTV';
 
 export function formatRoadName(roadId: string, locationStr: string = ''): string {
@@ -75,6 +75,100 @@ export function extractMileage(location: string): string | undefined {
 }
 
 /**
+ * Builds a default list of stream sources if the item does not have one
+ */
+export function buildDefaultSources(
+  cctvId: string,
+  videoUrl: string,
+  snapshotUrl?: string,
+  layerType: RoadLayerType = 'freeway',
+  city: string = ''
+): CCTVStreamSource[] {
+  const sources: CCTVStreamSource[] = [];
+
+  const isHls = videoUrl.includes('.m3u8');
+  const isMjpg = videoUrl.includes('bmjpg') || videoUrl.includes('mjpg');
+
+  if (layerType === 'freeway') {
+    const hlsUrl = isHls ? videoUrl : `https://cctv.freeway.gov.tw/live/${cctvId}.m3u8`;
+    const mjpgUrl = isMjpg ? videoUrl : snapshotUrl || `https://cctvn.freeway.gov.tw/abs2mjpg/bmjpg?camera=${cctvId}`;
+    
+    sources.push({
+      id: 'src-1',
+      name: '國道官方 HLS 高清串流',
+      type: 'hls',
+      url: hlsUrl,
+      quality: '720p',
+      isPrimary: isHls || !isMjpg,
+    });
+    sources.push({
+      id: 'src-2',
+      name: '國道即時 MJPEG 輪播',
+      type: 'mjpg',
+      url: mjpgUrl,
+      quality: '480p',
+      isPrimary: !isHls && isMjpg,
+    });
+  } else if (city === '新北市' || cctvId.startsWith('C000')) {
+    const hlsUrl = isHls ? videoUrl : `https://cctvatis6.ntpc.gov.tw/hls/${cctvId}/live.m3u8`;
+    sources.push({
+      id: 'src-ntpc-hls',
+      name: '新北 ATIS 高清串流 (HLS)',
+      type: 'hls',
+      url: hlsUrl,
+      quality: '720p',
+      isPrimary: true,
+    });
+    sources.push({
+      id: 'src-ntpc-atis',
+      name: '新北交通局備用源 (ATIS)',
+      type: 'snapshot',
+      url: snapshotUrl || videoUrl || `https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/${cctvId}`,
+      quality: '480p',
+      isPrimary: false,
+    });
+  } else if (city === '臺北市' || cctvId.startsWith('T000')) {
+    sources.push({
+      id: 'src-tpe-hls',
+      name: '台北市交工處高清串流 (HLS)',
+      type: 'hls',
+      url: videoUrl,
+      quality: '1080p',
+      isPrimary: true,
+    });
+    sources.push({
+      id: 'src-tpe-snap',
+      name: '台北市備用快照源',
+      type: 'snapshot',
+      url: snapshotUrl || videoUrl,
+      quality: '480p',
+      isPrimary: false,
+    });
+  } else {
+    sources.push({
+      id: 'src-main',
+      name: isHls ? '高清 HLS 串流' : isMjpg ? 'MJPEG 即時影像' : '即時視訊串流',
+      type: isHls ? 'hls' : isMjpg ? 'mjpg' : 'snapshot',
+      url: videoUrl || snapshotUrl || '',
+      quality: isHls ? '720p' : '480p',
+      isPrimary: true,
+    });
+    if (snapshotUrl && snapshotUrl !== videoUrl) {
+      sources.push({
+        id: 'src-backup',
+        name: '備用快照訊號',
+        type: 'snapshot',
+        url: snapshotUrl,
+        quality: 'SD',
+        isPrimary: false,
+      });
+    }
+  }
+
+  return sources;
+}
+
+/**
  * Parses XML text into CCTVItem list
  */
 export function parseCctvXml(xmlText: string): CCTVItem[] {
@@ -119,7 +213,7 @@ export function parseCctvXml(xmlText: string): CCTVItem[] {
     const lon = parseFloat(lonStr);
     const lat = parseFloat(latStr);
 
-    if (isNaN(lon) || isNaN(lat) || lon < 119.0 || lon > 123.0 || lat < 21.0 || lat > 26.0) {
+    if (isNaN(lon) || isNaN(lat) || lon < 118.0 || lon > 123.0 || lat < 21.0 || lat > 26.5) {
       continue;
     }
 
@@ -129,8 +223,12 @@ export function parseCctvXml(xmlText: string): CCTVItem[] {
     const direction = parseDirection(locationName);
     const mileage = extractMileage(locationName);
 
-    // B4: Status from XML; responseTimeMs left as undefined until real probe
+    const isFreeway = roadName.includes('國道');
+    const layerType: RoadLayerType = isFreeway ? 'freeway' : 'highway';
+
     const status: CCTVStatus = item.SurveillanceType === '0' || item.Status === '0' ? 'offline' : 'unknown';
+    const snapshotUrl = videoUrl.includes('.jpg') || videoUrl.includes('.png') ? videoUrl : undefined;
+    const sources = buildDefaultSources(cctvId, videoUrl, snapshotUrl, layerType);
 
     parsedItems.push({
       cctvId,
@@ -139,15 +237,19 @@ export function parseCctvXml(xmlText: string): CCTVItem[] {
       locationName,
       longitude: lon,
       latitude: lat,
+      type: layerType,
+      layerType,
+      city: isFreeway ? '跨區/國道' : '公路局省道',
+      sources,
+      activeSourceIndex: 0,
       videoUrl: videoUrl || `https://cctv.freeway.gov.tw/live/${cctvId}.m3u8`,
-      snapshotUrl: videoUrl.includes('.jpg') || videoUrl.includes('.png') ? videoUrl : undefined,
-      // B5: surveillanceType removed (unused)
+      snapshotUrl,
       status,
       region,
       direction,
       mileage,
       lastChecked: new Date().toISOString(),
-      responseTimeMs: undefined, // B4: will be set only after real probeSingleCctvStatus
+      responseTimeMs: undefined,
     });
   }
 
@@ -176,17 +278,33 @@ export async function fetchCctvListClient(): Promise<{ data: CCTVItem[]; source:
                                 item.status === 'unstable' ? 'unstable' :
                                 item.status === 'online' ? 'online' : 'online';
 
+          const cctvId = item.cctvId || item.cctv_id || item.id || `CCTV-${Math.random().toString(36).substring(2, 8)}`;
+          const lat = Number(item.latitude ?? item.lat ?? item.PositionLat ?? 25.0);
+          const lng = Number(item.longitude ?? item.lng ?? item.PositionLon ?? 121.5);
+          const layerType: RoadLayerType = (item.layerType as RoadLayerType) ||
+                                           (item.type === 'freeway' ? 'freeway' : item.type === 'highway' ? 'highway' : item.type === 'city' ? 'city' : 'freeway');
+          const city = item.city || (layerType === 'freeway' ? '跨區/國道' : '公路局省道');
+
+          const sources: CCTVStreamSource[] = Array.isArray(item.sources) && item.sources.length > 0
+            ? item.sources
+            : buildDefaultSources(cctvId, streamUrl, imageUrl, layerType, city);
+
           return {
-            cctvId: item.cctvId || item.cctv_id || item.id || `CCTV-${Math.random().toString(36).substring(2, 8)}`,
+            cctvId,
             roadId: item.roadId || item.road_id || item.roadName || '',
             roadName: item.roadName || item.road_name || '一般道路',
             locationName: item.locationName || item.cctvName || item.name || '即時影像點位',
-            longitude: Number(item.longitude ?? item.lng ?? item.PositionLon ?? 121.5),
-            latitude: Number(item.latitude ?? item.lat ?? item.PositionLat ?? 25.0),
+            longitude: lng,
+            latitude: lat,
+            type: item.type || layerType,
+            layerType,
+            city,
+            sources,
+            activeSourceIndex: item.activeSourceIndex ?? 0,
             videoUrl: streamUrl || imageUrl,
             snapshotUrl: imageUrl || streamUrl || undefined,
             status: initialStatus as CCTVStatus,
-            region: (item.region as TaiwanRegion) || determineRegion(Number(item.latitude ?? item.lat ?? 25.0), Number(item.longitude ?? item.lng ?? 121.5)),
+            region: (item.region as TaiwanRegion) || determineRegion(lat, lng),
             direction: (item.direction as DirectionType) || '雙向',
             mileage: item.mileage || (item.km !== undefined && item.km !== null ? `${item.km}K` : undefined),
             lastChecked: item.lastChecked || item.fetchedAt || new Date().toISOString(),
@@ -225,22 +343,21 @@ export async function fetchCctvListClient(): Promise<{ data: CCTVItem[]; source:
     console.warn('CORS proxy XML fetch failed:', e);
   }
 
-  return { data: FALLBACK_CCTVS, source: 'fallback' };
+  return { data: FALLBACK_CCTVS as any, source: 'fallback' };
 }
 
 /**
- * Client-side browser network latency and availability probe for a CCTV item
+ * Client-side browser network latency and availability probe for a CCTV item or specific source
  */
-export async function probeSingleCctvStatus(item: CCTVItem): Promise<{ status: CCTVStatus; responseTimeMs: number }> {
+export async function probeSingleCctvStatus(item: CCTVItem, sourceUrl?: string): Promise<{ status: CCTVStatus; responseTimeMs: number }> {
   const startTime = performance.now();
+  const targetUrl = sourceUrl || item.snapshotUrl || item.videoUrl;
   
-  if (!item.videoUrl && !item.snapshotUrl) {
+  if (!targetUrl) {
     return { status: 'offline', responseTimeMs: 0 };
   }
 
-  const targetUrl = item.snapshotUrl || item.videoUrl;
   const isImageTarget = Boolean(
-    item.snapshotUrl ||
     targetUrl.includes('.jpg') ||
     targetUrl.includes('.jpeg') ||
     targetUrl.includes('.png') ||

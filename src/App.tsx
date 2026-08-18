@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import { CCTVItem, CCTVStats } from './types/cctv';
+import { CCTVItem, CCTVStats, RoadLayerType } from './types/cctv';
 import { FALLBACK_CCTVS } from './data/fallbackCCTV';
 import { fetchCctvListClient, probeSingleCctvStatus } from './utils/cctvParser';
 import { Header } from './components/Header';
@@ -9,7 +9,6 @@ import { CctvPlayerModal } from './components/CctvPlayerModal';
 import { StatsDashboard } from './components/StatsDashboard';
 import { AlertCircle } from 'lucide-react';
 
-// F3: Parse initial state from URL search params
 function getInitialCctvIdFromUrl(): string | null {
   return new URLSearchParams(window.location.search).get('camera');
 }
@@ -21,6 +20,8 @@ export default function App() {
   const [roadFilter, setRoadFilter] = useState('all');
   const [regionFilter, setRegionFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [layerFilter, setLayerFilter] = useState<RoadLayerType>('all');
+  const [cityFilter, setCityFilter] = useState('all');
   const [dataSource, setDataSource] = useState<'live' | 'json' | 'fallback'>('json');
 
   const [selectedCctv, setSelectedCctv] = useState<CCTVItem | null>(null);
@@ -29,7 +30,7 @@ export default function App() {
   const [lastUpdated, setLastUpdated] = useState<string>(new Date().toLocaleTimeString());
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // F1: Auto-refresh interval (default 2 minutes for continuous keepalive)
+  // Auto-refresh interval (default 2 minutes)
   const [autoRefreshMinutes, setAutoRefreshMinutes] = useState<number>(2);
 
   // Load CCTV dataset
@@ -50,7 +51,7 @@ export default function App() {
       console.warn('Failed to load CCTV data, using fallback:', err);
       setCctvs(FALLBACK_CCTVS);
       setDataSource('fallback');
-      setErrorMsg('已載入預設全台國道 CCTV 資料');
+      setErrorMsg('已載入預設全台 CCTV 資料');
     } finally {
       setIsRefreshing(false);
     }
@@ -60,16 +61,16 @@ export default function App() {
     loadCctvData();
   }, [loadCctvData]);
 
-  // F3: On first load, open modal if URL has ?camera= param
+  // On first load, open modal if URL has ?camera= param
   useEffect(() => {
     const initialId = getInitialCctvIdFromUrl();
     if (initialId && cctvs.length > 0) {
       const found = cctvs.find(c => c.cctvId === initialId);
       if (found) setSelectedCctv(found);
     }
-  }, [cctvs]); // runs once after cctvs are loaded
+  }, [cctvs]);
 
-  // F3: Sync URL search param when selectedCctv changes
+  // Sync URL search param when selectedCctv changes
   useEffect(() => {
     const url = new URL(window.location.href);
     if (selectedCctv) {
@@ -80,7 +81,7 @@ export default function App() {
     window.history.replaceState(null, '', url.toString());
   }, [selectedCctv]);
 
-  // F1: Auto-refresh interval effect
+  // Auto-refresh interval effect
   useEffect(() => {
     if (autoRefreshMinutes <= 0) return;
     const intervalMs = autoRefreshMinutes * 60 * 1000;
@@ -90,7 +91,7 @@ export default function App() {
     return () => clearInterval(timer);
   }, [autoRefreshMinutes, loadCctvData]);
 
-  // Mark a single CCTV as offline (e.g. when image fails to load in UI)
+  // Mark a single CCTV as offline
   const handleMarkOffline = useCallback((cctvId: string) => {
     setCctvs(prev => prev.map(item => {
       if (item.cctvId === cctvId && item.status !== 'offline') {
@@ -119,7 +120,6 @@ export default function App() {
   const handleCheckBatchStatus = useCallback(async () => {
     setIsCheckingStatus(true);
     try {
-      // Test first 60 CCTVs for quick batch response
       const subset = cctvs.slice(0, 60);
       const probeResults = await Promise.all(
         subset.map(async (item) => {
@@ -180,7 +180,7 @@ export default function App() {
     }
   }, [cctvs, selectedCctv]);
 
-  // F3: Share link handler
+  // Share link handler
   const handleShareCamera = useCallback((cctv: CCTVItem) => {
     const url = new URL(window.location.href);
     url.searchParams.set('camera', cctv.cctvId);
@@ -195,6 +195,8 @@ export default function App() {
     let unstable = 0;
     let unknown = 0;
 
+    const layerBreakdown: Record<string, { total: number; online: number; offline: number; unstable: number }> = {};
+    const cityBreakdown: Record<string, number> = {};
     const roadBreakdown: Record<string, { total: number; online: number; offline: number; unstable: number }> = {};
 
     cctvs.forEach(c => {
@@ -202,6 +204,19 @@ export default function App() {
       else if (c.status === 'offline') offline++;
       else if (c.status === 'unstable') unstable++;
       else unknown++;
+
+      const layerKey = c.layerType || 'freeway';
+      if (!layerBreakdown[layerKey]) {
+        layerBreakdown[layerKey] = { total: 0, online: 0, offline: 0, unstable: 0 };
+      }
+      layerBreakdown[layerKey].total++;
+      if (c.status === 'online') layerBreakdown[layerKey].online++;
+      if (c.status === 'offline') layerBreakdown[layerKey].offline++;
+      if (c.status === 'unstable') layerBreakdown[layerKey].unstable++;
+
+      if (c.city) {
+        cityBreakdown[c.city] = (cityBreakdown[c.city] || 0) + 1;
+      }
 
       if (!roadBreakdown[c.roadName]) {
         roadBreakdown[c.roadName] = { total: 0, online: 0, offline: 0, unstable: 0 };
@@ -221,6 +236,8 @@ export default function App() {
       unstable,
       unknown,
       onlineRate,
+      layerBreakdown,
+      cityBreakdown,
       roadBreakdown,
       lastUpdated
     };
@@ -278,6 +295,10 @@ export default function App() {
             setRegionFilter={setRegionFilter}
             statusFilter={statusFilter}
             setStatusFilter={setStatusFilter}
+            layerFilter={layerFilter}
+            setLayerFilter={setLayerFilter}
+            cityFilter={cityFilter}
+            setCityFilter={setCityFilter}
           />
         )}
 
@@ -297,6 +318,10 @@ export default function App() {
             setRegionFilter={setRegionFilter}
             statusFilter={statusFilter}
             setStatusFilter={setStatusFilter}
+            layerFilter={layerFilter}
+            setLayerFilter={setLayerFilter}
+            cityFilter={cityFilter}
+            setCityFilter={setCityFilter}
           />
         )}
 
@@ -329,7 +354,7 @@ export default function App() {
           </div>
           <div className="hidden sm:flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
-            <span>Data Feed: MOTC Freeway CCTV XML v2.0</span>
+            <span>Data Feed: TDX & MOTC Multi-Source Open Data</span>
           </div>
           {autoRefreshMinutes > 0 && (
             <div className="hidden sm:flex items-center gap-1.5 text-emerald-400">
