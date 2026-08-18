@@ -493,15 +493,20 @@ export const CctvMap: React.FC<CctvMapProps> = ({
 
     const filteredIds = new Set(filteredCctvs.map(c => c.cctvId));
 
-    // Remove deleted markers
+    // Batch remove deleted markers
+    const toRemove: L.Marker[] = [];
     for (const [id, marker] of markersRef.current) {
       if (!filteredIds.has(id)) {
-        clusterGroup.removeLayer(marker);
+        toRemove.push(marker);
         markersRef.current.delete(id);
       }
     }
+    if (toRemove.length > 0) {
+      clusterGroup.removeLayers(toRemove);
+    }
 
-    // Add new markers
+    // Add new markers in bulk
+    const newMarkers: L.Marker[] = [];
     filteredCctvs.forEach(cctv => {
       if (markersRef.current.has(cctv.cctvId)) return;
 
@@ -592,9 +597,13 @@ export const CctvMap: React.FC<CctvMapProps> = ({
         if (btnCheck) btnCheck.onclick = () => onCheckStatus(cctv.cctvId);
       });
 
-      clusterGroup.addLayer(marker);
+      newMarkers.push(marker);
       markersRef.current.set(cctv.cctvId, marker);
     });
+
+    if (newMarkers.length > 0) {
+      clusterGroup.addLayers(newMarkers);
+    }
   }, [filteredCctvs, mapLoaded, onSelectCctv, onCheckStatus, onMarkOffline]);
 
   const handleFlyTo = (lat: number, lng: number, zoom: number = 10) => {

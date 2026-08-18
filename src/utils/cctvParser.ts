@@ -264,11 +264,18 @@ export async function fetchCctvListClient(): Promise<{ data: CCTVItem[]; source:
   try {
     const rawBase = (import.meta as any).env?.BASE_URL || './';
     const baseUrl = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-    const jsonUrl = new URL(`${baseUrl}data/taiwan_cctv.json`, window.location.origin + window.location.pathname).href;
+    const jsonPath = `${baseUrl}data/taiwan_cctv.json`;
     
-    const res = await fetch(jsonUrl);
-    const contentType = res.headers.get('content-type');
-    if (res.ok && (contentType?.includes('json') || jsonUrl.endsWith('.json'))) {
+    let res = await fetch(jsonPath);
+    if (!res.ok) {
+      // Fallback relative path try
+      res = await fetch('./data/taiwan_cctv.json');
+    }
+    if (!res.ok) {
+      res = await fetch('/data/taiwan_cctv.json');
+    }
+    
+    if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
         const normalized: CCTVItem[] = data.map((item: any) => {
