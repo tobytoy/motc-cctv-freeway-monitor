@@ -35,16 +35,20 @@ def load_env():
     return env_vars
 
 def get_tdx_token(client_id, client_secret):
-    url = "https://tdx.transportdata.tw/auth/realms/TDX/protocol/openid-connect/token"
+    url = "https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
     payload = {
         "grant_type": "client_credentials",
         "client_id": client_id,
         "client_secret": client_secret
     }
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
-    res = requests.post(url, data=payload, headers=headers, timeout=15)
-    res.raise_for_status()
-    return res.json()["access_token"]
+    try:
+        res = requests.post(url, data=payload, headers=headers, timeout=15)
+        res.raise_for_status()
+        return res.json().get("access_token")
+    except Exception as e:
+        print(f"Warning: Failed to obtain TDX token ({e}).")
+        return None
 
 def parse_region_from_coord(lat, lng):
     if lng > 121.5 and lat < 24.9 and lat > 23.5:
@@ -363,6 +367,13 @@ def main():
 
     print("Requesting OAuth2 Token from TDX...")
     token = get_tdx_token(client_id, client_secret)
+    if not token:
+        if output_path.exists():
+            print("Warning: Failed to obtain TDX token. Safely falling back to existing public/data/taiwan_cctv.json.")
+            return
+        else:
+            print("Error: Failed to obtain TDX token and no cached taiwan_cctv.json found!")
+            sys.exit(1)
     print("Token received successfully.")
 
     headers = {
@@ -447,6 +458,10 @@ def main():
     print(f"Layer breakdown: {layers}")
     print(f"Top 5 Cities: {sorted(cities.items(), key=lambda x: x[1], reverse=True)[:5]}")
     print("==========================================")
+
+    if len(all_cctvs) < 1000 and output_path.exists():
+        print(f"Warning: Fetched count ({len(all_cctvs)}) is too low. Keeping existing pre-built dataset {output_path}.")
+        return
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:

@@ -35,6 +35,7 @@ jobs:
           cache: 'npm'
 
       - name: Fetch Latest TDX CCTV Data 📹
+        continue-on-error: true
         env:
           ClientId: ${{ secrets.TDX_CLIENT_ID }}
           ClientSecret: ${{ secrets.TDX_CLIENT_SECRET }}
