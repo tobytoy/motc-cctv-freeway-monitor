@@ -85140,7 +85140,7 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "CCTV-12-0650-010-004",
+    "cctvId": "CCTV-12-0650-010-008",
     "type": "highway",
     "layerType": "highway",
     "city": "公路局省道",
@@ -112583,7 +112583,7 @@
     "roadId": "300110",
     "roadName": "台11線",
     "region": "東部",
-    "direction": "北向",
+    "direction": "南向",
     "km": 117.0,
     "mileage": "117.0K",
     "lat": 23.075206,
@@ -240918,6 +240918,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000008",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "中華一路、大順一路",
+    "locationName": "中華一路、大順一路",
+    "roadId": "619311E",
+    "roadName": "中華一路",
+    "region": "南部",
+    "direction": "北向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.6531,
+    "lng": 120.29219,
+    "latitude": 22.6531,
+    "longitude": 120.29219,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv2.kctmc.nat.gov.tw/648b7b0d/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv2.kctmc.nat.gov.tw/648b7b0d/",
+    "videoUrl": "https://cctv2.kctmc.nat.gov.tw/648b7b0d/",
+    "videoImageURL": "https://cctv2.kctmc.nat.gov.tw/648b7b0d/",
+    "snapshotUrl": "https://cctv2.kctmc.nat.gov.tw/648b7b0d/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000010",
     "type": "city",
     "layerType": "city",
@@ -245853,6 +245888,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000207",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "高速公路(興西路)、鳳仁路(東北角)",
+    "locationName": "高速公路(興西路)、鳳仁路(東北角)",
+    "roadId": "620863E",
+    "roadName": "鳳仁路",
+    "region": "南部",
+    "direction": "NW",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.72064,
+    "lng": 120.33317,
+    "latitude": 22.72064,
+    "longitude": 120.33317,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv3.kctmc.nat.gov.tw/3917f2da/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/3917f2da/",
+    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/3917f2da/",
+    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/3917f2da/",
+    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/3917f2da/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000209",
     "type": "city",
     "layerType": "city",
@@ -247809,6 +247879,41 @@
     "videoUrl": "https://cctv2.kctmc.nat.gov.tw/87a46a03/",
     "videoImageURL": "https://cctv2.kctmc.nat.gov.tw/87a46a03/",
     "snapshotUrl": "https://cctv2.kctmc.nat.gov.tw/87a46a03/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "64000C000311",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "九如二路、自由一路(西南角)",
+    "locationName": "九如二路、自由一路(西南角)",
+    "roadId": "619013E",
+    "roadName": "九如二路",
+    "region": "南部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.64092,
+    "lng": 120.30834,
+    "latitude": 22.64092,
+    "longitude": 120.30834,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv1.kctmc.nat.gov.tw/b045c1d4/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv1.kctmc.nat.gov.tw/b045c1d4/",
+    "videoUrl": "https://cctv1.kctmc.nat.gov.tw/b045c1d4/",
+    "videoImageURL": "https://cctv1.kctmc.nat.gov.tw/b045c1d4/",
+    "snapshotUrl": "https://cctv1.kctmc.nat.gov.tw/b045c1d4/",
     "status": "online",
     "lastChecked": ""
   },
@@ -260586,6 +260691,41 @@
     "videoUrl": "https://cctv-traffic.chcg.gov.tw:49443/NVR_streaming_request/from_nvr_relay/ch_36/stream_2",
     "videoImageURL": "https://cctv-traffic.chcg.gov.tw:49443/NVR_streaming_request/from_nvr_relay/ch_36/stream_2",
     "snapshotUrl": "https://cctv-traffic.chcg.gov.tw:49443/NVR_streaming_request/from_nvr_relay/ch_36/stream_2",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "CCTV-005",
+    "type": "city",
+    "layerType": "city",
+    "city": "南投縣",
+    "cctvName": "台21甲線",
+    "locationName": "台21甲線",
+    "roadId": "300211",
+    "roadName": "台21甲線",
+    "region": "中部",
+    "direction": "雙向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 23.85133,
+    "lng": 120.93611,
+    "latitude": 23.85133,
+    "longitude": 120.93611,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "南投縣 即時路況串流",
+        "type": "snapshot",
+        "url": "https://trafficcctv.nantou.gov.tw/cctv/005.html",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://trafficcctv.nantou.gov.tw/cctv/005.html",
+    "videoUrl": "https://trafficcctv.nantou.gov.tw/cctv/005.html",
+    "videoImageURL": "https://trafficcctv.nantou.gov.tw/cctv/005.html",
+    "snapshotUrl": "https://trafficcctv.nantou.gov.tw/cctv/005.html",
     "status": "online",
     "lastChecked": ""
   },
