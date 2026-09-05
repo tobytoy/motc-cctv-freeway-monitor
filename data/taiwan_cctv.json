@@ -144265,6 +144265,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "CCTV-52-0010-258-001",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "嘉義縣",
+    "cctvName": "嘉義縣民雄鄉建國路二段260-4號",
+    "locationName": "嘉義縣民雄鄉建國路二段260-4號",
+    "roadId": "670406Q",
+    "roadName": "建國路二段",
+    "region": "中部",
+    "direction": "南向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 23.54867,
+    "lng": 120.4335,
+    "latitude": 23.54867,
+    "longitude": 120.4335,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss06.thb.gov.tw:443/T1-258K+795",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss06.thb.gov.tw:443/T1-258K+795/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss06.thb.gov.tw:443/T1-258K+795",
+    "videoUrl": "https://cctv-ss06.thb.gov.tw:443/T1-258K+795",
+    "videoImageURL": "https://cctv-ss06.thb.gov.tw:443/T1-258K+795/snapshot",
+    "snapshotUrl": "https://cctv-ss06.thb.gov.tw:443/T1-258K+795/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "CCTV-52-0010-261-001",
     "type": "highway",
     "layerType": "highway",
@@ -219862,6 +219905,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000001",
+    "type": "city",
+    "layerType": "city",
+    "city": "臺中市",
+    "cctvName": "環中路二段",
+    "locationName": "環中路二段",
+    "roadId": "607892B",
+    "roadName": "環中路二段",
+    "region": "中部",
+    "direction": "NE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.199625,
+    "lng": 120.655575,
+    "latitude": 24.199625,
+    "longitude": 120.655575,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000001/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000001",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000001/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000001/live.m3u8",
+    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000001",
+    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000001",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000009",
     "type": "city",
     "layerType": "city",
@@ -236532,6 +236618,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000007",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "澄清路、九如一路",
+    "locationName": "澄清路、九如一路",
+    "roadId": "620954E",
+    "roadName": "澄清路",
+    "region": "南部",
+    "direction": "南向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.63626,
+    "lng": 120.34445,
+    "latitude": 22.63626,
+    "longitude": 120.34445,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv9.kctmc.nat.gov.tw/3ce56dae/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv9.kctmc.nat.gov.tw/3ce56dae/",
+    "videoUrl": "https://cctv9.kctmc.nat.gov.tw/3ce56dae/",
+    "videoImageURL": "https://cctv9.kctmc.nat.gov.tw/3ce56dae/",
+    "snapshotUrl": "https://cctv9.kctmc.nat.gov.tw/3ce56dae/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000008",
     "type": "city",
     "layerType": "city",
@@ -238247,6 +238368,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000067",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "光華二路、一心一路",
+    "locationName": "光華二路、一心一路",
+    "roadId": "619785E",
+    "roadName": "光華二路",
+    "region": "南部",
+    "direction": "南向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.6087,
+    "lng": 120.31667,
+    "latitude": 22.6087,
+    "longitude": 120.31667,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv3.kctmc.nat.gov.tw/861c80fd/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/861c80fd/",
+    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/861c80fd/",
+    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/861c80fd/",
+    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/861c80fd/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000069",
     "type": "city",
     "layerType": "city",
@@ -239363,41 +239519,6 @@
     "videoUrl": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam130",
     "videoImageURL": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam130",
     "snapshotUrl": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam130",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000109",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "河東路、中正四路",
-    "locationName": "河東路、中正四路",
-    "roadId": "619254E",
-    "roadName": "中正四路",
-    "region": "南部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.62703,
-    "lng": 120.28885,
-    "latitude": 22.62703,
-    "longitude": 120.28885,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
-    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
-    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
-    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
     "status": "online",
     "lastChecked": ""
   },
@@ -242198,6 +242319,41 @@
     "videoUrl": "https://cctv2.kctmc.nat.gov.tw/8c65100c/",
     "videoImageURL": "https://cctv2.kctmc.nat.gov.tw/8c65100c/",
     "snapshotUrl": "https://cctv2.kctmc.nat.gov.tw/8c65100c/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "64000C000227",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "中正一路、輔仁路(西南角)",
+    "locationName": "中正一路、輔仁路(西南角)",
+    "roadId": "619249E",
+    "roadName": "中正一路",
+    "region": "南部",
+    "direction": "SE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.62799,
+    "lng": 120.33235,
+    "latitude": 22.62799,
+    "longitude": 120.33235,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv1.kctmc.nat.gov.tw/b97d4b00/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv1.kctmc.nat.gov.tw/b97d4b00/",
+    "videoUrl": "https://cctv1.kctmc.nat.gov.tw/b97d4b00/",
+    "videoImageURL": "https://cctv1.kctmc.nat.gov.tw/b97d4b00/",
+    "snapshotUrl": "https://cctv1.kctmc.nat.gov.tw/b97d4b00/",
     "status": "online",
     "lastChecked": ""
   },
@@ -256849,49 +257005,6 @@
     "videoUrl": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
     "videoImageURL": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
     "snapshotUrl": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "C000001",
-    "type": "city",
-    "layerType": "city",
-    "city": "雲林縣",
-    "cctvName": "新德路",
-    "locationName": "新德路",
-    "roadId": "666301P",
-    "roadName": "新德路",
-    "region": "中部",
-    "direction": "SW",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 23.58849,
-    "lng": 120.30622,
-    "latitude": 23.58849,
-    "longitude": 120.30622,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000001/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=1&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000001/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000001/live.m3u8",
-    "videoImageURL": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=1&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
-    "snapshotUrl": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=1&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
     "status": "online",
     "lastChecked": ""
   },
