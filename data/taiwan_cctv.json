@@ -239523,6 +239523,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000109",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "河東路、中正四路",
+    "locationName": "河東路、中正四路",
+    "roadId": "619254E",
+    "roadName": "中正四路",
+    "region": "南部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.62703,
+    "lng": 120.28885,
+    "latitude": 22.62703,
+    "longitude": 120.28885,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000110",
     "type": "city",
     "layerType": "city",
@@ -243093,41 +243128,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000280",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "鹽埕區-大勇路與公園二路交岔路口",
-    "locationName": "鹽埕區-大勇路與公園二路交岔路口",
-    "roadId": "619420E",
-    "roadName": "公園二路",
-    "region": "南部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.6216,
-    "lng": 120.2827,
-    "latitude": 22.6216,
-    "longitude": 120.2827,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
-    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
-    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
-    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000281",
     "type": "city",
     "layerType": "city",
@@ -245469,41 +245469,6 @@
     "videoUrl": "https://cctv6.kctmc.nat.gov.tw/aa9f613b/",
     "videoImageURL": "https://cctv6.kctmc.nat.gov.tw/aa9f613b/",
     "snapshotUrl": "https://cctv6.kctmc.nat.gov.tw/aa9f613b/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000368",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "建國一路、建軍路",
-    "locationName": "建國一路、建軍路",
-    "roadId": "619222E",
-    "roadName": "中山西路",
-    "region": "南部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.62844,
-    "lng": 120.34225,
-    "latitude": 22.62844,
-    "longitude": 120.34225,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv9.kctmc.nat.gov.tw/3477bb58/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv9.kctmc.nat.gov.tw/3477bb58/",
-    "videoUrl": "https://cctv9.kctmc.nat.gov.tw/3477bb58/",
-    "videoImageURL": "https://cctv9.kctmc.nat.gov.tw/3477bb58/",
-    "snapshotUrl": "https://cctv9.kctmc.nat.gov.tw/3477bb58/",
     "status": "online",
     "lastChecked": ""
   },
