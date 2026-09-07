@@ -37066,49 +37066,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "CCTV-N1-N-181-O-SE-1",
-    "type": "freeway",
-    "layerType": "freeway",
-    "city": "跨區/國道",
-    "cctvName": "國道1號",
-    "locationName": "國道1號",
-    "roadId": "000010",
-    "roadName": "國道1號",
-    "region": "中部",
-    "direction": "北向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.149907,
-    "lng": 120.622316,
-    "latitude": 24.149907,
-    "longitude": 120.622316,
-    "sources": [
-      {
-        "id": "src-freeway-hls",
-        "name": "國道高速公路 HLS 串流",
-        "type": "hls",
-        "url": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-181-O-SE-1.m3u8",
-        "quality": "720p",
-        "isPrimary": false
-      },
-      {
-        "id": "src-freeway-mjpg",
-        "name": "高公局即時 MJPEG 輪播",
-        "type": "mjpg",
-        "url": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=215",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=215",
-    "videoUrl": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=215",
-    "videoImageURL": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-181-O-SE-1.m3u8",
-    "snapshotUrl": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-181-O-SE-1.m3u8",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "CCTV-N1-N-181.280-M",
     "type": "freeway",
     "layerType": "freeway",
@@ -52198,49 +52155,6 @@
     "videoUrl": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=60",
     "videoImageURL": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-15.265-M.m3u8",
     "snapshotUrl": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-15.265-M.m3u8",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "CCTV-N6-E-17.145-M",
-    "type": "freeway",
-    "layerType": "freeway",
-    "city": "跨區/國道",
-    "cctvName": "國道6號",
-    "locationName": "國道6號",
-    "roadId": "000060",
-    "roadName": "國道6號",
-    "region": "中部",
-    "direction": "東向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.004806,
-    "lng": 120.813895,
-    "latitude": 24.004806,
-    "longitude": 120.813895,
-    "sources": [
-      {
-        "id": "src-freeway-hls",
-        "name": "國道高速公路 HLS 串流",
-        "type": "hls",
-        "url": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-17.145-M.m3u8",
-        "quality": "720p",
-        "isPrimary": false
-      },
-      {
-        "id": "src-freeway-mjpg",
-        "name": "高公局即時 MJPEG 輪播",
-        "type": "mjpg",
-        "url": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=61",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=61",
-    "videoUrl": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=61",
-    "videoImageURL": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-17.145-M.m3u8",
-    "snapshotUrl": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-17.145-M.m3u8",
     "status": "online",
     "lastChecked": ""
   },
