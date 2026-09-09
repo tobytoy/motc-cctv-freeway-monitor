@@ -123496,6 +123496,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "CCTV-35-0260-029-002",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "台26線29K+450",
+    "locationName": "台26線29K+450",
+    "roadId": "300260",
+    "roadName": "台26線",
+    "region": "南部",
+    "direction": "西向",
+    "km": 29.0,
+    "mileage": "29.0K",
+    "lat": 21.969422,
+    "lng": 120.756372,
+    "latitude": 21.969422,
+    "longitude": 120.756372,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T26-29K+450",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T26-29K+450/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss05.thb.gov.tw:443/T26-29K+450",
+    "videoUrl": "https://cctv-ss05.thb.gov.tw:443/T26-29K+450",
+    "videoImageURL": "https://cctv-ss05.thb.gov.tw:443/T26-29K+450/snapshot",
+    "snapshotUrl": "https://cctv-ss05.thb.gov.tw:443/T26-29K+450/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "CCTV-35-0260-042-003",
     "type": "highway",
     "layerType": "highway",
@@ -176296,49 +176339,6 @@
     "videoUrl": "https://cctv-ss07.thb.gov.tw:443/T9-416K+800-1",
     "videoImageURL": "https://cctv-ss07.thb.gov.tw:443/T9-416K+800-1/snapshot",
     "snapshotUrl": "https://cctv-ss07.thb.gov.tw:443/T9-416K+800-1/snapshot",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "CCTV-37-0090-420-004",
-    "type": "highway",
-    "layerType": "highway",
-    "city": "公路局省道",
-    "cctvName": "台9線420K+980-1 ",
-    "locationName": "台9線420K+980-1 ",
-    "roadId": "684114V",
-    "roadName": "台9線",
-    "region": "東部",
-    "direction": "NE",
-    "km": 420.0,
-    "mileage": "420.0K",
-    "lat": 22.34101,
-    "lng": 120.89322,
-    "latitude": 22.34101,
-    "longitude": 120.89322,
-    "sources": [
-      {
-        "id": "src-thb-primary",
-        "name": "公路局省道主訊號",
-        "type": "snapshot",
-        "url": "https://cctv-ss07.thb.gov.tw:443/T9-420K+980-1",
-        "quality": "480p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-thb-backup",
-        "name": "公路局備援快照",
-        "type": "snapshot",
-        "url": "https://cctv-ss07.thb.gov.tw:443/T9-420K+980-1/snapshot",
-        "quality": "SD",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv-ss07.thb.gov.tw:443/T9-420K+980-1",
-    "videoUrl": "https://cctv-ss07.thb.gov.tw:443/T9-420K+980-1",
-    "videoImageURL": "https://cctv-ss07.thb.gov.tw:443/T9-420K+980-1/snapshot",
-    "snapshotUrl": "https://cctv-ss07.thb.gov.tw:443/T9-420K+980-1/snapshot",
     "status": "online",
     "lastChecked": ""
   },
@@ -236332,16 +236332,16 @@
         "id": "src-city-primary",
         "name": "臺南市 即時路況串流",
         "type": "snapshot",
-        "url": "https://trafficvideo5.tainan.gov.tw/24f035a0",
+        "url": "https://trafficvideo6.tainan.gov.tw/24f035a0",
         "quality": "480p",
         "isPrimary": true
       }
     ],
     "activeSourceIndex": 0,
-    "videoStreamURL": "https://trafficvideo5.tainan.gov.tw/24f035a0",
-    "videoUrl": "https://trafficvideo5.tainan.gov.tw/24f035a0",
-    "videoImageURL": "https://trafficvideo5.tainan.gov.tw/24f035a0",
-    "snapshotUrl": "https://trafficvideo5.tainan.gov.tw/24f035a0",
+    "videoStreamURL": "https://trafficvideo6.tainan.gov.tw/24f035a0",
+    "videoUrl": "https://trafficvideo6.tainan.gov.tw/24f035a0",
+    "videoImageURL": "https://trafficvideo6.tainan.gov.tw/24f035a0",
+    "snapshotUrl": "https://trafficvideo6.tainan.gov.tw/24f035a0",
     "status": "online",
     "lastChecked": ""
   },
@@ -236367,16 +236367,16 @@
         "id": "src-city-primary",
         "name": "臺南市 即時路況串流",
         "type": "snapshot",
-        "url": "https://trafficvideo5.tainan.gov.tw/27a0ed7d",
+        "url": "https://trafficvideo6.tainan.gov.tw/27a0ed7d",
         "quality": "480p",
         "isPrimary": true
       }
     ],
     "activeSourceIndex": 0,
-    "videoStreamURL": "https://trafficvideo5.tainan.gov.tw/27a0ed7d",
-    "videoUrl": "https://trafficvideo5.tainan.gov.tw/27a0ed7d",
-    "videoImageURL": "https://trafficvideo5.tainan.gov.tw/27a0ed7d",
-    "snapshotUrl": "https://trafficvideo5.tainan.gov.tw/27a0ed7d",
+    "videoStreamURL": "https://trafficvideo6.tainan.gov.tw/27a0ed7d",
+    "videoUrl": "https://trafficvideo6.tainan.gov.tw/27a0ed7d",
+    "videoImageURL": "https://trafficvideo6.tainan.gov.tw/27a0ed7d",
+    "snapshotUrl": "https://trafficvideo6.tainan.gov.tw/27a0ed7d",
     "status": "online",
     "lastChecked": ""
   },
@@ -238061,41 +238061,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000057",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "左楠路、翠華路、左營大路\n",
-    "locationName": "左楠路、翠華路、左營大路\n",
-    "roadId": "300170",
-    "roadName": "台17線",
-    "region": "南部",
-    "direction": "北向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.69937,
-    "lng": 120.30262,
-    "latitude": 22.69937,
-    "longitude": 120.30262,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv9.kctmc.nat.gov.tw/6499d209/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv9.kctmc.nat.gov.tw/6499d209/",
-    "videoUrl": "https://cctv9.kctmc.nat.gov.tw/6499d209/",
-    "videoImageURL": "https://cctv9.kctmc.nat.gov.tw/6499d209/",
-    "snapshotUrl": "https://cctv9.kctmc.nat.gov.tw/6499d209/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000058",
     "type": "city",
     "layerType": "city",
@@ -238652,6 +238617,41 @@
     "videoUrl": "https://cctv6.kctmc.nat.gov.tw/1dd04532/",
     "videoImageURL": "https://cctv6.kctmc.nat.gov.tw/1dd04532/",
     "snapshotUrl": "https://cctv6.kctmc.nat.gov.tw/1dd04532/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "64000C000080",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "凱旋二路、三多二路",
+    "locationName": "凱旋二路、三多二路",
+    "roadId": "619054E",
+    "roadName": "三多二路",
+    "region": "南部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.62072,
+    "lng": 120.32526,
+    "latitude": 22.62072,
+    "longitude": 120.32526,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv9.kctmc.nat.gov.tw/2c08d766/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv9.kctmc.nat.gov.tw/2c08d766/",
+    "videoUrl": "https://cctv9.kctmc.nat.gov.tw/2c08d766/",
+    "videoImageURL": "https://cctv9.kctmc.nat.gov.tw/2c08d766/",
+    "snapshotUrl": "https://cctv9.kctmc.nat.gov.tw/2c08d766/",
     "status": "online",
     "lastChecked": ""
   },
@@ -240931,41 +240931,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000165",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "柳橋西路與(中華路、仁壽路口)",
-    "locationName": "柳橋西路與(中華路、仁壽路口)",
-    "roadId": "401860",
-    "roadName": "186",
-    "region": "南部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.79069,
-    "lng": 120.2885,
-    "latitude": 22.79069,
-    "longitude": 120.2885,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv2.kctmc.nat.gov.tw/554e455c/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv2.kctmc.nat.gov.tw/554e455c/",
-    "videoUrl": "https://cctv2.kctmc.nat.gov.tw/554e455c/",
-    "videoImageURL": "https://cctv2.kctmc.nat.gov.tw/554e455c/",
-    "snapshotUrl": "https://cctv2.kctmc.nat.gov.tw/554e455c/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000167",
     "type": "city",
     "layerType": "city",
@@ -243167,6 +243132,41 @@
     "videoUrl": "https://cctv6.kctmc.nat.gov.tw/11a631f9/",
     "videoImageURL": "https://cctv6.kctmc.nat.gov.tw/11a631f9/",
     "snapshotUrl": "https://cctv6.kctmc.nat.gov.tw/11a631f9/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "64000C000280",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "鹽埕區-大勇路與公園二路交岔路口",
+    "locationName": "鹽埕區-大勇路與公園二路交岔路口",
+    "roadId": "619420E",
+    "roadName": "公園二路",
+    "region": "南部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.6216,
+    "lng": 120.2827,
+    "latitude": 22.6216,
+    "longitude": 120.2827,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
+    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
+    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
+    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/1c1fa564/",
     "status": "online",
     "lastChecked": ""
   },
