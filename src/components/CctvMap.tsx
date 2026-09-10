@@ -23,6 +23,10 @@ interface CctvMapProps {
   setCityFilter: (city: string) => void;
 }
 
+const CARTO_KEY = (import.meta as any).env?.VITE_CARTO_API_KEY || 'cb1_34ly_1_0922d1c895d7b40fd9f335f0';
+const CARTO_DARK_URL = `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`;
+const CARTO_VOYAGER_URL = `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`;
+
 function haversineDistanceKm(p1: [number, number], p2: [number, number]): number {
   const R = 6371;
   const toR = Math.PI / 180;
@@ -148,7 +152,7 @@ export const CctvMap: React.FC<CctvMapProps> = ({
 
     L.control.zoom({ position: 'topright' }).addTo(map);
 
-    const initialBase = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    const initialBase = L.tileLayer(CARTO_DARK_URL, {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
       subdomains: 'abcd',
       maxZoom: 20
@@ -217,8 +221,8 @@ export const CctvMap: React.FC<CctvMapProps> = ({
     if (overlayTileRef.current) { map.removeLayer(overlayTileRef.current); overlayTileRef.current = null; }
 
     const tileUrl = basemap === 'satellite' ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{x}/{y}' :
-                    basemap === 'dark' ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' :
-                    basemap === 'voyager' ? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png' :
+                    basemap === 'dark' ? CARTO_DARK_URL :
+                    basemap === 'voyager' ? CARTO_VOYAGER_URL :
                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
     const tile = L.tileLayer(tileUrl, { maxZoom: 20 }).addTo(map);
