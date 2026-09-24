@@ -198617,6 +198617,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000071",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "蘆洲永安南路中山一路",
+    "locationName": "蘆洲永安南路中山一路",
+    "roadId": "625198F",
+    "roadName": "中山二路",
+    "region": "北部",
+    "direction": "NE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.07639,
+    "lng": 121.46836,
+    "latitude": 25.07639,
+    "longitude": 121.46836,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000071/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000071",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000071/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000071/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000071",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000071",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000073",
     "type": "city",
     "layerType": "city",
@@ -198875,6 +198918,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000080",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "新北環快，北上3K+450台北中興橋匝道分流",
+    "locationName": "新北環快，北上3K+450台北中興橋匝道分流",
+    "roadId": "625368F",
+    "roadName": "中興大橋引道",
+    "region": "北部",
+    "direction": "SE",
+    "km": 3.0,
+    "mileage": "3.0K",
+    "lat": 25.04785,
+    "lng": 121.48887,
+    "latitude": 25.04785,
+    "longitude": 121.48887,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000080/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000080",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000080/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000080/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000080",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000080",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000085",
     "type": "city",
     "layerType": "city",
@@ -198914,6 +199000,49 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000085/live.m3u8",
     "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000085",
     "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000085",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000086",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "新北環快，三重成功平面匝道口(雙向)",
+    "locationName": "新北環快，三重成功平面匝道口(雙向)",
+    "roadId": "625368F",
+    "roadName": "中興大橋引道",
+    "region": "北部",
+    "direction": "SE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.04934,
+    "lng": 121.49056,
+    "latitude": 25.04934,
+    "longitude": 121.49056,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000086/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000086",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000086/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000086/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000086",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000086",
     "status": "online",
     "lastChecked": ""
   },
@@ -199649,6 +199778,92 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000109",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "新莊中華路、中原路",
+    "locationName": "新莊中華路、中原路",
+    "roadId": "625357F",
+    "roadName": "中華路二段",
+    "region": "北部",
+    "direction": "北向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.0545,
+    "lng": 121.452,
+    "latitude": 25.0545,
+    "longitude": 121.452,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000109/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000109",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000109/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000109/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000109",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000109",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000110",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "新莊中華路、幸福路",
+    "locationName": "新莊中華路、幸福路",
+    "roadId": "625357F",
+    "roadName": "中華路二段",
+    "region": "北部",
+    "direction": "南向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.04918,
+    "lng": 121.45256,
+    "latitude": 25.04918,
+    "longitude": 121.45256,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000110/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000110",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000110/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000110/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000110",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000110",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000111",
     "type": "city",
     "layerType": "city",
@@ -200208,6 +200423,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000130",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "新北環快萬板橋",
+    "locationName": "新北環快萬板橋",
+    "roadId": "625389F",
+    "roadName": "中興路三段",
+    "region": "北部",
+    "direction": "SE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.97838,
+    "lng": 121.5454,
+    "latitude": 24.97838,
+    "longitude": 121.5454,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000130/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000130",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000130/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000130/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000130",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000130",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000131",
     "type": "city",
     "layerType": "city",
@@ -200247,6 +200505,49 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000131/live.m3u8",
     "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000131",
     "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000131",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000132",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "板橋區三民路與中正路(北側號誌桿上)",
+    "locationName": "板橋區三民路與中正路(北側號誌桿上)",
+    "roadId": "625047F",
+    "roadName": "三民路二段",
+    "region": "北部",
+    "direction": "北向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.01134,
+    "lng": 121.47872,
+    "latitude": 25.01134,
+    "longitude": 121.47872,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000132/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000132",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000132/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000132/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000132",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000132",
     "status": "online",
     "lastChecked": ""
   },
@@ -202874,6 +203175,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000207",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "新莊區中正路、思源路(大漢橋匝道)",
+    "locationName": "新莊區中正路、思源路(大漢橋匝道)",
+    "roadId": "625288F",
+    "roadName": "中正路",
+    "region": "北部",
+    "direction": "SW",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.03988,
+    "lng": 121.46001,
+    "latitude": 25.03988,
+    "longitude": 121.46001,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000207/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000207",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000207/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000207/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000207",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000207",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000208",
     "type": "city",
     "layerType": "city",
@@ -204336,6 +204680,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000248",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "五股區成蘆橋(防汛道路正上方)",
+    "locationName": "五股區成蘆橋(防汛道路正上方)",
+    "roadId": "625986F",
+    "roadName": "成洲六路",
+    "region": "北部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.10215,
+    "lng": 121.45381,
+    "latitude": 25.10215,
+    "longitude": 121.45381,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000248/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://192.168.1.91/web/cctv/liveview.html?serverId=ec55548b-020e-4456-9461-3ae3a0aed09d&amp;jobId=daf4a109-1d12-4bc5-8b82-b06d57bb2a81",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000248/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000248/live.m3u8",
+    "videoImageURL": "https://192.168.1.91/web/cctv/liveview.html?serverId=ec55548b-020e-4456-9461-3ae3a0aed09d&amp;jobId=daf4a109-1d12-4bc5-8b82-b06d57bb2a81",
+    "snapshotUrl": "https://192.168.1.91/web/cctv/liveview.html?serverId=ec55548b-020e-4456-9461-3ae3a0aed09d&amp;jobId=daf4a109-1d12-4bc5-8b82-b06d57bb2a81",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000249",
     "type": "city",
     "layerType": "city",
@@ -205024,6 +205411,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000266",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "林口區文化三路1段、八德路口",
+    "locationName": "林口區文化三路1段、八德路口",
+    "roadId": "625026F",
+    "roadName": "八德路",
+    "region": "北部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.0656,
+    "lng": 121.36122,
+    "latitude": 25.0656,
+    "longitude": 121.36122,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000266/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000266",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000266/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000266/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000266",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000266",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000267",
     "type": "city",
     "layerType": "city",
@@ -205626,6 +206056,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000281",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "汐止區大同路、中國貨櫃",
+    "locationName": "汐止區大同路、中國貨櫃",
+    "roadId": "625103F",
+    "roadName": "大同路三段",
+    "region": "北部",
+    "direction": "東向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.07547,
+    "lng": 121.6738,
+    "latitude": 25.07547,
+    "longitude": 121.6738,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000281/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000281",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000281/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000281/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000281",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000281",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000282",
     "type": "city",
     "layerType": "city",
@@ -205837,6 +206310,49 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000286/live.m3u8",
     "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000286",
     "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000286",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000287",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "三峽區中正路、中園街",
+    "locationName": "三峽區中正路、中園街",
+    "roadId": "625298F",
+    "roadName": "中正路二段",
+    "region": "北部",
+    "direction": "NE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.91916,
+    "lng": 121.36696,
+    "latitude": 24.91916,
+    "longitude": 121.36696,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000287/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000287",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000287/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000287/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000287",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000287",
     "status": "online",
     "lastChecked": ""
   },
@@ -207948,6 +208464,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000401",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "淡水區新民隧道-北上隧道內",
+    "locationName": "淡水區新民隧道-北上隧道內",
+    "roadId": "625110F",
+    "roadName": "大庄路",
+    "region": "北部",
+    "direction": "SE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.18606,
+    "lng": 121.42793,
+    "latitude": 25.18606,
+    "longitude": 121.42793,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000401/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000401",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000401/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000401/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000401",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000401",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000402",
     "type": "city",
     "layerType": "city",
@@ -207991,6 +208550,92 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000416",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "淡水區 中正東路二段 中正東路一段",
+    "locationName": "淡水區 中正東路二段 中正東路一段",
+    "roadId": "625274F",
+    "roadName": "中正東路一段",
+    "region": "北部",
+    "direction": "SE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.15805,
+    "lng": 121.45801,
+    "latitude": 25.15805,
+    "longitude": 121.45801,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000416/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000416",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000416/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000416/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000416",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000416",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000417",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "淡水區 淡金路 中正東路二段",
+    "locationName": "淡水區 淡金路 中正東路二段",
+    "roadId": "625274F",
+    "roadName": "中正東路一段",
+    "region": "北部",
+    "direction": "NW",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.15818,
+    "lng": 121.45793,
+    "latitude": 25.15818,
+    "longitude": 121.45793,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000417/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000417",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000417/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000417/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000417",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000417",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000418 ",
     "type": "city",
     "layerType": "city",
@@ -208030,6 +208675,92 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000418/live.m3u8",
     "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000418",
     "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000418",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000419",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "淡水區 中正東路二段 八勢一街",
+    "locationName": "淡水區 中正東路二段 八勢一街",
+    "roadId": "625276F",
+    "roadName": "中正東路二段",
+    "region": "北部",
+    "direction": "北向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.15604,
+    "lng": 121.45932,
+    "latitude": 25.15604,
+    "longitude": 121.45932,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000419/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000419",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000419/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000419/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000419",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000419",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000420",
+    "type": "city",
+    "layerType": "city",
+    "city": "新北市",
+    "cctvName": "淡水區 中正東路一段 中正東路一段127巷",
+    "locationName": "淡水區 中正東路一段 中正東路一段127巷",
+    "roadId": "625274F",
+    "roadName": "中正東路一段",
+    "region": "北部",
+    "direction": "SE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 25.15922,
+    "lng": 121.45548,
+    "latitude": 25.15922,
+    "longitude": 121.45548,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000420/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000420",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000420/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000420/live.m3u8",
+    "videoImageURL": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000420",
+    "snapshotUrl": "https://atis.ntpc.gov.tw/ATIS/ShowFrame4CCTV/C000420",
     "status": "online",
     "lastChecked": ""
   },
@@ -222128,49 +222859,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "C000015",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "環中路一段",
-    "locationName": "環中路一段",
-    "roadId": "607891B",
-    "roadName": "環中路一段",
-    "region": "中部",
-    "direction": "東向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.199834,
-    "lng": 120.656463,
-    "latitude": 24.199834,
-    "longitude": 120.656463,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000015",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000015",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000015",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "C000021",
     "type": "city",
     "layerType": "city",
@@ -222558,49 +223246,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "C000071",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "崇德路三段",
-    "locationName": "崇德路三段",
-    "roadId": "606861B",
-    "roadName": "崇德路三段",
-    "region": "中部",
-    "direction": "北向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.193556,
-    "lng": 120.686497,
-    "latitude": 24.193556,
-    "longitude": 120.686497,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000071/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000071",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000071/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000071/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000071",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000071",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "C000078",
     "type": "city",
     "layerType": "city",
@@ -222640,49 +223285,6 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000078/live.m3u8",
     "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000078",
     "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000078",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "C000080",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "文心路三段",
-    "locationName": "文心路三段",
-    "roadId": "605055B",
-    "roadName": "文心路三段",
-    "region": "中部",
-    "direction": "SW",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.171642,
-    "lng": 120.661434,
-    "latitude": 24.171642,
-    "longitude": 120.661434,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000080/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000080",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000080/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000080/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000080",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000080",
     "status": "online",
     "lastChecked": ""
   },
@@ -222859,49 +223461,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "C000086",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "復興路四段",
-    "locationName": "復興路四段",
-    "roadId": "607030B",
-    "roadName": "復興路四段",
-    "region": "中部",
-    "direction": "SW",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.137079,
-    "lng": 120.689092,
-    "latitude": 24.137079,
-    "longitude": 120.689092,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000086/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000086",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000086/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000086/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000086",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000086",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "C000090",
     "type": "city",
     "layerType": "city",
@@ -223070,49 +223629,6 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000101/live.m3u8",
     "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000101",
     "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000101",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "C000109",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "中正路",
-    "locationName": "中正路",
-    "roadId": "604624B",
-    "roadName": "中正路",
-    "region": "中部",
-    "direction": "東向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.251739,
-    "lng": 120.720719,
-    "latitude": 24.251739,
-    "longitude": 120.720719,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000109/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000109",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000109/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000109/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000109",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000109",
     "status": "online",
     "lastChecked": ""
   },
@@ -223590,49 +224106,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "C000248",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "中科路",
-    "locationName": "中科路",
-    "roadId": "604668B",
-    "roadName": "中科路",
-    "region": "中部",
-    "direction": "SE",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.190171,
-    "lng": 120.656477,
-    "latitude": 24.190171,
-    "longitude": 120.656477,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000248/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000248",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000248/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000248/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000248",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000248",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "C000260",
     "type": "city",
     "layerType": "city",
@@ -223672,92 +224145,6 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000260/live.m3u8",
     "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000260",
     "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000260",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "C000281",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "環中東路一段",
-    "locationName": "環中東路一段",
-    "roadId": "607884B",
-    "roadName": "環中東路一段",
-    "region": "中部",
-    "direction": "SE",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.182063,
-    "lng": 120.721457,
-    "latitude": 24.182063,
-    "longitude": 120.721457,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000281/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000281",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000281/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000281/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000281",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000281",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "C000287",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "松竹路三段",
-    "locationName": "松竹路三段",
-    "roadId": "606235B",
-    "roadName": "松竹路三段",
-    "region": "中部",
-    "direction": "NW",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.20066,
-    "lng": 120.67097,
-    "latitude": 24.20066,
-    "longitude": 120.67097,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000287/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000287",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000287/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000287/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000287",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000287",
     "status": "online",
     "lastChecked": ""
   },
@@ -226428,49 +226815,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "C000401",
-    "type": "city",
-    "layerType": "city",
-    "city": "臺中市",
-    "cctvName": "惠文路",
-    "locationName": "惠文路",
-    "roadId": "607049B",
-    "roadName": "惠文路",
-    "region": "中部",
-    "direction": "北向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.144263,
-    "lng": 120.64317,
-    "latitude": 24.144263,
-    "longitude": 120.64317,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000401/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000401",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000401/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000401/live.m3u8",
-    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000401",
-    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000401",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "C000403",
     "type": "city",
     "layerType": "city",
@@ -226854,6 +227198,135 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000411/live.m3u8",
     "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000411",
     "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000411",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000412",
+    "type": "city",
+    "layerType": "city",
+    "city": "臺中市",
+    "cctvName": "五權路",
+    "locationName": "五權路",
+    "roadId": "604804B",
+    "roadName": "五權路",
+    "region": "中部",
+    "direction": "SW",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.15125,
+    "lng": 120.6772,
+    "latitude": 24.15125,
+    "longitude": 120.6772,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000412/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000412",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000412/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000412/live.m3u8",
+    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000412",
+    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000412",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000413",
+    "type": "city",
+    "layerType": "city",
+    "city": "臺中市",
+    "cctvName": "軍福十九路",
+    "locationName": "軍福十九路",
+    "roadId": "606664B",
+    "roadName": "軍福十九路",
+    "region": "中部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.180114,
+    "lng": 120.702152,
+    "latitude": 24.180114,
+    "longitude": 120.702152,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000413/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000413",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000413/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000413/live.m3u8",
+    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000413",
+    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000413",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000414",
+    "type": "city",
+    "layerType": "city",
+    "city": "臺中市",
+    "cctvName": "四平路",
+    "locationName": "四平路",
+    "roadId": "605240B",
+    "roadName": "四平路",
+    "region": "中部",
+    "direction": "SW",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.19789,
+    "lng": 120.683452,
+    "latitude": 24.19789,
+    "longitude": 120.683452,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000414/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000414",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000414/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000414/live.m3u8",
+    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000414",
+    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000414",
     "status": "online",
     "lastChecked": ""
   },
@@ -241484,6 +241957,41 @@
     "videoUrl": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam130",
     "videoImageURL": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam130",
     "snapshotUrl": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam130",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "64000C000109",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "河東路、中正四路",
+    "locationName": "河東路、中正四路",
+    "roadId": "619254E",
+    "roadName": "中正四路",
+    "region": "南部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.62703,
+    "lng": 120.28885,
+    "latitude": 22.62703,
+    "longitude": 120.28885,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
+    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/ea1b170c/",
     "status": "online",
     "lastChecked": ""
   },
@@ -262120,6 +262628,49 @@
     "videoUrl": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
     "videoImageURL": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
     "snapshotUrl": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000015",
+    "type": "city",
+    "layerType": "city",
+    "city": "雲林縣",
+    "cctvName": "外東環路",
+    "locationName": "外東環路",
+    "roadId": "665407P",
+    "roadName": "外東環路",
+    "region": "中部",
+    "direction": "NE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 23.795009,
+    "lng": 120.215633,
+    "latitude": 23.795009,
+    "longitude": 120.215633,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=14&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
+    "videoImageURL": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=14&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
+    "snapshotUrl": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=14&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
     "status": "online",
     "lastChecked": ""
   },
