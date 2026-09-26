@@ -242755,41 +242755,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000135",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "大業北路、中鋼路",
-    "locationName": "大業北路、中鋼路",
-    "roadId": "619152E",
-    "roadName": "大業北路",
-    "region": "南部",
-    "direction": "NW",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.55786,
-    "lng": 120.35267,
-    "latitude": 22.55786,
-    "longitude": 120.35267,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv3.kctmc.nat.gov.tw/cefa42a0/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/cefa42a0/",
-    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/cefa42a0/",
-    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/cefa42a0/",
-    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/cefa42a0/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000136",
     "type": "city",
     "layerType": "city",
