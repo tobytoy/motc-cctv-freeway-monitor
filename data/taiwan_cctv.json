@@ -121518,6 +121518,221 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "CCTV-32-0010-418-001",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "台1線418K+950",
+    "locationName": "台1線418K+950",
+    "roadId": "300010",
+    "roadName": "台1線",
+    "region": "南部",
+    "direction": "南向",
+    "km": 418.0,
+    "mileage": "418.0K",
+    "lat": 22.53005,
+    "lng": 120.53325,
+    "latitude": 22.53005,
+    "longitude": 120.53325,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T1-418K+950",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T1-418K+950/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss05.thb.gov.tw:443/T1-418K+950",
+    "videoUrl": "https://cctv-ss05.thb.gov.tw:443/T1-418K+950",
+    "videoImageURL": "https://cctv-ss05.thb.gov.tw:443/T1-418K+950/snapshot",
+    "snapshotUrl": "https://cctv-ss05.thb.gov.tw:443/T1-418K+950/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "CCTV-32-0010-419-001",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "台1線419K+050",
+    "locationName": "台1線419K+050",
+    "roadId": "674759T",
+    "roadName": "台1線",
+    "region": "南部",
+    "direction": "北向",
+    "km": 419.0,
+    "mileage": "419.0K",
+    "lat": 22.52857,
+    "lng": 120.53293,
+    "latitude": 22.52857,
+    "longitude": 120.53293,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T1-419K+050",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T1-419K+050/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss05.thb.gov.tw:443/T1-419K+050",
+    "videoUrl": "https://cctv-ss05.thb.gov.tw:443/T1-419K+050",
+    "videoImageURL": "https://cctv-ss05.thb.gov.tw:443/T1-419K+050/snapshot",
+    "snapshotUrl": "https://cctv-ss05.thb.gov.tw:443/T1-419K+050/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "CCTV-34-0200-057-001",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "台20線57K+300",
+    "locationName": "台20線57K+300",
+    "roadId": "300290",
+    "roadName": "台20線",
+    "region": "南部",
+    "direction": "南向",
+    "km": 57.0,
+    "mileage": "57.0K",
+    "lat": 23.080314,
+    "lng": 120.584252,
+    "latitude": 23.080314,
+    "longitude": 120.584252,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T20-57K+300",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T20-57K+300/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss05.thb.gov.tw:443/T20-57K+300",
+    "videoUrl": "https://cctv-ss05.thb.gov.tw:443/T20-57K+300",
+    "videoImageURL": "https://cctv-ss05.thb.gov.tw:443/T20-57K+300/snapshot",
+    "snapshotUrl": "https://cctv-ss05.thb.gov.tw:443/T20-57K+300/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "CCTV-34-0200-057-002",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "台20線57K+650",
+    "locationName": "台20線57K+650",
+    "roadId": "300200",
+    "roadName": "台20線",
+    "region": "南部",
+    "direction": "東向",
+    "km": 57.0,
+    "mileage": "57.0K",
+    "lat": 23.081603,
+    "lng": 120.587122,
+    "latitude": 23.081603,
+    "longitude": 120.587122,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T20-57K+650",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T20-57K+650/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss05.thb.gov.tw:443/T20-57K+650",
+    "videoUrl": "https://cctv-ss05.thb.gov.tw:443/T20-57K+650",
+    "videoImageURL": "https://cctv-ss05.thb.gov.tw:443/T20-57K+650/snapshot",
+    "snapshotUrl": "https://cctv-ss05.thb.gov.tw:443/T20-57K+650/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "CCTV-34-0290-046-001",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "台29線46K+100",
+    "locationName": "台29線46K+100",
+    "roadId": "300290",
+    "roadName": "台29線",
+    "region": "南部",
+    "direction": "南向",
+    "km": 46.0,
+    "mileage": "46.0K",
+    "lat": 23.015072,
+    "lng": 120.574583,
+    "latitude": 23.015072,
+    "longitude": 120.574583,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T29-46K+100",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss05.thb.gov.tw:443/T29-46K+100/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss05.thb.gov.tw:443/T29-46K+100",
+    "videoUrl": "https://cctv-ss05.thb.gov.tw:443/T29-46K+100",
+    "videoImageURL": "https://cctv-ss05.thb.gov.tw:443/T29-46K+100/snapshot",
+    "snapshotUrl": "https://cctv-ss05.thb.gov.tw:443/T29-46K+100/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "CCTV-32-0010-430-002",
     "type": "highway",
     "layerType": "highway",
@@ -223004,6 +223219,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "C000015",
+    "type": "city",
+    "layerType": "city",
+    "city": "臺中市",
+    "cctvName": "環中路一段",
+    "locationName": "環中路一段",
+    "roadId": "607891B",
+    "roadName": "環中路一段",
+    "region": "中部",
+    "direction": "東向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.199834,
+    "lng": 120.656463,
+    "latitude": 24.199834,
+    "longitude": 120.656463,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000015",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
+    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000015",
+    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000015",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "C000021",
     "type": "city",
     "layerType": "city",
@@ -224935,6 +225193,49 @@
     "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000336/live.m3u8",
     "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000336",
     "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000336",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "C000337",
+    "type": "city",
+    "layerType": "city",
+    "city": "臺中市",
+    "cctvName": "崇德路一段",
+    "locationName": "崇德路一段",
+    "roadId": "606859B",
+    "roadName": "崇德路一段",
+    "region": "中部",
+    "direction": "南向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.166881,
+    "lng": 120.68511,
+    "latitude": 24.166881,
+    "longitude": 120.68511,
+    "sources": [
+      {
+        "id": "src-hls",
+        "name": "新北市 ATIS 高清串流 (HLS)",
+        "type": "hls",
+        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000337/live.m3u8",
+        "quality": "720p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-atis",
+        "name": "新北市交通局備用源 (ATIS)",
+        "type": "snapshot",
+        "url": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000337",
+        "quality": "480p",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000337/live.m3u8",
+    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000337/live.m3u8",
+    "videoImageURL": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000337",
+    "snapshotUrl": "https://motoretag.taichung.gov.tw/ATIS_TCC/Device/Showcctv?id=C000337",
     "status": "online",
     "lastChecked": ""
   },
@@ -246236,41 +246537,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000303",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "成功二路、凱旋四路",
-    "locationName": "成功二路、凱旋四路",
-    "roadId": "619834E",
-    "roadName": "成功二路",
-    "region": "南部",
-    "direction": "南向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.59341,
-    "lng": 120.30566,
-    "latitude": 22.59341,
-    "longitude": 120.30566,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv9.kctmc.nat.gov.tw/1cd65746/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv9.kctmc.nat.gov.tw/1cd65746/",
-    "videoUrl": "https://cctv9.kctmc.nat.gov.tw/1cd65746/",
-    "videoImageURL": "https://cctv9.kctmc.nat.gov.tw/1cd65746/",
-    "snapshotUrl": "https://cctv9.kctmc.nat.gov.tw/1cd65746/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000305",
     "type": "city",
     "layerType": "city",
@@ -248192,41 +248458,6 @@
     "videoUrl": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam056",
     "videoImageURL": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam056",
     "snapshotUrl": "https://cctv5.kctmc.nat.gov.tw/stream/?n=Cam056",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C700005",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "旗南一路、中華路",
-    "locationName": "旗南一路、中華路",
-    "roadId": "620802E",
-    "roadName": "旗南一路",
-    "region": "南部",
-    "direction": "SW",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.87276,
-    "lng": 120.47414,
-    "latitude": 22.87276,
-    "longitude": 120.47414,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv3.kctmc.nat.gov.tw/9f4da9b0/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv3.kctmc.nat.gov.tw/9f4da9b0/",
-    "videoUrl": "https://cctv3.kctmc.nat.gov.tw/9f4da9b0/",
-    "videoImageURL": "https://cctv3.kctmc.nat.gov.tw/9f4da9b0/",
-    "snapshotUrl": "https://cctv3.kctmc.nat.gov.tw/9f4da9b0/",
     "status": "online",
     "lastChecked": ""
   },
@@ -262738,49 +262969,6 @@
     "videoUrl": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
     "videoImageURL": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
     "snapshotUrl": "https://trafficcctv.nantou.gov.tw/cctv/049.html",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "C000015",
-    "type": "city",
-    "layerType": "city",
-    "city": "雲林縣",
-    "cctvName": "外東環路",
-    "locationName": "外東環路",
-    "roadId": "665407P",
-    "roadName": "外東環路",
-    "region": "中部",
-    "direction": "NE",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 23.795009,
-    "lng": 120.215633,
-    "latitude": 23.795009,
-    "longitude": 120.215633,
-    "sources": [
-      {
-        "id": "src-hls",
-        "name": "新北市 ATIS 高清串流 (HLS)",
-        "type": "hls",
-        "url": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
-        "quality": "720p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-atis",
-        "name": "新北市交通局備用源 (ATIS)",
-        "type": "snapshot",
-        "url": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=14&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
-        "quality": "480p",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
-    "videoUrl": "https://cctvatis6.ntpc.gov.tw/hls/C000015/live.m3u8",
-    "videoImageURL": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=14&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
-    "snapshotUrl": "https://yltraffic.yunlin.gov.tw/CCTV/Live.html?deviceid=14&type=jpg&b2=false&resolution=320x240&fps=5&quality=50&account=YWRtaW4=&password=QWRtaW5AMTIzNA==&width=1920&height=1080",
     "status": "online",
     "lastChecked": ""
   },
