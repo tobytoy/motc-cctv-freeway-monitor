@@ -101093,7 +101093,7 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "CCTV-24-0140-015-001",
+    "cctvId": "CCTV-24-0140-015-002",
     "type": "highway",
     "layerType": "highway",
     "city": "公路局省道",
@@ -178837,6 +178837,49 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "CCTV-35-0090-441-001",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "台9線441K+350",
+    "locationName": "台9線441K+350",
+    "roadId": "300090",
+    "roadName": "台9線",
+    "region": "南部",
+    "direction": "北向",
+    "km": 441.0,
+    "mileage": "441.0K",
+    "lat": 22.21422,
+    "lng": 120.78778,
+    "latitude": 22.21422,
+    "longitude": 120.78778,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss07.thb.gov.tw:443/T9-441K+350",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss07.thb.gov.tw:443/T9-441K+350/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss07.thb.gov.tw:443/T9-441K+350",
+    "videoUrl": "https://cctv-ss07.thb.gov.tw:443/T9-441K+350",
+    "videoImageURL": "https://cctv-ss07.thb.gov.tw:443/T9-441K+350/snapshot",
+    "snapshotUrl": "https://cctv-ss07.thb.gov.tw:443/T9-441K+350/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "CCTV-T74-E-0.610-M",
     "type": "highway",
     "layerType": "highway",
@@ -251203,49 +251246,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "CCTV015-ED",
-    "type": "city",
-    "layerType": "city",
-    "city": "新竹市",
-    "cctvName": "經國路與公道五路(往市區)",
-    "locationName": "經國路與公道五路(往市區)",
-    "roadId": "661424O",
-    "roadName": "經國路一段",
-    "region": "北部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.815031,
-    "lng": 120.985235,
-    "latitude": 24.815031,
-    "longitude": 120.985235,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "新竹市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=82&user=viewer&pass=--",
-        "quality": "480p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-city-backup",
-        "name": "新竹市 備用影像源",
-        "type": "snapshot",
-        "url": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=82&user=viewer&pass=--",
-        "quality": "SD",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=82&user=viewer&pass=--",
-    "videoUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=82&user=viewer&pass=--",
-    "videoImageURL": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=82&user=viewer&pass=--",
-    "snapshotUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=82&user=viewer&pass=--",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "CCTV016-ED",
     "type": "city",
     "layerType": "city",
@@ -251328,49 +251328,6 @@
     "videoUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=84&user=viewer&pass=--",
     "videoImageURL": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=84&user=viewer&pass=--",
     "snapshotUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=84&user=viewer&pass=--",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "CCTV018-ND",
-    "type": "city",
-    "layerType": "city",
-    "city": "新竹市",
-    "cctvName": "三廠停車場(經國路與延平路往竹光路)",
-    "locationName": "三廠停車場(經國路與延平路往竹光路)",
-    "roadId": "661151O",
-    "roadName": "延平路一段",
-    "region": "北部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.804782,
-    "lng": 120.955608,
-    "latitude": 24.804782,
-    "longitude": 120.955608,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "新竹市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=85&user=viewer&pass=--",
-        "quality": "480p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-city-backup",
-        "name": "新竹市 備用影像源",
-        "type": "snapshot",
-        "url": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=85&user=viewer&pass=--",
-        "quality": "SD",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=85&user=viewer&pass=--",
-    "videoUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=85&user=viewer&pass=--",
-    "videoImageURL": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=85&user=viewer&pass=--",
-    "snapshotUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=85&user=viewer&pass=--",
     "status": "online",
     "lastChecked": ""
   },
