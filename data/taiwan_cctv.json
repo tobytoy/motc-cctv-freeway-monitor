@@ -178880,6 +178880,92 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "CCTV-21-0610-099-002",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "苗8北上路口",
+    "locationName": "苗8北上路口",
+    "roadId": "648239K",
+    "roadName": "台61線",
+    "region": "北部",
+    "direction": "NE",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.645819,
+    "lng": 120.797496,
+    "latitude": 24.645819,
+    "longitude": 120.797496,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(N)",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(N)/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(N)",
+    "videoUrl": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(N)",
+    "videoImageURL": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(N)/snapshot",
+    "snapshotUrl": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(N)/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "CCTV-21-0610-099-003",
+    "type": "highway",
+    "layerType": "highway",
+    "city": "公路局省道",
+    "cctvName": "苗8南下路口",
+    "locationName": "苗8南下路口",
+    "roadId": "648239K",
+    "roadName": "台61線",
+    "region": "北部",
+    "direction": "SW",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.64597,
+    "lng": 120.797203,
+    "latitude": 24.64597,
+    "longitude": 120.797203,
+    "sources": [
+      {
+        "id": "src-thb-primary",
+        "name": "公路局省道主訊號",
+        "type": "snapshot",
+        "url": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(S)",
+        "quality": "480p",
+        "isPrimary": true
+      },
+      {
+        "id": "src-thb-backup",
+        "name": "公路局備援快照",
+        "type": "snapshot",
+        "url": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(S)/snapshot",
+        "quality": "SD",
+        "isPrimary": false
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(S)",
+    "videoUrl": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(S)",
+    "videoImageURL": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(S)/snapshot",
+    "snapshotUrl": "https://cctv-ss08.thb.gov.tw:443/T61-99K+500(S)/snapshot",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "CCTV-T74-E-0.610-M",
     "type": "highway",
     "layerType": "highway",
@@ -264591,10 +264677,10 @@
     "direction": "西向",
     "km": 0.0,
     "mileage": null,
-    "lat": 22.7931,
-    "lng": 121.12326,
-    "latitude": 22.7931,
-    "longitude": 121.12326,
+    "lat": 22.79302,
+    "lng": 121.12357,
+    "latitude": 22.79302,
+    "longitude": 121.12357,
     "sources": [
       {
         "id": "src-city-primary",
@@ -265221,10 +265307,10 @@
     "direction": "西向",
     "km": 0.0,
     "mileage": null,
-    "lat": 22.7944,
-    "lng": 121.12346,
-    "latitude": 22.7944,
-    "longitude": 121.12346,
+    "lat": 22.79429,
+    "lng": 121.12388,
+    "latitude": 22.79429,
+    "longitude": 121.12388,
     "sources": [
       {
         "id": "src-city-primary",
