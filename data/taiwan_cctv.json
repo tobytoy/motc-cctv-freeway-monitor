@@ -245698,6 +245698,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000207",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "高速公路(興西路)、鳳仁路(東北角)",
+    "locationName": "高速公路(興西路)、鳳仁路(東北角)",
+    "roadId": "620863E",
+    "roadName": "鳳仁路",
+    "region": "南部",
+    "direction": "NW",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.72064,
+    "lng": 120.33317,
+    "latitude": 22.72064,
+    "longitude": 120.33317,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv3.itc.tbkc.gov.tw/3917f2da/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv3.itc.tbkc.gov.tw/3917f2da/",
+    "videoUrl": "https://cctv3.itc.tbkc.gov.tw/3917f2da/",
+    "videoImageURL": "https://cctv3.itc.tbkc.gov.tw/3917f2da/",
+    "snapshotUrl": "https://cctv3.itc.tbkc.gov.tw/3917f2da/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000209",
     "type": "city",
     "layerType": "city",
@@ -246748,6 +246783,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000265",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "林園區-鳳林路二段與忠孝東路交岔路口",
+    "locationName": "林園區-鳳林路二段與忠孝東路交岔路口",
+    "roadId": "620880E",
+    "roadName": "鳳林路一段",
+    "region": "南部",
+    "direction": "南向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.50713,
+    "lng": 120.39645,
+    "latitude": 22.50713,
+    "longitude": 120.39645,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
+    "videoUrl": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
+    "videoImageURL": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
+    "snapshotUrl": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000267",
     "type": "city",
     "layerType": "city",
@@ -246989,41 +247059,6 @@
     "videoUrl": "https://cctv3.itc.tbkc.gov.tw/1c1fa564/",
     "videoImageURL": "https://cctv3.itc.tbkc.gov.tw/1c1fa564/",
     "snapshotUrl": "https://cctv3.itc.tbkc.gov.tw/1c1fa564/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000283",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "臨海新路消防隊前",
-    "locationName": "臨海新路消防隊前",
-    "roadId": "621100E",
-    "roadName": "臨海新路",
-    "region": "南部",
-    "direction": "NW",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.62021,
-    "lng": 120.27748,
-    "latitude": 22.62021,
-    "longitude": 120.27748,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
-    "videoUrl": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
-    "videoImageURL": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
-    "snapshotUrl": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
     "status": "online",
     "lastChecked": ""
   },
@@ -249548,41 +249583,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C700013",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "澄觀路、水管路三段東側",
-    "locationName": "澄觀路、水管路三段東側",
-    "roadId": "620959E",
-    "roadName": "澄觀路二段",
-    "region": "南部",
-    "direction": "北向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.7032,
-    "lng": 120.36012,
-    "latitude": 22.7032,
-    "longitude": 120.36012,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv2.itc.tbkc.gov.tw/25313680/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv2.itc.tbkc.gov.tw/25313680/",
-    "videoUrl": "https://cctv2.itc.tbkc.gov.tw/25313680/",
-    "videoImageURL": "https://cctv2.itc.tbkc.gov.tw/25313680/",
-    "snapshotUrl": "https://cctv2.itc.tbkc.gov.tw/25313680/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C700014",
     "type": "city",
     "layerType": "city",
@@ -252024,49 +252024,6 @@
     "videoUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=100&user=viewer&pass=--",
     "videoImageURL": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=100&user=viewer&pass=--",
     "snapshotUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=100&user=viewer&pass=--",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "CCTV034-EC",
-    "type": "city",
-    "layerType": "city",
-    "city": "新竹市",
-    "cctvName": "光復路與北上交流道(往竹東)",
-    "locationName": "光復路與北上交流道(往竹東)",
-    "roadId": "661102O",
-    "roadName": "光復路一段",
-    "region": "北部",
-    "direction": "SE",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 24.78965,
-    "lng": 121.006349,
-    "latitude": 24.78965,
-    "longitude": 121.006349,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "新竹市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=101&user=viewer&pass=--",
-        "quality": "480p",
-        "isPrimary": true
-      },
-      {
-        "id": "src-city-backup",
-        "name": "新竹市 備用影像源",
-        "type": "snapshot",
-        "url": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=101&user=viewer&pass=--",
-        "quality": "SD",
-        "isPrimary": false
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=101&user=viewer&pass=--",
-    "videoUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=101&user=viewer&pass=--",
-    "videoImageURL": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=101&user=viewer&pass=--",
-    "snapshotUrl": "https://nvr1.hccg.gov.tw/thi-vms/cgi-bin/zms?scale=100&mode=single&monitor=101&user=viewer&pass=--",
     "status": "online",
     "lastChecked": ""
   },
@@ -257536,8 +257493,8 @@
     "type": "city",
     "layerType": "city",
     "city": "新竹市",
-    "cctvName": "經國路與中正路(中正路往西)",
-    "locationName": "經國路與中正路(中正路往西)",
+    "cctvName": "經國路與中正路(中正路往市區)",
+    "locationName": "經國路與中正路(中正路往市區)",
     "roadId": "661026O",
     "roadName": "中正路",
     "region": "北部",
