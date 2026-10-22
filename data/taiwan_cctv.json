@@ -34572,6 +34572,92 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "CCTV-N1-N-101.205-M",
+    "type": "freeway",
+    "layerType": "freeway",
+    "city": "跨區/國道",
+    "cctvName": "國道1號",
+    "locationName": "國道1號",
+    "roadId": "000010",
+    "roadName": "國道1號",
+    "region": "北部",
+    "direction": "北向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.745262,
+    "lng": 120.975454,
+    "latitude": 24.745262,
+    "longitude": 120.975454,
+    "sources": [
+      {
+        "id": "src-freeway-hls",
+        "name": "國道高速公路 HLS 串流",
+        "type": "hls",
+        "url": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-101.205-M.m3u8",
+        "quality": "720p",
+        "isPrimary": false
+      },
+      {
+        "id": "src-freeway-mjpg",
+        "name": "高公局即時 MJPEG 輪播",
+        "type": "mjpg",
+        "url": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=564",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=564",
+    "videoUrl": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=564",
+    "videoImageURL": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-101.205-M.m3u8",
+    "snapshotUrl": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-101.205-M.m3u8",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "CCTV-N1-N-102.046-M",
+    "type": "freeway",
+    "layerType": "freeway",
+    "city": "跨區/國道",
+    "cctvName": "國道1號",
+    "locationName": "國道1號",
+    "roadId": "000010",
+    "roadName": "國道1號",
+    "region": "北部",
+    "direction": "北向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 24.738777,
+    "lng": 120.972065,
+    "latitude": 24.738777,
+    "longitude": 120.972065,
+    "sources": [
+      {
+        "id": "src-freeway-hls",
+        "name": "國道高速公路 HLS 串流",
+        "type": "hls",
+        "url": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-102.046-M.m3u8",
+        "quality": "720p",
+        "isPrimary": false
+      },
+      {
+        "id": "src-freeway-mjpg",
+        "name": "高公局即時 MJPEG 輪播",
+        "type": "mjpg",
+        "url": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=350",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=350",
+    "videoUrl": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=350",
+    "videoImageURL": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-102.046-M.m3u8",
+    "snapshotUrl": "https://cctv.freeway.gov.tw/live/CCTV-N1-N-102.046-M.m3u8",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "CCTV-N1-N-103.987-M",
     "type": "freeway",
     "layerType": "freeway",
@@ -52026,49 +52112,6 @@
     "videoUrl": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=375",
     "videoImageURL": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-8.088-M.m3u8",
     "snapshotUrl": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-8.088-M.m3u8",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "CCTV-N6-E-9.150-M",
-    "type": "freeway",
-    "layerType": "freeway",
-    "city": "跨區/國道",
-    "cctvName": "國道6號",
-    "locationName": "國道6號",
-    "roadId": "000060",
-    "roadName": "國道6號",
-    "region": "中部",
-    "direction": "東向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 23.99261,
-    "lng": 120.75197,
-    "latitude": 23.99261,
-    "longitude": 120.75197,
-    "sources": [
-      {
-        "id": "src-freeway-hls",
-        "name": "國道高速公路 HLS 串流",
-        "type": "hls",
-        "url": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-9.150-M.m3u8",
-        "quality": "720p",
-        "isPrimary": false
-      },
-      {
-        "id": "src-freeway-mjpg",
-        "name": "高公局即時 MJPEG 輪播",
-        "type": "mjpg",
-        "url": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=601",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=601",
-    "videoUrl": "https://cctvc.freeway.gov.tw/abs2mjpg/bmjpg?camera=601",
-    "videoImageURL": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-9.150-M.m3u8",
-    "snapshotUrl": "https://cctv.freeway.gov.tw/live/CCTV-N6-E-9.150-M.m3u8",
     "status": "online",
     "lastChecked": ""
   },
@@ -247063,6 +247106,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000283",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "臨海新路消防隊前",
+    "locationName": "臨海新路消防隊前",
+    "roadId": "621100E",
+    "roadName": "臨海新路",
+    "region": "南部",
+    "direction": "NW",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.62021,
+    "lng": 120.27748,
+    "latitude": 22.62021,
+    "longitude": 120.27748,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
+    "videoUrl": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
+    "videoImageURL": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
+    "snapshotUrl": "https://cctv3.itc.tbkc.gov.tw/bead0cfa/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000284",
     "type": "city",
     "layerType": "city",
@@ -247759,41 +247837,6 @@
     "videoUrl": "https://cctv1.itc.tbkc.gov.tw/b045c1d4/",
     "videoImageURL": "https://cctv1.itc.tbkc.gov.tw/b045c1d4/",
     "snapshotUrl": "https://cctv1.itc.tbkc.gov.tw/b045c1d4/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000312",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "民族二路、七賢一路",
-    "locationName": "民族二路、七賢一路",
-    "roadId": "619679E",
-    "roadName": "民族二路",
-    "region": "南部",
-    "direction": "北向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.63386,
-    "lng": 120.31367,
-    "latitude": 22.63386,
-    "longitude": 120.31367,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv6.itc.tbkc.gov.tw/8bd155ee/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv6.itc.tbkc.gov.tw/8bd155ee/",
-    "videoUrl": "https://cctv6.itc.tbkc.gov.tw/8bd155ee/",
-    "videoImageURL": "https://cctv6.itc.tbkc.gov.tw/8bd155ee/",
-    "snapshotUrl": "https://cctv6.itc.tbkc.gov.tw/8bd155ee/",
     "status": "online",
     "lastChecked": ""
   },
