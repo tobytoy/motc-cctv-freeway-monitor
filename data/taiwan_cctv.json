@@ -82022,7 +82022,7 @@
         "id": "src-thb-primary",
         "name": "公路局省道主訊號",
         "type": "snapshot",
-        "url": "https://cctv-ss02.thb.gov.tw:443/T62A-4K+440",
+        "url": "https://cctv-ss01.thb.gov.tw:443/T62A-4K+440",
         "quality": "480p",
         "isPrimary": true
       },
@@ -82030,16 +82030,16 @@
         "id": "src-thb-backup",
         "name": "公路局備援快照",
         "type": "snapshot",
-        "url": "https://cctv-ss02.thb.gov.tw:443/T62A-4K+440/snapshot",
+        "url": "https://cctv-ss01.thb.gov.tw:443/T62A-4K+440/snapshot",
         "quality": "SD",
         "isPrimary": false
       }
     ],
     "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv-ss02.thb.gov.tw:443/T62A-4K+440",
-    "videoUrl": "https://cctv-ss02.thb.gov.tw:443/T62A-4K+440",
-    "videoImageURL": "https://cctv-ss02.thb.gov.tw:443/T62A-4K+440/snapshot",
-    "snapshotUrl": "https://cctv-ss02.thb.gov.tw:443/T62A-4K+440/snapshot",
+    "videoStreamURL": "https://cctv-ss01.thb.gov.tw:443/T62A-4K+440",
+    "videoUrl": "https://cctv-ss01.thb.gov.tw:443/T62A-4K+440",
+    "videoImageURL": "https://cctv-ss01.thb.gov.tw:443/T62A-4K+440/snapshot",
+    "snapshotUrl": "https://cctv-ss01.thb.gov.tw:443/T62A-4K+440/snapshot",
     "status": "online",
     "lastChecked": ""
   },
@@ -242344,41 +242344,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000088",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "軍校路、加昌路",
-    "locationName": "軍校路、加昌路",
-    "roadId": "619546E",
-    "roadName": "加昌路",
-    "region": "南部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.71319,
-    "lng": 120.29143,
-    "latitude": 22.71319,
-    "longitude": 120.29143,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv4.itc.tbkc.gov.tw/47009f84/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv4.itc.tbkc.gov.tw/47009f84/",
-    "videoUrl": "https://cctv4.itc.tbkc.gov.tw/47009f84/",
-    "videoImageURL": "https://cctv4.itc.tbkc.gov.tw/47009f84/",
-    "snapshotUrl": "https://cctv4.itc.tbkc.gov.tw/47009f84/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000090",
     "type": "city",
     "layerType": "city",
@@ -244409,6 +244374,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000165",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "柳橋西路與(中華路、仁壽路口)",
+    "locationName": "柳橋西路與(中華路、仁壽路口)",
+    "roadId": "401860",
+    "roadName": "186",
+    "region": "南部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.79069,
+    "lng": 120.2885,
+    "latitude": 22.79069,
+    "longitude": 120.2885,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+    "videoUrl": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+    "videoImageURL": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+    "snapshotUrl": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000167",
     "type": "city",
     "layerType": "city",
@@ -245245,41 +245245,6 @@
     "videoUrl": "https://cctv10.itc.tbkc.gov.tw/b41c1fee/",
     "videoImageURL": "https://cctv10.itc.tbkc.gov.tw/b41c1fee/",
     "snapshotUrl": "https://cctv10.itc.tbkc.gov.tw/b41c1fee/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000203",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "大中二路、民族一路(西北角)",
-    "locationName": "大中二路、民族一路(西北角)",
-    "roadId": "300010",
-    "roadName": "台1線",
-    "region": "南部",
-    "direction": "南向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.67932,
-    "lng": 120.31875,
-    "latitude": 22.67932,
-    "longitude": 120.31875,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv1.itc.tbkc.gov.tw/7e930c00/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv1.itc.tbkc.gov.tw/7e930c00/",
-    "videoUrl": "https://cctv1.itc.tbkc.gov.tw/7e930c00/",
-    "videoImageURL": "https://cctv1.itc.tbkc.gov.tw/7e930c00/",
-    "snapshotUrl": "https://cctv1.itc.tbkc.gov.tw/7e930c00/",
     "status": "online",
     "lastChecked": ""
   },
@@ -246264,41 +246229,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000250",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "鼓山二路、興隆路(西北角)",
-    "locationName": "鼓山二路、興隆路(西北角)",
-    "roadId": "621044E",
-    "roadName": "興隆路",
-    "region": "南部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.63622,
-    "lng": 120.28107,
-    "latitude": 22.63622,
-    "longitude": 120.28107,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv1.itc.tbkc.gov.tw/7b136933/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv1.itc.tbkc.gov.tw/7b136933/",
-    "videoUrl": "https://cctv1.itc.tbkc.gov.tw/7b136933/",
-    "videoImageURL": "https://cctv1.itc.tbkc.gov.tw/7b136933/",
-    "snapshotUrl": "https://cctv1.itc.tbkc.gov.tw/7b136933/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000251",
     "type": "city",
     "layerType": "city",
@@ -246400,41 +246330,6 @@
     "videoUrl": "https://cctv1.itc.tbkc.gov.tw/3e287cbd/",
     "videoImageURL": "https://cctv1.itc.tbkc.gov.tw/3e287cbd/",
     "snapshotUrl": "https://cctv1.itc.tbkc.gov.tw/3e287cbd/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000265",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "林園區-鳳林路二段與忠孝東路交岔路口",
-    "locationName": "林園區-鳳林路二段與忠孝東路交岔路口",
-    "roadId": "620880E",
-    "roadName": "鳳林路一段",
-    "region": "南部",
-    "direction": "南向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.50713,
-    "lng": 120.39645,
-    "latitude": 22.50713,
-    "longitude": 120.39645,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
-    "videoUrl": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
-    "videoImageURL": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
-    "snapshotUrl": "https://cctv1.itc.tbkc.gov.tw/3e58bd9b/",
     "status": "online",
     "lastChecked": ""
   },
@@ -247065,41 +246960,6 @@
     "videoUrl": "https://cctv3.itc.tbkc.gov.tw/d13c514b/",
     "videoImageURL": "https://cctv3.itc.tbkc.gov.tw/d13c514b/",
     "snapshotUrl": "https://cctv3.itc.tbkc.gov.tw/d13c514b/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000299",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "凱旋四路、鎮興路",
-    "locationName": "凱旋四路、鎮興路",
-    "roadId": "621124E",
-    "roadName": "鎮興路",
-    "region": "南部",
-    "direction": "NW",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.59343,
-    "lng": 120.31126,
-    "latitude": 22.59343,
-    "longitude": 120.31126,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv4.itc.tbkc.gov.tw/128c9268/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv4.itc.tbkc.gov.tw/128c9268/",
-    "videoUrl": "https://cctv4.itc.tbkc.gov.tw/128c9268/",
-    "videoImageURL": "https://cctv4.itc.tbkc.gov.tw/128c9268/",
-    "snapshotUrl": "https://cctv4.itc.tbkc.gov.tw/128c9268/",
     "status": "online",
     "lastChecked": ""
   },
