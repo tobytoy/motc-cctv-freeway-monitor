@@ -240601,6 +240601,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000004",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "中華三路、建國三路",
+    "locationName": "中華三路、建國三路",
+    "roadId": "619314E",
+    "roadName": "中華二路",
+    "region": "南部",
+    "direction": "北向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.63687,
+    "lng": 120.29296,
+    "latitude": 22.63687,
+    "longitude": 120.29296,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv10.itc.tbkc.gov.tw/9a3f2abe/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv10.itc.tbkc.gov.tw/9a3f2abe/",
+    "videoUrl": "https://cctv10.itc.tbkc.gov.tw/9a3f2abe/",
+    "videoImageURL": "https://cctv10.itc.tbkc.gov.tw/9a3f2abe/",
+    "snapshotUrl": "https://cctv10.itc.tbkc.gov.tw/9a3f2abe/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000005",
     "type": "city",
     "layerType": "city",
@@ -241087,41 +241122,6 @@
     "videoUrl": "https://cctv2.itc.tbkc.gov.tw/c2b6db7f/",
     "videoImageURL": "https://cctv2.itc.tbkc.gov.tw/c2b6db7f/",
     "snapshotUrl": "https://cctv2.itc.tbkc.gov.tw/c2b6db7f/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000022",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "武營路、三多一路",
-    "locationName": "武營路、三多一路",
-    "roadId": "620088E",
-    "roadName": "武營路",
-    "region": "南部",
-    "direction": "南向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.62398,
-    "lng": 120.3359,
-    "latitude": 22.62398,
-    "longitude": 120.3359,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-    "videoUrl": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-    "videoImageURL": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-    "snapshotUrl": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
     "status": "online",
     "lastChecked": ""
   },
@@ -241787,41 +241787,6 @@
     "videoUrl": "https://cctv3.itc.tbkc.gov.tw/4f0415e9/",
     "videoImageURL": "https://cctv3.itc.tbkc.gov.tw/4f0415e9/",
     "snapshotUrl": "https://cctv3.itc.tbkc.gov.tw/4f0415e9/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000048",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "翠華路、明潭路",
-    "locationName": "翠華路、明潭路",
-    "roadId": "300170",
-    "roadName": "台17線",
-    "region": "南部",
-    "direction": "北向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.68886,
-    "lng": 120.30283,
-    "latitude": 22.68886,
-    "longitude": 120.30283,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=7d45b53b",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=7d45b53b",
-    "videoUrl": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=7d45b53b",
-    "videoImageURL": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=7d45b53b",
-    "snapshotUrl": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=7d45b53b",
     "status": "online",
     "lastChecked": ""
   },
