@@ -245061,41 +245061,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000022",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "武營路、三多一路",
-    "locationName": "武營路、三多一路",
-    "roadId": "620088E",
-    "roadName": "武營路",
-    "region": "南部",
-    "direction": "南向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.62398,
-    "lng": 120.3359,
-    "latitude": 22.62398,
-    "longitude": 120.3359,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-    "videoUrl": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-    "videoImageURL": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-    "snapshotUrl": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam066",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000023",
     "type": "city",
     "layerType": "city",
@@ -247056,41 +247021,6 @@
     "lastChecked": ""
   },
   {
-    "cctvId": "64000C000095",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "瑞隆路、保泰路",
-    "locationName": "瑞隆路、保泰路",
-    "roadId": "620697E",
-    "roadName": "瑞隆路",
-    "region": "南部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.60611,
-    "lng": 120.33907,
-    "latitude": 22.60611,
-    "longitude": 120.33907,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv4.itc.tbkc.gov.tw/2dd59883/",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv4.itc.tbkc.gov.tw/2dd59883/",
-    "videoUrl": "https://cctv4.itc.tbkc.gov.tw/2dd59883/",
-    "videoImageURL": "https://cctv4.itc.tbkc.gov.tw/2dd59883/",
-    "snapshotUrl": "https://cctv4.itc.tbkc.gov.tw/2dd59883/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
     "cctvId": "64000C000096",
     "type": "city",
     "layerType": "city",
@@ -247367,41 +247297,6 @@
     "videoUrl": "https://cctv6.itc.tbkc.gov.tw/75ebb7f4/",
     "videoImageURL": "https://cctv6.itc.tbkc.gov.tw/75ebb7f4/",
     "snapshotUrl": "https://cctv6.itc.tbkc.gov.tw/75ebb7f4/",
-    "status": "online",
-    "lastChecked": ""
-  },
-  {
-    "cctvId": "64000C000106",
-    "type": "city",
-    "layerType": "city",
-    "city": "高雄市",
-    "cctvName": "世運大道、國訓中心前",
-    "locationName": "世運大道、國訓中心前",
-    "roadId": "619539E",
-    "roadName": "世運大道",
-    "region": "南部",
-    "direction": "西向",
-    "km": 0.0,
-    "mileage": null,
-    "lat": 22.70057,
-    "lng": 120.29365,
-    "latitude": 22.70057,
-    "longitude": 120.29365,
-    "sources": [
-      {
-        "id": "src-city-primary",
-        "name": "高雄市 即時路況串流",
-        "type": "snapshot",
-        "url": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=cdc4715a",
-        "quality": "480p",
-        "isPrimary": true
-      }
-    ],
-    "activeSourceIndex": 0,
-    "videoStreamURL": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=cdc4715a",
-    "videoUrl": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=cdc4715a",
-    "videoImageURL": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=cdc4715a",
-    "snapshotUrl": "https://cctv8.itc.tbkc.gov.tw/web/streamingplayer/player.html?n=cdc4715a",
     "status": "online",
     "lastChecked": ""
   },
@@ -248806,6 +248701,41 @@
     "lastChecked": ""
   },
   {
+    "cctvId": "64000C000165",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "柳橋西路與(中華路、仁壽路口)",
+    "locationName": "柳橋西路與(中華路、仁壽路口)",
+    "roadId": "401860",
+    "roadName": "186",
+    "region": "南部",
+    "direction": "西向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.79069,
+    "lng": 120.2885,
+    "latitude": 22.79069,
+    "longitude": 120.2885,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+    "videoUrl": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+    "videoImageURL": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+    "snapshotUrl": "https://cctv2.itc.tbkc.gov.tw/554e455c/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
     "cctvId": "64000C000167",
     "type": "city",
     "layerType": "city",
@@ -248837,6 +248767,41 @@
     "videoUrl": "https://cctv2.itc.tbkc.gov.tw/4a967b28/",
     "videoImageURL": "https://cctv2.itc.tbkc.gov.tw/4a967b28/",
     "snapshotUrl": "https://cctv2.itc.tbkc.gov.tw/4a967b28/",
+    "status": "online",
+    "lastChecked": ""
+  },
+  {
+    "cctvId": "64000C000168",
+    "type": "city",
+    "layerType": "city",
+    "city": "高雄市",
+    "cctvName": "中山南路、岡山南路",
+    "locationName": "中山南路、岡山南路",
+    "roadId": "300010",
+    "roadName": "台1線",
+    "region": "南部",
+    "direction": "南向",
+    "km": 0.0,
+    "mileage": null,
+    "lat": 22.78001,
+    "lng": 120.29881,
+    "latitude": 22.78001,
+    "longitude": 120.29881,
+    "sources": [
+      {
+        "id": "src-city-primary",
+        "name": "高雄市 即時路況串流",
+        "type": "snapshot",
+        "url": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam272",
+        "quality": "480p",
+        "isPrimary": true
+      }
+    ],
+    "activeSourceIndex": 0,
+    "videoStreamURL": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam272",
+    "videoUrl": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam272",
+    "videoImageURL": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam272",
+    "snapshotUrl": "https://cctv5.itc.tbkc.gov.tw/stream/?n=Cam272",
     "status": "online",
     "lastChecked": ""
   },
